@@ -3,7 +3,6 @@
 ## 1. Project Overview
 The goal of the Digital Twin III – Cyber-Hardened Portfolio bootcamp is to transform a personal web application portfolio into a cyber-secured, monitored, and attack-resilient digital asset. The project demonstrates an individual’s ability to defend, monitor, and continuously harden a deployed portfolio against real-world threats such as SQL injection, authentication bypass, automated bot attacks and other security vulnerabilities. This PRD is intended for AI tools like Copilot, Claude, or GPT to help generate secure, standards-compliant portfolio code along with the necessary security controls.
 
-
 By the end of the program, the portfolio must not only host professional identity and content, but also:
 
   - Detect and block real cyber threats in real time;
@@ -36,14 +35,13 @@ Technology stack and security tools the portfolio will use.
 
 ## 4. Functional Requirements
 
-  - Users can securely log in and manage their profile.  
+  - Users can securely log in and manage their profile using Clerk authentication
   - The portfolio UI loads securely using HTTPS with strict headers.  
   - APIs reject unauthenticated or malicious requests.  
   - Real-time logs capture potential attack attempts.  
   - Defensive layers block SQL injection, XSS, brute force, and bot traffic.  
   - Security controls are demonstrable via dashboards or reports.
   - Real-time security dashboard showing login attempts, blocked attacks, and traffic patterns.
-  - Users can securely log in and manage their profile using Clerk authentication
   - Session and role management handled via Clerk dashboard.
 
 ## 5. Non-Functional Requirements
@@ -93,6 +91,7 @@ Team repository created: digital-twin-DigitalMind
   - Test WAF configurations in staging
   - Use secure, token-based authentication
   - Capture logs in a structured centralized format
+
 
 
 
