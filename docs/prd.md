@@ -1,3 +1,5 @@
+# Digital Twin III – Cyber-Hardened Portfolio PRD
+
 ## 1. Project Overview
 The goal of the Digital Twin III – Cyber-Hardened Portfolio bootcamp is to transform a personal web application portfolio into a cyber-secured, monitored, and attack-resilient digital asset. The project demonstrates an individual’s ability to defend, monitor, and continuously harden a deployed portfolio against real-world threats such as SQL injection, authentication bypass, automated bot attacks and other security vulnerabilities. This PRD is intended for AI tools like Copilot, Claude, or GPT to help generate secure, standards-compliant portfolio code along with the necessary security controls.
 
@@ -23,9 +25,9 @@ These URLs will provide context to AI tools (Copilot, Claude, GPT agents) so the
 
 ## 3. Technical Requirements
 Technology stack and security tools the portfolio will use.
-  - Frontend: Next.js 15 with TypeScript  
+  - Frontend: Next.js 15 (latest stable) with TypeScript  
   - Backend: Node.js / API routes  
-  - Database: Supabase (PostgreSQL)  
+  - Database: Supabase (latest stable PostgreSQL)  
   - Deployment: Vercel  
   - Authentication: OAuth or Supabase Auth  
   - Web Application Firewall (WAF): Configured for common exploits  
@@ -39,7 +41,8 @@ Technology stack and security tools the portfolio will use.
   - APIs reject unauthenticated or malicious requests.  
   - Real-time logs capture potential attack attempts.  
   - Defensive layers block SQL injection, XSS, brute force, and bot traffic.  
-  - Security controls are demonstrable via dashboards or reports.  
+  - Security controls are demonstrable via dashboards or reports.
+  - Real-time security dashboard showing login attempts, blocked attacks, and traffic patterns. 
 
 ## 5. Non-Functional Requirements
   
@@ -58,6 +61,8 @@ These are the conditions that determine whether the deliverables are completed s
   - Logs show at least one logged threat attempt and the system response.  
   - Evidence of SQL injection and bot attempt mitigation.  
   - Final deployment uses HTTPS with secure header policies.
+  - AI-assisted development evidence: Copilot, Claude, or GPT used to generate secure portfolio code and configurations.
+
 
 ## 7. Process Requirements & Workflow
 Repository Setup
@@ -77,9 +82,12 @@ Team repository created: digital-twin-DigitalMind
   - Misconfigured WAF rules blocking legitimate traffic
   - Incomplete authentication flow exposing endpoints
   - Lack of adequate logging
+  - Logging may expose sensitive data if improperly stored.
+
 
 ## 9. Mitigations
   - Test WAF configurations in staging
   - Use secure, token-based authentication
   - Capture logs in a structured centralized format
+
 
