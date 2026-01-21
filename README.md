@@ -13,7 +13,7 @@ Owner: DigitalMind Team
 
   Tech Stack:
 •	Frontend: Next.js 16 + TypeScript
-•	Backend: Node.js 20 (API routes)
+•	Backend: Node.js 20 (API routes) 
 •	Database: Supabase (PostgreSQL)
 •	Authentication: Clerk Auth
 •	Deployment: Vercel
