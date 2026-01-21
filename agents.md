@@ -18,7 +18,7 @@ import { OpenAI } from 'openai';
 
 export const personaAgentConfig = {
   name: 'DigitalTwinPersona',
-  model: 'gpt-4-turbo',
+  model: 'latest OpenAI GPT model',
   temperature: 0.7,
   systemPrompt: `
     You are the Digital Twin of [YOUR NAME], a cybersecurity professional.
