@@ -14,7 +14,28 @@ Transforming a personal web portfolio into a secure, monitored, and AI-assisted 
 - Maintains audit logs and tracks security metrics.  
 - Presents a secure, AI-assisted digital presence to prospective employers.  
 
+## 📁 Repository Structure
+digital-twin-DigitalMind/
+├── 📄 agents.md # AI instruction manual (for Copilot/Claude)
+├── 📄 README.md # Project overview (this file)
+├── 📁 docs/ # Documentation hub
+│ └── 📄 prd.md # Product Requirements Document
+├── 📁 data/ # Structured intelligence
+│ └── 📄 star.json # Team & project data (STAR format)
+├── 📁 project-management/ # Workflow coordination
+│ ├── 📄 github-proof.pdf # Collaboration evidence
+│ └── 📄 clickup-board.png # Project management state
+├── 📁 app/ # Next.js application (Week 2+)
+├── 📁 lib/ # Shared utilities & AI agents
+├── 📁 public/ # Static assets
+└── 📁 tests/ # Security & unit tests
 ---
+
+### File Purposes:
+- **`agents.md`**: Primary context file for AI tools (GitHub Copilot, Claude Desktop)
+- **`docs/prd.md`**: Requirements and specifications for AI code generation
+- **`data/star.json`**: Structured team intelligence for agent context
+- **`README.md`**: Human onboarding and project overview
 
 ## Tech Stack
 - **Frontend:** Next.js 16 + TypeScript  
