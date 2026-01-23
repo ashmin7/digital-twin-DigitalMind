@@ -1,4 +1,4 @@
-# Digital Twin III – Cyber-Hardened Portfolio
+# Digital Twin III – Cyber-Hardened Portfolio - Team 3
 
 Transforming a personal web portfolio into a secure, monitored, and AI-assisted digital presence.
 
