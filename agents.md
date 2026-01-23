@@ -876,3 +876,39 @@ This agent architecture provides:
 | **Audit Logger** | Event logging | Structured logs, real-time alerts |
 
 All agents work together through the **Agent Orchestrator** to provide a secure, interactive, and self-defending digital presence.
+
+
+## AI Study URLs & References
+
+### Security & AI Agent Research
+1. **OWASP AI Security Guidelines**
+   - URL: https://owasp.org/www-project-ai-security-and-privacy-guide/
+   - Relevance: Security best practices for AI systems
+
+2. **Anthropic Constitutional AI**
+   - URL: https://www.anthropic.com/news/constitutional-ai-harmlessness-from-ai-feedback
+   - Relevance: AI safety and alignment principles
+
+3. **OpenAI Moderation API**
+   - URL: https://platform.openai.com/docs/guides/moderation
+   - Relevance: Content filtering and threat detection
+
+4. **Vector Database Comparisons**
+   - URL: https://www.pinecone.io/learn/vector-database-comparison/
+   - Relevance: Choosing right vector DB for RAG
+
+5. **Next.js Security Headers**
+   - URL: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
+   - Relevance: Implementing CSP and security headers
+
+### Workshop Materials Reference
+- **MCP (Model Context Protocol)**: Framework for AI tool integration
+- **RAG (Retrieval-Augmented Generation)**: Document retrieval patterns
+- **AI Agent Orchestration**: LangChain, LlamaIndex patterns
+- **Security Monitoring**: Real-time threat detection systems
+
+### Context Window Management
+- Maximum context: 128K tokens (Claude 3)
+- Chunk size: 1000-2000 tokens for embeddings
+- Overlap: 200 tokens between chunks
+- Metadata: Include source, timestamp, chunk_id
