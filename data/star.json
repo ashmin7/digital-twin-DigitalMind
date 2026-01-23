@@ -121,3 +121,36 @@
   ]
 }
 
+  "workshop_references": {
+    "week1_topics": [
+      "GitHub collaboration and repository management",
+      "ClickUp AI-human workflow orchestration", 
+      "AI-readable documentation structure",
+      "Team coordination and contribution tracking"
+    ],
+    "ai_study_materials": [
+      {
+        "topic": "RAG Systems",
+        "url": "https://arxiv.org/abs/2005.11401",
+        "application": "Document retrieval and generation"
+      },
+      {
+        "topic": "AI Agent Security",
+        "url": "https://owasp.org/www-project-ai-security-and-privacy-guide/",
+        "application": "Threat detection and mitigation"
+      },
+      {
+        "topic": "Vector Databases",
+        "url": "https://www.pinecone.io/learn/vector-database-comparison/",
+        "application": "Embedding storage and similarity search"
+      }
+    ],
+    "technical_patterns": {
+      "mcp_integration": "Model Context Protocol for tool integration",
+      "rag_implementation": "Retrieval-Augmented Generation patterns",
+      "security_monitoring": "Real-time threat detection and logging",
+      "agent_orchestration": "Multi-agent coordination and communication"
+    }
+  },
+
+
