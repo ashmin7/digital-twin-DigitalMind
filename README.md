@@ -2,8 +2,8 @@
 
 Transforming a personal web portfolio into a secure, monitored, and AI-assisted digital presence.
 
-**Project Repository:** [digital-twin-DigitalMind]  
-**Owner:** DigitalMind Team
+**Project Repository:** [digital-twin-DigitalMind-Team3]  
+**Owner:** DigitalMind Team3
 
 ---
 
