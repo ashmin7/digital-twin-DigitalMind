@@ -94,6 +94,37 @@ Team repository created: digital-twin-DigitalMind
 
 
 
+## AI Study URLs & Research References
+
+### Core Research Papers
+1. **Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks**
+   - Authors: Lewis et al. (Facebook AI)
+   - URL: https://arxiv.org/abs/2005.11401
+   - Application: RAG system implementation
+
+2. **ReAct: Synergizing Reasoning and Acting in Language Models**
+   - Authors: Yao et al. (Google & Princeton)
+   - URL: https://arxiv.org/abs/2210.03629
+   - Application: AI agent decision-making
+
+3. **Constitutional AI: Harmlessness from AI Feedback**
+   - Authors: Anthropic Research
+   - URL: https://arxiv.org/abs/2212.08073
+   - Application: AI safety and moderation
+
+### Technical Guides
+4. **Next.js Security Best Practices**
+   - URL: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
+   - Usage: Implementing CSP, X-Frame-Options, HSTS
+
+5. **Supabase Vector Database Documentation**
+   - URL: https://supabase.com/docs/guides/ai/vector-columns
+   - Usage: Storing and querying embeddings
+
+6. **OpenAI Embeddings API**
+   - URL: https://platform.openai.com/docs/guides/embeddings
+   - Usage: Text embedding generation
+
 
 
 
