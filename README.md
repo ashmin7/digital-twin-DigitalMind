@@ -34,8 +34,17 @@ digital-twin-DigitalMind/
 ### File Purposes:
 - **`agents.md`**: Primary context file for AI tools (GitHub Copilot, Claude Desktop)
 - **`docs/prd.md`**: Requirements and specifications for AI code generation
+- **`docs/design.md`**: Technical design and architecture for implementation
 - **`data/star.json`**: Structured team intelligence for agent context
 - **`README.md`**: Human onboarding and project overview
+
+## Design & Architecture
+
+For the comprehensive technical design ready for implementation, see:
+
+- [Design Document (`docs/design.md`)](docs/design.md)
+
+This covers system architecture, components, data flow, APIs, database schema, auth, AI integration points, security controls, non-functional requirements, and deployment architecture.
 
 ## Tech Stack
 - **Frontend:** Next.js 16 + TypeScript  
