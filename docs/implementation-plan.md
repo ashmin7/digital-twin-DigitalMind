@@ -508,6 +508,7 @@ Document all AI tool usage for PRD compliance:
 - [Agent Architecture](../agents.md)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [Next.js Security](https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy)
+- [Clerk documentation](https://clerk.com/docs)
 
 ---
 
