@@ -1,6 +1,6 @@
 # Implementation Plan
 ## Digital Twin III – Cyber-Hardened Portfolio
-### Team 3
+### Team 3 
 
 ---
 
