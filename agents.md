@@ -685,10 +685,16 @@ $$ LANGUAGE plpgsql;
 ```typescript
 // app/api/chat/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { OpenAI } from 'openai';
 import { getPersonaResponse } from '@/agents/persona-agent';
 import { analyzeInput } from '@/agents/security-agent';
 import { AuditLogger } from '@/agents/audit-agent';
 import { rateLimit } from '@/lib/rate-limit';
+
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY!,
+});
 
 const auditLogger = new AuditLogger(
   process.env.SUPABASE_URL!,
@@ -781,14 +787,235 @@ VERCEL_URL=your_vercel_url
 
 ---
 
-## 10. Agent Orchestration
+## 10. Rate Limiting Implementation
+
+**Purpose:** Protects API endpoints from brute force and DoS attacks.
+
+```typescript
+// lib/rate-limit.ts
+import { LRUCache } from 'lru-cache';
+
+interface RateLimitResult {
+  success: boolean;
+  remaining: number;
+  reset: Date;
+}
+
+const rateLimitCache = new LRUCache<string, number[]>({
+  max: 10000, // Maximum number of IPs to track
+  ttl: 60 * 1000, // 1 minute window
+});
+
+export async function rateLimit(
+  ip: string,
+  limit: number = 20, // 20 requests per minute
+  windowMs: number = 60 * 1000
+): Promise<RateLimitResult> {
+  const now = Date.now();
+  const windowStart = now - windowMs;
+  
+  // Get existing requests for this IP
+  let requests = rateLimitCache.get(ip) || [];
+  
+  // Filter to only requests within the window
+  requests = requests.filter((timestamp) => timestamp > windowStart);
+  
+  // Check if limit exceeded
+  if (requests.length >= limit) {
+    return {
+      success: false,
+      remaining: 0,
+      reset: new Date(requests[0] + windowMs),
+    };
+  }
+  
+  // Add current request
+  requests.push(now);
+  rateLimitCache.set(ip, requests);
+  
+  return {
+    success: true,
+    remaining: limit - requests.length,
+    reset: new Date(now + windowMs),
+  };
+}
+
+// Alternative: Redis-based rate limiting for production
+export async function rateLimitRedis(
+  ip: string,
+  redis: any,
+  limit: number = 20,
+  windowMs: number = 60 * 1000
+): Promise<RateLimitResult> {
+  const key = `rate_limit:${ip}`;
+  const now = Date.now();
+  
+  const multi = redis.multi();
+  multi.zremrangebyscore(key, 0, now - windowMs);
+  multi.zadd(key, now, now.toString());
+  multi.zcard(key);
+  multi.expire(key, Math.ceil(windowMs / 1000));
+  
+  const results = await multi.exec();
+  const count = results[2][1];
+  
+  return {
+    success: count <= limit,
+    remaining: Math.max(0, limit - count),
+    reset: new Date(now + windowMs),
+  };
+}
+```
+
+---
+
+## 11. Arcjet Security Integration
+
+**Purpose:** Web Application Firewall (WAF) for blocking common exploits.
+
+```typescript
+// lib/arcjet.ts
+import arcjet, { shield, detectBot, rateLimit as arcjetRateLimit } from '@arcjet/next';
+
+// Initialize Arcjet with security rules
+export const aj = arcjet({
+  key: process.env.ARCJET_KEY!,
+  characteristics: ['ip.src'], // Track by IP address
+  rules: [
+    // Shield protects against common attacks
+    shield({
+      mode: 'LIVE', // Use 'DRY_RUN' for testing
+    }),
+    // Bot detection
+    detectBot({
+      mode: 'LIVE',
+      allow: [
+        'CATEGORY:SEARCH_ENGINE', // Allow search engines
+        'CATEGORY:MONITOR',       // Allow uptime monitors
+      ],
+    }),
+    // Rate limiting
+    arcjetRateLimit({
+      mode: 'LIVE',
+      interval: '1m',
+      max: 100,
+    }),
+  ],
+});
+
+// Middleware integration
+// middleware.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { aj } from '@/lib/arcjet';
+
+export async function middleware(request: NextRequest) {
+  const decision = await aj.protect(request);
+  
+  if (decision.isDenied()) {
+    if (decision.reason.isRateLimit()) {
+      return NextResponse.json(
+        { error: 'Too Many Requests', reason: 'rate_limit' },
+        { status: 429 }
+      );
+    }
+    if (decision.reason.isBot()) {
+      return NextResponse.json(
+        { error: 'Bot Detected', reason: 'bot' },
+        { status: 403 }
+      );
+    }
+    return NextResponse.json(
+      { error: 'Forbidden', reason: 'security' },
+      { status: 403 }
+    );
+  }
+  
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/api/:path*'],
+};
+```
+
+---
+
+## 12. Security Headers Configuration
+
+**Purpose:** Implements CSP, HSTS, X-Frame-Options and other security headers.
+
+```typescript
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://clerk.com",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' blob: data: https:",
+              "font-src 'self' data:",
+              "connect-src 'self' https://api.openai.com https://*.supabase.co https://clerk.com",
+              "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+            ].join('; '),
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+module.exports = nextConfig;
+```
+
+---
+
+## 13. Agent Orchestration
 
 ```typescript
 // lib/agent-orchestrator.ts
+import { OpenAI } from 'openai';
 import { analyzeInput, ThreatAnalysis } from '@/agents/security-agent';
 import { getPersonaResponse } from '@/agents/persona-agent';
 import { AuditLogger } from '@/agents/audit-agent';
 import { generateThreatReport } from '@/agents/analytics-agent';
+
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY!,
+});
 
 export class AgentOrchestrator {
   private auditLogger: AuditLogger;
@@ -875,16 +1102,20 @@ If you believe this is a mistake, please rephrase your message.
 
 This agent architecture provides:
 
-| Agent | Purpose | Key Features |
-|-------|---------|--------------|
+| Component | Purpose | Key Features |
+|-----------|---------|--------------|
 | **Persona Agent** | Digital twin interactions | Conversational AI, skill representation |
 | **Security Guardian** | Threat detection | Prompt injection, SQL/XSS detection |
 | **Content Creator** | Blog/Project management | MCP tool support, markdown generation |
 | **Threat Analytics** | Security insights | Pattern analysis, dashboard metrics |
 | **Audit Logger** | Event logging | Structured logs, real-time alerts |
+| **Rate Limiter** | DoS protection | In-memory & Redis-based limiting |
+| **Arcjet WAF** | Web Application Firewall | Bot detection, shield protection |
+| **Security Headers** | Browser security | CSP, HSTS, X-Frame-Options |
 
 All agents work together through the **Agent Orchestrator** to provide a secure, interactive, and self-defending digital presence.
 
+<<<<<<< HEAD
 ## 11. Hacking Simulation Sandbox
 
 Purpose: Provide a controlled environment where users can try common attacks and immediately see detection, logging, and mitigation.
@@ -906,6 +1137,23 @@ Purpose: Provide a controlled environment where users can try common attacks and
 - `agents.md` (this file) contains instructions and structure for Copilot; keep concise for optimal loading.
 - `docs/prd.md` is the Product Requirements Document (non-technical requirements).
 - If `PR.md` is referenced, maintain it as an alias that points to `docs/prd.md`.
+=======
+### PRD Compliance Checklist
+
+| Requirement | Status | Implementation |
+|-------------|--------|----------------|
+| SQL Injection Detection | ✅ | `detectSQLInjection()` - 10 patterns |
+| XSS Detection | ✅ | `detectXSS()` - 10 patterns |
+| Prompt Injection Detection | ✅ | `detectPromptInjection()` - 11 patterns |
+| Real-time Logging | ✅ | `AuditLogger` with Supabase |
+| Security Dashboard | ✅ | `ThreatMetrics` + materialized view |
+| Authentication (Clerk) | ✅ | Environment variables configured |
+| WAF Configuration | ✅ | Arcjet integration |
+| Secure Headers | ✅ | CSP, HSTS, X-Frame-Options |
+| Rate Limiting | ✅ | LRU Cache + Redis options |
+| Bot Detection | ✅ | Arcjet `detectBot` |
+| OWASP Top 10 Alignment | ✅ | Multiple detection layers |
+>>>>>>> origin/main
 
 
 ## AI Study URLs & References
