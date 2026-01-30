@@ -44,6 +44,12 @@ For the comprehensive technical design ready for implementation, see:
 
 - [Design Document (`docs/design.md`)](docs/design.md)
 
+## Implementation Plan
+
+For a step-by-step execution plan aligned with the PRD and design, see:
+
+- [Implementation Plan (`docs/implementation-plan.md`)](docs/implementation-plan.md)
+
 This covers system architecture, components, data flow, APIs, database schema, auth, AI integration points, security controls, non-functional requirements, and deployment architecture.
 
 ## Tech Stack
