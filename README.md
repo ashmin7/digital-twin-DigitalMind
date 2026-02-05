@@ -52,6 +52,12 @@ For a step-by-step execution plan aligned with the PRD and design, see:
 
 This covers system architecture, components, data flow, APIs, database schema, auth, AI integration points, security controls, non-functional requirements, and deployment architecture.
 
+## MCP Configuration
+
+For Model Context Protocol agent/tool definitions used by Copilot and other agents, see:
+
+- [MCP Config (`docs/mcp.json`)](docs/mcp.json)
+
 ## Tech Stack
 - **Frontend:** Next.js 16 + TypeScript  
 - **Backend:** Node.js 20 (API routes)  
