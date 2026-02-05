@@ -1,0 +1,1 @@
+{"name":"digital-twin-digitalmind","version":"0.1.0","private":true,"scripts":{"build":"tsc -p .","start":"node ./dist/src/mcp-server/index.js","start:mcp":"ts-node src/mcp-server/index.ts","dev:mcp":"nodemon --watch \"src/**/*\" --exec \"ts-node\" src/mcp-server/index.ts"},"devDependencies":{"typescript":"^5.1.0","ts-node":"^10.9.1","@types/node":"^18.16.0","nodemon":"^2.0.22"}}
