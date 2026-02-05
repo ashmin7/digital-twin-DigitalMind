@@ -1,4 +1,49 @@
 {
+  "tasks": [
+    {
+      "name": "Production Deployment & Monitoring",
+      "description": "Finalize Vercel production deployment, domain mapping, SSL, analytics, and log drains.",
+      "subtasks": [
+        "Deploy Digital Portfolio to Vercel production",
+        "Map custom domain and verify SSL/TLS certificates",
+        "Enable Vercel Web Analytics and Speed Insights",
+        "Configure Vercel Log Drains for unauthorized access"
+      ]
+    },
+    {
+      "name": "Identity & Access Management (IAM)",
+      "description": "Configure Clerk auth, middleware protection, RBAC, and secure environment variables.",
+      "subtasks": [
+        "Integrate Clerk Authentication into Next.js App Router",
+        "Create middleware.ts to protect private/admin routes",
+        "Implement Role-Based Access Control (RBAC)",
+        "Verify API keys are stored in Vercel/GitHub Secrets"
+      ]
+    },
+    {
+      "name": "Application-Level Security (Shield)",
+      "description": "Install Zod, configure firewall, rate limiting, and responsible disclosure.",
+      "subtasks": [
+        "Install and configure Zod for server-side input validation",
+        "Set up Arcjet/Vercel Firewall rules (SQLi/XSS/Bot detection)",
+        "Implement Rate Limiting on AI Chat/Agent endpoints",
+        "Create public/security.txt for responsible disclosure"
+      ]
+    },
+    {
+      "name": "AI Twin Context & RAG Integration",
+      "description": "Finalize digital twin identity, connect vector DB, and test AI agent security.",
+      "subtasks": [
+        "Finalize digitaltwin.json with professional Cyber Identity",
+        "Connect Upstash Vector Database for semantic search",
+        "Run sanity tests to prevent AI prompt injection leaks"
+      ]
+    }
+  ]
+}
+
+
+{
   "workspace": "DigitalTwinIII",
   "description": "MCP configuration for Digital Twin III Cyber-Hardened Portfolio",
   "agents": [
@@ -98,3 +143,4 @@
   },
   "version": "1.0.0"
 }
+
