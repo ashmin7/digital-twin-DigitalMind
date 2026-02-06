@@ -58,6 +58,12 @@ For Model Context Protocol agent/tool definitions used by Copilot and other agen
 
 - [MCP Config (`docs/mcp.json`)](docs/mcp.json)
 
+### MCP Server (lightweight)
+
+For a minimal MCP server and example tool registry, see:
+
+- [MCP Server (`src/mcp-server/index.ts`)](src/mcp-server/index.ts)
+
 ## Tech Stack
 - **Frontend:** Next.js 16 + TypeScript  
 - **Backend:** Node.js 20 (API routes)  
