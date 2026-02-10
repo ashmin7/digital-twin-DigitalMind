@@ -1,1 +1,24 @@
-{"name":"digital-twin-digitalmind","version":"0.1.0","private":true,"scripts":{"build":"tsc -p .","build:mcp":"tsc -p src/mcp-server/tsconfig.json","start":"node src/mcp-server/dist/index.js","start:mcp":"ts-node src/mcp-server/index.ts","dev:mcp":"nodemon --watch \"src/**/*\" --exec \"ts-node\" src/mcp-server/index.ts"},"devDependencies":{"@types/node":"^18.19.130","nodemon":"^2.0.22","ts-node":"^10.9.1","typescript":"^5.1.0"}}
+{
+	"name": "digital-twin-digitalmind",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"build:mcp": "tsc -p src/mcp-server/tsconfig.json",
+		"start:mcp": "ts-node src/mcp-server/index.ts",
+		"dev:mcp": "nodemon --watch \"src/**/*\" --exec \"ts-node\" src/mcp-server/index.ts"
+	},
+	"dependencies": {
+		"next": "^14.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "^18.19.130",
+		"nodemon": "^2.0.22",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.1.0"
+	}
+}
