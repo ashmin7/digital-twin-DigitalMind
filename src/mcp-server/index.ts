@@ -1,4 +1,5 @@
 // Minimal MCP server entry for mcp-server — replace with your implementation as needed.
+/// <reference types="node" />
 
 // Note: This file includes a placeholder integration with a "rolldice" tool. Implement or adjust the import path as needed.
 
@@ -20,7 +21,10 @@ export async function startMcpServer(): Promise<void> {
 }
 
 // If run directly, start (useful for local testing)
-if (require.main === module) {
+// Fix for 'require' not defined in TypeScript/ESM
+// Ensure Node.js types are available
+
+if (typeof process !== 'undefined' && process.argv?.[1]?.endsWith('index.ts')) {
   startMcpServer().catch((e) => {
     console.error(e);
     process.exit(1);
