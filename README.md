@@ -64,6 +64,24 @@ For a minimal MCP server and example tool registry, see:
 
 - [MCP Server (`src/mcp-server/index.ts`)](src/mcp-server/index.ts)
 
+### How to run the MCP server
+
+Use the dedicated build and start scripts:
+
+```bash
+# Compile only the MCP server (uses src/mcp-server/tsconfig.json)
+npm run build:mcp
+
+# Run the compiled server
+npm run start
+
+# Or run directly in dev with ts-node
+npm run start:mcp
+
+# Live-reload dev mode
+npm run dev:mcp
+```
+
 ## Tech Stack
 - **Frontend:** Next.js 16 + TypeScript  
 - **Backend:** Node.js 20 (API routes)  
