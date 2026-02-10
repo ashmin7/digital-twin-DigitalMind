@@ -10,22 +10,9 @@
       "database": "Supabase (PostgreSQL)",
       "deployment": "Vercel",
       "authentication": "Clerk (Next.js SDK) or Supabase Auth",
-      {
-        "project": {
-          "name": "Digital Twin III – Cyber-Hardened Portfolio",
-          "owner": "DigitalMind Team",
-          "description": "A cyber-hardened personal portfolio with integrated AI agents, real-time threat detection, security analytics, and automated content management. Demonstrates skills in cybersecurity, AI-assisted development, and secure web deployment.",
-          "repository": "https://github.com/ashmin7/digital-twin-DigitalMind",
-          "techStack": {
-            "frontend": "Next.js 16 + TypeScript",
-            "backend": "Node.js 20",
-            "database": "Supabase (PostgreSQL)",
-            "deployment": "Vercel",
-            "authentication": "Clerk (Next.js SDK) or Supabase Auth",
-            "security": ["WAF", "CSP Headers", "Audit Logs"]
-          },
-          "aiIntegration": ["Copilot", "Claude", "GPT agents"]
-        },
+      "security": ["WAF", "CSP Headers", "Audit Logs"],
+      "aiIntegration": ["Copilot", "Claude", "GPT agents"]
+    },
         "agents": [
           {
             "id": "persona-agent",
@@ -185,4 +172,7 @@
           ]
         }
       }
+    }
+  }
+}
 
