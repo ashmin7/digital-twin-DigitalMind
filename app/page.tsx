@@ -50,6 +50,7 @@ export default function Home() {
             <a href="#sandbox" style={{ color: "#e5e7eb", textDecoration: "none" }}>Sandbox</a>
             <a href="#threats" style={{ color: "#e5e7eb", textDecoration: "none" }}>Threats</a>
             <a href="#stack" style={{ color: "#e5e7eb", textDecoration: "none" }}>Stack</a>
+            <a href="/lab" style={{ color: "#e5e7eb", textDecoration: "none" }}>Lab Case Study</a>
             <a href="/dashboard" style={{ color: "#e5e7eb", textDecoration: "none" }}>Dashboard</a>
           </nav>
         </div>
@@ -68,15 +69,15 @@ export default function Home() {
         >
           <div style={{ flex: 1, minWidth: 260 }}>
             <p style={{ fontSize: 12, letterSpacing: 2, color: "#a5b4fc", textTransform: "uppercase" }}>
-              Hack Me If You Can
+              Live Cyber Lab · Hack Me If You Can
             </p>
             <h1 style={{ fontSize: 32, margin: "8px 0 12px" }}>
-              A cyber-secured portfolio that invites attackand proves resilience.
+              A real hacking lab that invites attack and shows how you defend.
             </h1>
             <p style={{ color: "#9ca3af", fontSize: 14, maxWidth: 560 }}>
-              This site turns your professional portfolio into an active target: backed by data,
-              protected by layered defenses, and instrumented to capture attacker behaviour,
-              telemetry, and your remediation steps.
+              This is not a static portfolio. It is a live security lab where you can launch
+              common web attacks, watch them being detected and blocked in real time, and see
+              how telemetry, dashboards, and remediation flow together.
             </p>
             <div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a
@@ -121,13 +122,13 @@ export default function Home() {
               border: "1px solid rgba(148,163,184,0.4)",
             }}
           >
-            <p style={{ fontSize: 12, color: "#9ca3af", marginBottom: 8 }}>Course outcome</p>
+            <p style={{ fontSize: 12, color: "#9ca3af", marginBottom: 8 }}>What this lab proves</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 13 }}>
-              <li>• Hosts your professional identity &amp; project content</li>
-              <li>• Detects &amp; blocks real web threats in real-time</li>
-              <li>• Analyses attacker behaviour and patterns</li>
-              <li>• Surfaces CVSS-style risk &amp; remediation notes</li>
-              <li>• Demonstrates security as a lifecycle, not a checkbox</li>
+              <li> Hosts your professional identity &amp; real security projects</li>
+              <li> Lets visitors actively attack safe sandboxes (SQLi, XSS, auth bypass, bots)</li>
+              <li> Detects &amp; blocks threats in real time with logging and dashboards</li>
+              <li> Analyses attacker behaviour, CVSS-style risk, and remediation history</li>
+              <li> Demonstrates how you design, test, and harden defences as a lifecycle</li>
             </ul>
           </div>
         </section>
@@ -136,9 +137,10 @@ export default function Home() {
         <section id="about" style={{ marginBottom: 32 }}>
           <h2 style={{ fontSize: 20, marginBottom: 8 }}>What this Digital Twin represents</h2>
           <p style={{ color: "#9ca3af", fontSize: 14 }}>
-            Every production web app is a potential entry point for attackers. This portfolio is
-            built to reflect that reality: it is a controlled environment where you can run
-            attacks, review telemetry, and show how you respond and harden over time.
+            Every production web app is a target. This Digital Twin turns that risk into a
+            teaching tool: a controlled cyber range where you can deliberately attack, observe
+            detections and blocks, practise incident response, and document how you harden the
+            system release by release.
           </p>
         </section>
 
@@ -172,56 +174,57 @@ export default function Home() {
         <section id="sandbox" style={{ marginBottom: 32 }}>
           <h2 style={{ fontSize: 20, marginBottom: 8 }}>Hacking simulation sandbox</h2>
           <p style={{ color: "#9ca3af", fontSize: 14 }}>
-            These routes are safe sandboxes where attacks are expected. They show how the
-            application detects, logs, and mitigates harmful input.
+            These live sandboxes are wired to real detection, logging, and rate limiting. You can
+            safely try common attacks and immediately see how the application reacts.
           </p>
           <ul style={{ fontSize: 14 }}>
             <li>
               <a href="/sandbox/sql" style={{ color: "#38bdf8" }}>
                 /sandbox/sql
               </a>{" "}
-               SQL injection patterns and parameterised queries.
+               SQL injection payloads, detection, and safe query patterns.
             </li>
             <li>
               <a href="/sandbox/xss" style={{ color: "#38bdf8" }}>
                 /sandbox/xss
               </a>{" "}
-               reflected XSS attempts and output encoding.
+               reflected XSS attempts, output encoding, and malicious payload detection.
             </li>
             <li>
               <a href="/sandbox/rate-limit" style={{ color: "#38bdf8" }}>
                 /sandbox/rate-limit
               </a>{" "}
-               automated/bot-style traffic and rate limiting.
+               automated/bot-style traffic, scanners, and basic WAF-style rate limiting.
             </li>
             <li>
               <a href="/sandbox/auth" style={{ color: "#38bdf8" }}>
                 /sandbox/auth
               </a>{" "}
-              – authentication failures and broken access-control scenarios.
+               authentication failures, broken access control, and privilege-abuse scenarios.
             </li>
           </ul>
         </section>
 
         {/* Stack */}
         <section id="stack" style={{ marginBottom: 32 }}>
-          <h2 style={{ fontSize: 20, marginBottom: 8 }}>Security-focused stack</h2>
+          <h2 style={{ fontSize: 20, marginBottom: 8 }}>Security-focused stack behind the lab</h2>
           <ul style={{ fontSize: 14, color: "#e5e7eb" }}>
-            <li>Next.js (App Router) + TypeScript for a modern, testable frontend.</li>
-            <li>Supabase for database, authentication, and structured audit logging.</li>
-            <li>ArcJet for application-layer WAF-style protections and rate limiting.</li>
-            <li>OpenAI agents for persona, threat analysis, and security content.</li>
-            <li>Vercel for deployment, previews, and production-like environments.</li>
+            <li>Next.js (App Router) + TypeScript for a modern, testable, security-first frontend.</li>
+            <li>Supabase for database, authentication, and structured security event logging.</li>
+            <li>ArcJet-style patterns for WAF protections, IP reputation, and rate limiting.</li>
+            <li>OpenAI agents for digital-twin persona, secure chatbot, and threat analysis.</li>
+            <li>Vercel for hardened deployments, previews, and production-like environments.</li>
           </ul>
         </section>
 
         {/* Call to action */}
         <section style={{ marginBottom: 16 }}>
-          <h2 style={{ fontSize: 20, marginBottom: 8 }}>Use this as your case study</h2>
+          <h2 style={{ fontSize: 20, marginBottom: 8 }}>Use this live lab as your case study</h2>
           <p style={{ color: "#9ca3af", fontSize: 14 }}>
             Share this site with recruiters, hiring managers, and mentors. It is a deployable,
-            auditable example of how you think about real-world application securityfar
-            beyond a static CV.
+            auditable cyber lab that demonstrates how you design, test, and improve defences
+            not just theory on a CV, but a running system that can be safely attacked, defended,
+            and analysed.
           </p>
         </section>
       </main>
