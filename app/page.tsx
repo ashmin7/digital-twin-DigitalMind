@@ -2,15 +2,16 @@
 
 export default function Home() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#050816",
-        color: "#f9fafb",
-        fontFamily:
-          "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-      }}
-    >
+    <>
+      <div
+        className="cyber-bg"
+        style={{
+          minHeight: "100vh",
+          color: "#f9fafb",
+          fontFamily:
+            "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+        }}
+      >
       <header
         style={{
           borderBottom: "1px solid rgba(148,163,184,0.3)",
@@ -43,16 +44,16 @@ export default function Home() {
             <span style={{ fontWeight: 600 }}>Digital Twin III</span>
           </div>
           <nav style={{ display: "flex", gap: 16, fontSize: 14 }}>
-            <a href="#about" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+            <a href="/#about" style={{ color: "#e5e7eb", textDecoration: "none" }}>
               About
             </a>
-            <a href="#sandbox" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+            <a href="/#sandbox" style={{ color: "#e5e7eb", textDecoration: "none" }}>
               Sandbox
             </a>
-            <a href="#threats" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+            <a href="/#threats" style={{ color: "#e5e7eb", textDecoration: "none" }}>
               Threats
             </a>
-            <a href="#stack" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+            <a href="/#stack" style={{ color: "#e5e7eb", textDecoration: "none" }}>
               Stack
             </a>
             <a href="/lab" style={{ color: "#e5e7eb", textDecoration: "none" }}>
@@ -128,7 +129,7 @@ export default function Home() {
               }}
             >
               <a
-                href="#sandbox"
+                href="/#sandbox"
                 style={{
                   padding: "8px 14px",
                   borderRadius: 999,
@@ -248,7 +249,7 @@ export default function Home() {
         </section>
 
         {/* About */}
-        <section id="about" style={{ marginBottom: 32 }}>
+        <section id="about" style={{ marginBottom: 32, scrollMarginTop: 96 }}>
           <h2 style={{ fontSize: 20, marginBottom: 8 }}>What this Digital Twin represents</h2>
           <p style={{ color: "#9ca3af", fontSize: 14, marginBottom: 8 }}>
             Every production web app is a target. This Digital Twin turns that risk into a
@@ -264,7 +265,7 @@ export default function Home() {
         </section>
 
         {/* Threats & Defenses */}
-        <section id="threats" style={{ marginBottom: 32 }}>
+        <section id="threats" style={{ marginBottom: 32, scrollMarginTop: 96 }}>
           <h2 style={{ fontSize: 20, marginBottom: 8 }}>Threats you train against</h2>
           <div
             style={{
@@ -290,7 +291,7 @@ export default function Home() {
         </section>
 
         {/* Sandbox */}
-        <section id="sandbox" style={{ marginBottom: 32 }}>
+        <section id="sandbox" style={{ marginBottom: 32, scrollMarginTop: 96 }}>
           <h2 style={{ fontSize: 20, marginBottom: 8 }}>Hacking simulation sandbox</h2>
           <p style={{ color: "#9ca3af", fontSize: 14 }}>
             These live sandboxes are wired to real detection, logging, and rate limiting. You can
@@ -301,31 +302,31 @@ export default function Home() {
               <a href="/sandbox/sql" style={{ color: "#38bdf8" }}>
                 /sandbox/sql
               </a>{" "}
-               SQL injection payloads, detection, and safe query patterns.
+              ��� SQL injection payloads, detection, and safe query patterns.
             </li>
             <li>
               <a href="/sandbox/xss" style={{ color: "#38bdf8" }}>
                 /sandbox/xss
               </a>{" "}
-               reflected XSS attempts, output encoding, and malicious payload detection.
+              ��� reflected XSS attempts, output encoding, and malicious payload detection.
             </li>
             <li>
               <a href="/sandbox/rate-limit" style={{ color: "#38bdf8" }}>
                 /sandbox/rate-limit
               </a>{" "}
-               automated/bot-style traffic, scanners, and basic WAF-style rate limiting.
+              ��� automated/bot-style traffic, scanners, and basic WAF-style rate limiting.
             </li>
             <li>
               <a href="/sandbox/auth" style={{ color: "#38bdf8" }}>
                 /sandbox/auth
               </a>{" "}
-               authentication failures, broken access control, and privilege-abuse scenarios.
+              ��� authentication failures, broken access control, and privilege-abuse scenarios.
             </li>
           </ul>
         </section>
 
         {/* Stack */}
-        <section id="stack" style={{ marginBottom: 32 }}>
+        <section id="stack" style={{ marginBottom: 32, scrollMarginTop: 96 }}>
           <h2 style={{ fontSize: 20, marginBottom: 8 }}>Security-focused stack behind the lab</h2>
           <ul style={{ fontSize: 14, color: "#e5e7eb" }}>
             <li>Next.js (App Router) + TypeScript for a modern, testable, security-first frontend.</li>
@@ -364,6 +365,46 @@ export default function Home() {
           </p>
         </section>
       </main>
-    </div>
+      </div>
+      <style jsx global>{`
+        .cyber-bg {
+          position: relative;
+          background:
+            radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 55%),
+            #050816;
+          overflow: hidden;
+        }
+
+        .cyber-bg::before {
+          content: "";
+          position: fixed;
+          inset: -200px;
+          background:
+            radial-gradient(circle at 10% 20%, rgba(34,197,94,0.18), transparent 55%),
+            radial-gradient(circle at 80% 80%, rgba(56,189,248,0.18), transparent 55%),
+            repeating-linear-gradient(
+              120deg,
+              rgba(15,23,42,0.6) 0px,
+              rgba(15,23,42,0.6) 1px,
+              transparent 1px,
+              transparent 3px
+            );
+          opacity: 0.9;
+          mix-blend-mode: screen;
+          animation: cyberShift 18s linear infinite;
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        @keyframes cyberShift {
+          from {
+            transform: translate3d(0, 0, 0);
+          }
+          to {
+            transform: translate3d(-220px, -220px, 0);
+          }
+        }
+      `}</style>
+    </>
   );
 }

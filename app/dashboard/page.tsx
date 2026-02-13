@@ -10,6 +10,7 @@ interface SecurityEventRow {
   source_ip: string | null;
   user_agent: string | null;
   timestamp: string;
+  metadata?: any | null;
 }
 
 function groupBy<T, K extends string | number | symbol>(items: T[], getKey: (item: T) => K) {
@@ -44,7 +45,7 @@ export default async function DashboardPage() {
   const { data, error } = await supabase
     .from("security_events")
     .select(
-      "id, event_type, severity, threat_type, action, endpoint, source_ip, user_agent, timestamp"
+      "id, event_type, severity, threat_type, action, endpoint, source_ip, user_agent, timestamp, metadata"
     )
     .gte("timestamp", since)
     .order("timestamp", { ascending: false })
@@ -65,6 +66,13 @@ export default async function DashboardPage() {
   const botDetections = events.filter((e) => e.threat_type === "BOT_BEHAVIOR").length;
   const shieldTriggers = events.filter((e) => e.event_type === "THREAT_DETECTED").length;
   const uniqueIps = new Set(events.map((e) => e.source_ip).filter(Boolean)).size;
+
+  const arcjetEvents = events.filter((e) => e.metadata && e.metadata.provider === "arcjet");
+  const arcjetBlocks = arcjetEvents.filter((e) => e.action === "BLOCK").length;
+  const arcjetRateLimits = arcjetEvents.filter((e) => e.event_type === "RATE_LIMITED").length;
+  const arcjetBots = arcjetEvents.filter(
+    (e) => e.threat_type === "BOT_BEHAVIOR" || (e.metadata && e.metadata.kind?.includes("bot"))
+  ).length;
 
   const activeAlerts = events.filter((e) => e.severity === "HIGH" || e.severity === "CRITICAL");
 
@@ -127,6 +135,44 @@ export default async function DashboardPage() {
             <MetricCard label="Shield triggers" value={shieldTriggers} description="Threat detections" accent="#8b5cf6" />
             <MetricCard label="Unique IPs" value={uniqueIps} description="Distinct sources" accent="#f97316" />
           </div>
+        </section>
+
+        {/* Arcjet-specific view */}
+        <section style={{ marginBottom: 24 }}>
+          <h2 style={{ fontSize: 16, marginBottom: 8 }}>Arcjet edge protection</h2>
+          {arcjetEvents.length === 0 ? (
+            <p style={{ fontSize: 13, color: "#9ca3af" }}>
+              No Arcjet decisions have been logged in the last 24 hours yet. Generate traffic
+              against the sandbox APIs or run basic scans to see edge firewall activity here.
+            </p>
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                gap: 12,
+              }}
+            >
+              <MetricCard
+                label="Arcjet blocks"
+                value={arcjetBlocks}
+                description="Requests stopped at the edge"
+                accent="#f97316"
+              />
+              <MetricCard
+                label="Arcjet rate limits"
+                value={arcjetRateLimits}
+                description="Throttled abusive traffic"
+                accent="#eab308"
+              />
+              <MetricCard
+                label="Arcjet bot denials"
+                value={arcjetBots}
+                description="Bots and spoofed clients blocked"
+                accent="#38bdf8"
+              />
+            </div>
+          )}
         </section>
 
         {/* Threat mix */}
