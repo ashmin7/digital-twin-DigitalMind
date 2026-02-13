@@ -1,17 +1,14 @@
 "use client";
 
 export default function Home() {
-  const rollDice = () => {
-    const result = Math.floor(Math.random() * 6) + 1;
-    alert("You rolled: " + result);
-  };
   return (
     <div
       style={{
         minHeight: "100vh",
         background: "#050816",
         color: "#f9fafb",
-        fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+        fontFamily:
+          "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
       }}
     >
       <header
@@ -46,12 +43,24 @@ export default function Home() {
             <span style={{ fontWeight: 600 }}>Digital Twin III</span>
           </div>
           <nav style={{ display: "flex", gap: 16, fontSize: 14 }}>
-            <a href="#about" style={{ color: "#e5e7eb", textDecoration: "none" }}>About</a>
-            <a href="#sandbox" style={{ color: "#e5e7eb", textDecoration: "none" }}>Sandbox</a>
-            <a href="#threats" style={{ color: "#e5e7eb", textDecoration: "none" }}>Threats</a>
-            <a href="#stack" style={{ color: "#e5e7eb", textDecoration: "none" }}>Stack</a>
-            <a href="/lab" style={{ color: "#e5e7eb", textDecoration: "none" }}>Lab Case Study</a>
-            <a href="/dashboard" style={{ color: "#e5e7eb", textDecoration: "none" }}>Dashboard</a>
+            <a href="#about" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+              About
+            </a>
+            <a href="#sandbox" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+              Sandbox
+            </a>
+            <a href="#threats" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+              Threats
+            </a>
+            <a href="#stack" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+              Stack
+            </a>
+            <a href="/lab" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+              Lab Case Study
+            </a>
+            <a href="/dashboard" style={{ color: "#e5e7eb", textDecoration: "none" }}>
+              Dashboard
+            </a>
           </nav>
         </div>
       </header>
@@ -63,32 +72,62 @@ export default function Home() {
             display: "flex",
             flexWrap: "wrap",
             gap: 32,
-            alignItems: "center",
+            alignItems: "stretch",
             marginBottom: 40,
           }}
         >
+          {/* Left: personal summary & CTAs */}
           <div style={{ flex: 1, minWidth: 260 }}>
-            <p style={{ fontSize: 12, letterSpacing: 2, color: "#a5b4fc", textTransform: "uppercase" }}>
-              Digital Twin III · Cyber-Hardened Portfolio
+            <p
+              style={{
+                fontSize: 12,
+                letterSpacing: 2,
+                color: "#a5b4fc",
+                textTransform: "uppercase",
+              }}
+            >
+              Cyber-Hardened Portfolio
             </p>
-            <h1 style={{ fontSize: 32, margin: "8px 0 12px" }}>
-              A collaborative, cloud-deployed AI portfolio built to withstand attack.
-            </h1>
-            <p style={{ color: "#9ca3af", fontSize: 14, maxWidth: 560, marginBottom: 8 }}>
-              Our project, Digital Twin III  Cyber-Hardened Portfolio, is a collaborative AI-powered
-              portfolio built to be secure, monitored, and production-ready. It is more than a website 
-              it is a live system designed to detect threats, protect data, and show real-world security
-              practices.
+            <h1 style={{ fontSize: 32, margin: "8px 0 4px" }}>Ashmin Aryal</h1>
+            <p style={{ fontSize: 18, color: "#38bdf8", marginBottom: 12 }}>
+              Cybersecurity-focused Software Engineer
             </p>
-            <p style={{ color: "#9ca3af", fontSize: 14, maxWidth: 560, marginBottom: 8 }}>
-              The team worked together to deploy it on the cloud, integrate intelligent features, and
-              continuously improve its performance and security. This project demonstrates our skills in
-              AI, cloud deployment, cybersecurity, and collaborative software development.
+            <p
+              style={{
+                color: "#9ca3af",
+                fontSize: 14,
+                maxWidth: 560,
+                marginBottom: 8,
+              }}
+            >
+              A secure, cloud-deployed AI portfolio developed through teamwork and real-world
+              testing. This Digital Twin is more than a websiteit is a live cyber lab designed
+              to detect threats, protect data, and demonstrate observable security practices.
+            </p>
+            <p
+              style={{
+                color: "#9ca3af",
+                fontSize: 14,
+                maxWidth: 560,
+                marginBottom: 8,
+              }}
+            >
+              Built within an industry-aligned program, it showcases cloud deployment,
+              cybersecurity engineering, and collaborative software development using
+              modern AI tools.
             </p>
             <p style={{ color: "#e5e7eb", fontSize: 13, fontWeight: 500 }}>
-              Secure. Monitored. Production-ready. Real deployment. Real security. Real collaboration.
+              Secure. Monitored. Production-ready. Real deployment. Real security. Real
+              collaboration.
             </p>
-            <div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div
+              style={{
+                marginTop: 16,
+                display: "flex",
+                gap: 12,
+                flexWrap: "wrap",
+              }}
+            >
               <a
                 href="#sandbox"
                 style={{
@@ -103,8 +142,8 @@ export default function Home() {
               >
                 Explore attack sandbox
               </a>
-              <button
-                onClick={rollDice}
+              <a
+                href="/dashboard"
                 style={{
                   padding: "8px 14px",
                   borderRadius: 999,
@@ -112,33 +151,100 @@ export default function Home() {
                   background: "transparent",
                   color: "#e5e7eb",
                   fontSize: 14,
-                  cursor: "pointer",
+                  textDecoration: "none",
                 }}
               >
-                Roll security dice 🎲
-              </button>
+                View security dashboard
+              </a>
+              <a
+                href="/lab"
+                style={{
+                  padding: "8px 14px",
+                  borderRadius: 999,
+                  border: "1px solid #4b5563",
+                  background: "transparent",
+                  color: "#e5e7eb",
+                  fontSize: 14,
+                  textDecoration: "none",
+                }}
+              >
+                Read case study
+              </a>
             </div>
           </div>
+
+          {/* Right: security overview card (no chatbot) */}
           <div
             style={{
-              flexBasis: 260,
+              flexBasis: 280,
               flexGrow: 0,
               flexShrink: 0,
-              borderRadius: 16,
+              borderRadius: 20,
               padding: 16,
               background:
-                "radial-gradient(circle at top, rgba(56,189,248,0.25), transparent 55%), #020617",
+                "radial-gradient(circle at top, rgba(56,189,248,0.35), transparent 60%), #020617",
               border: "1px solid rgba(148,163,184,0.4)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
             }}
           >
-            <p style={{ fontSize: 12, color: "#9ca3af", marginBottom: 8 }}>What this lab proves</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 13 }}>
-              <li> Hosts your professional identity &amp; real security projects</li>
-              <li> Lets visitors actively attack safe sandboxes (SQLi, XSS, auth bypass, bots)</li>
-              <li> Detects &amp; blocks threats in real time with logging and dashboards</li>
-              <li> Analyses attacker behaviour, CVSS-style risk, and remediation history</li>
-              <li> Demonstrates how you design, test, and harden defences as a lifecycle</li>
-            </ul>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <p style={{ fontSize: 11, color: "#c4b5fd", margin: 0 }}>Live Lab</p>
+                <p style={{ fontSize: 14, fontWeight: 600, margin: 0 }}>Attack surface summary</p>
+              </div>
+              <span
+                style={{
+                  fontSize: 10,
+                  padding: "4px 8px",
+                  borderRadius: 999,
+                  background: "rgba(34,197,94,0.15)",
+                  color: "#4ade80",
+                }}
+              >
+                Online
+              </span>
+            </div>
+            <div
+              style={{
+                borderRadius: 14,
+                background: "rgba(15,23,42,0.9)",
+                padding: 10,
+                fontSize: 12,
+                color: "#e5e7eb",
+              }}
+            >
+              <ul style={{ margin: 0, paddingLeft: 16 }}>
+                <li>Target SQL injection, XSS, and auth flaws in safe sandboxes.</li>
+                <li>Every attempt is logged to the security dashboard.</li>
+                <li>Use your own tools and payloadsthis lab is built to be attacked.</li>
+              </ul>
+            </div>
+            <a
+              href="/dashboard"
+              style={{
+                marginTop: "auto",
+                fontSize: 12,
+                padding: "8px 10px",
+                borderRadius: 999,
+                border: "1px solid #4b5563",
+                textDecoration: "none",
+                color: "#e5e7eb",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span>Open security dashboard</span>
+              <span>↗</span>
+            </a>
           </div>
         </section>
 
@@ -220,8 +326,8 @@ export default function Home() {
           <ul style={{ fontSize: 14, color: "#e5e7eb" }}>
             <li>Next.js (App Router) + TypeScript for a modern, testable, security-first frontend.</li>
             <li>Supabase for database, authentication, and structured security event logging.</li>
-            <li>ArcJet-style patterns for WAF protections, IP reputation, and rate limiting.</li>
-            <li>OpenAI agents for digital-twin persona, secure chatbot, and threat analysis.</li>
+            <li>Arcjet for WAF protections, basic bot controls, and rate limiting.</li>
+            <li>Security utility functions for injection detection, sanitisation, and logging.</li>
             <li>Vercel for hardened deployments, previews, and production-like environments.</li>
           </ul>
         </section>
