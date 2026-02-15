@@ -16,25 +16,17 @@ export default function SandboxRateLimit() {
   const burst = async () => {
     if (loading) return;
     setLoading(true);
-
-    let limited = 0;
-    let total = 0;
-    let lastStatus: number | null = null;
-    let lastMessage = "";
-
+    let limited = 0, total = 0, lastStatus: number | null = null, lastMessage = "";
     try {
-      // Fire a small burst of requests in sequence so rate limiting and logging are exercised
       for (let i = 0; i < 6; i++) {
         total += 1;
         const res = await fetch("/api/sandbox/rate-limit", { method: "POST" });
         lastStatus = res.status;
         const data = await res.json().catch(() => ({}));
         lastMessage = data.message || data.error || "";
-        if (!res.ok) {
-          limited += 1;
-        }
+        if (!res.ok) limited += 1;
       }
-    } catch (err) {
+    } catch {
       lastStatus = null;
       lastMessage = "Network error while sending burst.";
     } finally {
@@ -44,40 +36,36 @@ export default function SandboxRateLimit() {
   };
 
   return (
-    <main style={{ maxWidth: 720, margin: "40px auto", padding: 24 }}>
-      <h1>Sandbox: Automated / Bot Traffic</h1>
-      <p>
-        This sandbox sends a short burst of requests to
-        {" "}
-        <code>/api/sandbox/rate-limit</code>
-        {" "}
-        to simulate basic scanner or bot behaviour. The backend applies rate limiting and logs events
-        to the security dashboard.
-      </p>
-      <div style={{ display: "grid", gap: 12 }}>
-        <button onClick={burst} style={{ padding: "8px 12px", cursor: "pointer" }} disabled={loading}>
+    <div className="cyber-bg">
+      <main className="container-sm" style={{ paddingTop: 40, paddingBottom: 40 }}>
+        <a href="/sandbox" style={{ fontSize: 13, display: "inline-block", marginBottom: 16 }}>{"<- Back to sandbox"}</a>
+        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>Sandbox: Automated / Bot Traffic</h1>
+        <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>
+          Sends a burst of requests to{" "}
+          <code style={{ color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: 12 }}>/api/sandbox/rate-limit</code>{" "}
+          to simulate scanner or bot behaviour. The backend applies rate limiting and logs events.
+        </p>
+
+        <button onClick={burst} disabled={loading} className="btn-primary">
           {loading ? "Sending burst..." : "Send burst of requests"}
         </button>
-      </div>
-      {result && (
-        <div style={{ marginTop: 16, fontSize: 14 }}>
-          <p>
-            <strong>Total requests:</strong> {result.totalRequests}
-          </p>
-          <p>
-            <strong>Rate-limited responses:</strong> {result.limitedCount}
-          </p>
-          <p>
-            <strong>Last status:</strong> {result.lastStatus ?? "n/a"}
-          </p>
-          {result.lastMessage && <p style={{ marginTop: 4 }}>{result.lastMessage}</p>}
-        </div>
-      )}
-      <p style={{ marginTop: 16, color: "#555" }}>
-        Educational note: in a real deployment, rate limits combine with Arcjet's edge protections to
-        slow down automated recon, credential stuffing, and noisy bot traffic while keeping normal
-        users fast.
-      </p>
-    </main>
+
+        {result && (
+          <div className="card" style={{ marginTop: 24 }}>
+            <p style={{ fontSize: 14 }}><strong>Total requests:</strong> {result.totalRequests}</p>
+            <p style={{ fontSize: 14, marginTop: 4 }}>
+              <strong>Rate-limited:</strong>{" "}
+              <span style={{ color: result.limitedCount > 0 ? "var(--destructive)" : "var(--primary)" }}>{result.limitedCount}</span>
+            </p>
+            <p style={{ fontSize: 14, marginTop: 4 }}><strong>Last status:</strong> {result.lastStatus ?? "n/a"}</p>
+            {result.lastMessage && <p style={{ fontSize: 14, color: "var(--fg-muted)", marginTop: 8 }}>{result.lastMessage}</p>}
+          </div>
+        )}
+
+        <p style={{ marginTop: 24, color: "var(--fg-muted)", fontSize: 12, lineHeight: 1.7 }}>
+          {"Educational note: rate limits combine with Arcjet's edge protections to slow automated recon, credential stuffing, and noisy bot traffic."}
+        </p>
+      </main>
+    </div>
   );
 }

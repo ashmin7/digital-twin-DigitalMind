@@ -27,19 +27,13 @@ export default function ChatPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: trimmed, history: nextMessages }),
       });
-
       const data = await res.json();
       const reply = data.reply || data.message || "No response received.";
-
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
-    } catch (err) {
+    } catch {
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content:
-            "I ran into an error talking to the backend. Please check that the deployment has OPENAI_API_KEY configured.",
-        },
+        { role: "assistant", content: "Error connecting to backend. Please check OPENAI_API_KEY is configured." },
       ]);
     } finally {
       setLoading(false);
@@ -54,37 +48,28 @@ export default function ChatPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#050816",
-        color: "#f9fafb",
-        fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-        display: "flex",
-        justifyContent: "center",
-        padding: "40px 16px",
-      }}
-    >
+    <div className="cyber-bg" style={{ display: "flex", justifyContent: "center", padding: "40px 16px" }}>
       <div
         style={{
           width: "100%",
           maxWidth: 720,
           borderRadius: 16,
-          border: "1px solid rgba(148,163,184,0.4)",
-          background:
-            "radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 55%), #020617",
+          border: "1px solid rgba(30,41,59,0.5)",
+          background: "radial-gradient(circle at top, rgba(56,189,248,0.15), transparent 55%), var(--bg-card)",
           display: "flex",
           flexDirection: "column",
-          padding: 16,
+          padding: 20,
         }}
       >
-        <header style={{ marginBottom: 12 }}>
-          <h1 style={{ fontSize: 20, marginBottom: 4 }}>Digital Twin Chatbot (Prompt Injection Lab)</h1>
-          <p style={{ fontSize: 13, color: "#9ca3af" }}>
-            This assistant is tuned for cybersecurity topics and recruiter-friendly answers, and it is
-            protected against prompt-injection attempts. You can try to override its rules or system
-            promptdetected attacks are blocked and logged as <code>PROMPT_INJECTION</code> events in the
-            security dashboard.
+        <header style={{ marginBottom: 14 }}>
+          <h1 style={{ fontSize: 20, fontWeight: 700, marginBottom: 6 }}>
+            {"Digital Twin Chatbot (Prompt Injection Lab)"}
+          </h1>
+          <p style={{ fontSize: 13, color: "var(--fg-muted)", lineHeight: 1.6 }}>
+            This assistant is tuned for cybersecurity topics and is protected against prompt-injection
+            attempts. Detected attacks are blocked and logged as{" "}
+            <code style={{ color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: 12 }}>PROMPT_INJECTION</code>{" "}
+            events in the security dashboard.
           </p>
         </header>
 
@@ -94,36 +79,28 @@ export default function ChatPage() {
             minHeight: 280,
             maxHeight: 420,
             overflowY: "auto",
-            padding: 8,
+            padding: 10,
             borderRadius: 12,
-            backgroundColor: "rgba(15,23,42,0.8)",
-            marginBottom: 12,
+            background: "rgba(11,18,37,0.8)",
+            marginBottom: 14,
           }}
         >
           {messages.length === 0 && (
-            <p style={{ fontSize: 13, color: "#6b7280" }}>
-              Start with something like: "What does Digital Twin III demonstrate?" or
-              "How do you defend against SQL injection here?"
+            <p style={{ fontSize: 13, color: "var(--fg-muted)" }}>
+              {'Start with something like: "What does Digital Twin III demonstrate?"'}
             </p>
           )}
           {messages.map((m, idx) => (
-            <div
-              key={idx}
-              style={{
-                marginBottom: 8,
-                display: "flex",
-                justifyContent: m.role === "user" ? "flex-end" : "flex-start",
-              }}
-            >
+            <div key={idx} style={{ marginBottom: 8, display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
               <div
                 style={{
                   maxWidth: "80%",
-                  padding: "6px 10px",
+                  padding: "8px 14px",
                   borderRadius: 10,
                   fontSize: 14,
-                  backgroundColor: m.role === "user" ? "#22c55e" : "#111827",
-                  color: m.role === "user" ? "#020617" : "#e5e7eb",
                   whiteSpace: "pre-wrap",
+                  background: m.role === "user" ? "var(--primary)" : "var(--border)",
+                  color: m.role === "user" ? "var(--bg)" : "var(--fg)",
                 }}
               >
                 {m.content}
@@ -139,32 +116,11 @@ export default function ChatPage() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a question about your digital twin, security setup, or attack simulations..."
-            style={{
-              width: "100%",
-              resize: "none",
-              borderRadius: 10,
-              border: "1px solid #4b5563",
-              padding: 8,
-              fontSize: 14,
-              marginBottom: 8,
-              backgroundColor: "#020617",
-              color: "#e5e7eb",
-            }}
+            className="input"
+            style={{ resize: "none", marginBottom: 8, fontFamily: "var(--font-sans)" }}
           />
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
-            <button
-              onClick={sendMessage}
-              disabled={loading}
-              style={{
-                padding: "6px 14px",
-                borderRadius: 999,
-                border: "none",
-                backgroundColor: loading ? "#6b7280" : "#22c55e",
-                color: "#020617",
-                fontSize: 14,
-                cursor: loading ? "default" : "pointer",
-              }}
-            >
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button onClick={sendMessage} disabled={loading} className="btn-primary">
               {loading ? "Sending..." : "Send"}
             </button>
           </div>
