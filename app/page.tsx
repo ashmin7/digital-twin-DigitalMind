@@ -1,4 +1,111 @@
 "use client";
+import { useState, useRef, useEffect } from "react";
+
+function SandboxDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  const items = [
+    { href: "/sandbox/sql", label: "SQL Injection" },
+    { href: "/sandbox/xss", label: "XSS Testing" },
+    { href: "/sandbox/rate-limit", label: "Rate Limiting" },
+    { href: "/sandbox/auth", label: "Auth Testing" },
+  ];
+
+  return (
+    <div ref={ref} style={{ position: "relative" }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          background: "none",
+          border: "none",
+          color: "var(--fg-muted)",
+          cursor: "pointer",
+          fontSize: 13,
+          fontFamily: "inherit",
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          padding: 0,
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary)")}
+        onMouseLeave={(e) => {
+          if (!open) e.currentTarget.style.color = "var(--fg-muted)";
+        }}
+      >
+        Sandbox
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            transition: "transform 0.2s",
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+          }}
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          style={{
+            position: "absolute",
+            top: "calc(100% + 8px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            borderRadius: 10,
+            padding: "6px 0",
+            minWidth: 180,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+            zIndex: 50,
+          }}
+        >
+          {items.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              style={{
+                display: "block",
+                padding: "8px 16px",
+                fontSize: 13,
+                color: "var(--fg)",
+                textDecoration: "none",
+                transition: "background 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(34,197,94,0.08)";
+                e.currentTarget.style.color = "var(--primary)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--fg)";
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -23,18 +130,16 @@ export default function Home() {
             paddingBottom: 14,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span className="glow-dot" />
-            <span style={{ fontWeight: 600, fontSize: 15 }}>Digital Twin III</span>
-          </div>
-          <nav style={{ display: "flex", gap: 16, fontSize: 13 }}>
+          <a href="/" style={{ fontWeight: 600, fontSize: 15, color: "var(--fg)", textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--primary)", boxShadow: "0 0 8px var(--primary), 0 0 20px rgba(34,197,94,0.3)", display: "inline-block" }} />
+            Digital Twin III
+          </a>
+          <nav style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 13 }}>
             {[
               { href: "/#about", label: "About" },
-              { href: "/#sandbox", label: "Sandbox" },
               { href: "/#threats", label: "Threats" },
               { href: "/#stack", label: "Stack" },
               { href: "/lab", label: "Lab Case Study" },
-              { href: "/dashboard", label: "Dashboard" },
             ].map((l) => (
               <a
                 key={l.href}
@@ -46,6 +151,40 @@ export default function Home() {
                 {l.label}
               </a>
             ))}
+            <SandboxDropdown />
+            <a
+              href="/dashboard"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "8px 20px",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "var(--primary)",
+                border: "2px solid var(--primary)",
+                borderRadius: 999,
+                background: "transparent",
+                textDecoration: "none",
+                transition: "background 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--primary)";
+                e.currentTarget.style.color = "#000";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--primary)";
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="1" y="1" width="6" height="6" rx="1" />
+                <rect x="9" y="1" width="6" height="6" rx="1" />
+                <rect x="1" y="9" width="6" height="6" rx="1" />
+                <rect x="9" y="9" width="6" height="6" rx="1" />
+              </svg>
+              Dashboard
+            </a>
           </nav>
         </div>
       </header>
@@ -78,43 +217,87 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right card */}
+          {/* Right card - DIGITALMIND TEAM Status */}
           <div
             style={{
-              flexBasis: 290,
+              flexBasis: 310,
               flexGrow: 0,
               flexShrink: 0,
               borderRadius: 20,
-              padding: 18,
-              background: "radial-gradient(circle at top, rgba(56,189,248,0.25), transparent 60%), var(--bg-card)",
+              padding: 24,
+              background: "radial-gradient(ellipse at top, rgba(56,189,248,0.12), transparent 60%), var(--bg-card)",
               border: "1px solid rgba(30,41,59,0.5)",
               display: "flex",
               flexDirection: "column",
-              gap: 14,
+              gap: 18,
             }}
           >
+            {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div>
-                <p style={{ fontSize: 11, color: "var(--accent)", margin: 0 }}>Live Lab</p>
-                <p style={{ fontSize: 14, fontWeight: 600, margin: 0 }}>Attack surface summary</p>
-              </div>
-              <span className="badge badge-online">Online</span>
+              <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--fg-muted)" }}>
+                DIGITALMIND TEAM
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: "var(--primary)",
+                  border: "1px solid var(--primary)",
+                  borderRadius: 999,
+                  padding: "3px 12px",
+                }}
+              >
+                Online
+              </span>
             </div>
-            <div style={{ borderRadius: 14, background: "rgba(11,18,37,0.9)", padding: 14, fontSize: 13 }}>
-              <ul style={{ margin: 0, paddingLeft: 18 }}>
-                <li>Target SQL injection, XSS, and auth flows in safe sandboxes.</li>
-                <li style={{ marginTop: 4 }}>Every attempt is logged into the Supabase-backed security dashboard.</li>
-                <li style={{ marginTop: 4 }}>Use your own testing tools and payloads — this lab is built to be attacked.</li>
-              </ul>
-            </div>
-            <a
-              href="/dashboard"
-              className="btn-outline"
-              style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", fontSize: 12 }}
+
+            {/* Status rows */}
+            <div
+              style={{
+                borderRadius: 14,
+                border: "1px solid rgba(30,41,59,0.6)",
+                background: "rgba(8,14,30,0.7)",
+                padding: "4px 0",
+              }}
             >
-              <span>Open security dashboard</span>
-              <span>{">"}</span>
-            </a>
+              {[
+                { label: "STATUS", value: "OPERATIONAL", color: "var(--primary)" },
+                { label: "ACCESS LEVEL", value: "PUBLIC", color: "var(--fg)" },
+                { label: "THREAT DETECTION", value: "ACTIVE", color: "var(--primary)" },
+              ].map((row, i, arr) => (
+                <div
+                  key={row.label}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "12px 18px",
+                    borderBottom: i < arr.length - 1 ? "1px solid rgba(30,41,59,0.4)" : "none",
+                    fontSize: 13,
+                  }}
+                >
+                  <span style={{ color: "var(--fg-muted)", fontWeight: 500 }}>{row.label}</span>
+                  <span style={{ fontWeight: 700, color: row.color }}>{row.value}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* WAF badge */}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: "var(--fg-muted)",
+                  border: "1px solid rgba(30,41,59,0.6)",
+                  borderRadius: 999,
+                  padding: "6px 18px",
+                  background: "rgba(8,14,30,0.5)",
+                }}
+              >
+                WAF Protection ENABLED
+              </span>
+            </div>
           </div>
         </section>
 
@@ -153,25 +336,38 @@ export default function Home() {
 
         {/* Sandbox */}
         <section id="sandbox" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Hacking simulation sandbox</h2>
-          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>Hacking simulation sandbox</h2>
+          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 18 }}>
             These live sandboxes are wired to real detection, logging, and rate limiting. You can
-            safely try common attacks and then open the dashboard to observe how the system
-            classified and handled your traffic.
+            safely try common attacks and immediately see how the application reacts.
           </p>
-          <ul style={{ fontSize: 14, marginTop: 14, listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {[
-              { href: "/sandbox/sql", label: "/sandbox/sql", desc: " — SQL injection payloads, detection, and safe query patterns." },
-              { href: "/sandbox/xss", label: "/sandbox/xss", desc: " — reflected XSS attempts, output encoding, and malicious payload detection." },
-              { href: "/sandbox/rate-limit", label: "/sandbox/rate-limit", desc: " — automated/bot-style traffic, scanners, and basic WAF-style rate limiting." },
-              { href: "/sandbox/auth", label: "/sandbox/auth", desc: " — authentication failures, broken access control, and privilege-abuse scenarios." },
+              { href: "/sandbox/sql", path: "/sandbox/sql", desc: "SQL injection payloads, detection, and safe query patterns." },
+              { href: "/sandbox/xss", path: "/sandbox/xss", desc: "reflected XSS attempts, output encoding, and malicious payload detection." },
+              { href: "/sandbox/rate-limit", path: "/sandbox/rate-limit", desc: "automated/bot-style traffic, scanners, and basic WAF-style rate limiting." },
+              { href: "/sandbox/auth", path: "/sandbox/auth", desc: "authentication failures, broken access control, and privilege-abuse scenarios." },
             ].map((s) => (
-              <li key={s.href}>
-                <a href={s.href} style={{ color: "var(--accent)" }}>{s.label}</a>
-                <span style={{ color: "var(--fg-muted)" }}>{s.desc}</span>
-              </li>
+              <a
+                key={s.href}
+                href={s.href}
+                style={{
+                  display: "block",
+                  padding: "14px 18px",
+                  borderRadius: 10,
+                  background: "var(--bg-card)",
+                  borderLeft: "3px solid var(--accent)",
+                  textDecoration: "none",
+                  color: "var(--fg)",
+                  fontSize: 14,
+                  lineHeight: 1.6,
+                }}
+              >
+                <span style={{ color: "var(--accent)", fontFamily: "monospace", fontWeight: 600 }}>{s.path}</span>
+                <span style={{ color: "var(--fg-muted)" }}>{" \u2014 "}{s.desc}</span>
+              </a>
             ))}
-          </ul>
+          </div>
         </section>
 
         {/* Stack */}
@@ -295,6 +491,132 @@ export default function Home() {
           </p>
         </section>
       </main>
+
+      {/* Footer */}
+      <footer style={{ borderTop: "1px solid var(--border)", background: "var(--bg-card)" }}>
+        <div
+          className="container"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: 40,
+            paddingTop: 48,
+            paddingBottom: 40,
+          }}
+        >
+          {/* Left column - Brand */}
+          <div>
+            <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 12 }}>Digital Twin III</p>
+            <p style={{ color: "var(--fg-muted)", fontSize: 13, lineHeight: 1.7, marginBottom: 16, maxWidth: 320 }}>
+              A cyber-hardened personal portfolio with integrated AI agents, real-time threat
+              detection, and security analytics. Built by the DigitalMind Team.
+            </p>
+            {/* Social icons (decorative, not clickable) */}
+            <div style={{ display: "flex", gap: 14 }}>
+              {/* GitHub */}
+              <span aria-label="GitHub" style={{ color: "var(--fg-muted)" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+              </span>
+              {/* LinkedIn */}
+              <span aria-label="LinkedIn" style={{ color: "var(--fg-muted)" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </span>
+              {/* Email */}
+              <span aria-label="Email" style={{ color: "var(--fg-muted)" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M22 7l-10 7L2 7" />
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          {/* Project column */}
+          <div>
+            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 14 }}>Project</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[
+                { href: "/#about", label: "About" },
+                { href: "/#sandbox", label: "Projects" },
+                { href: "/chat", label: "AI Agents" },
+                { href: "/#team", label: "Team" },
+              ].map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  style={{ color: "var(--fg-muted)", fontSize: 13, textDecoration: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Security column */}
+          <div>
+            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 14 }}>Security</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[
+                { href: "https://owasp.org/www-project-top-ten/", label: "OWASP", external: true },
+                { href: "/#about", label: "Security Policy" },
+                { href: "/#about", label: "Responsible Disclosure" },
+                { href: "/dashboard", label: "Audit Logs" },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                  style={{ color: "var(--fg-muted)", fontSize: 13, textDecoration: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright bar */}
+        <div
+          style={{
+            borderTop: "1px solid var(--border)",
+            padding: "16px 0",
+          }}
+        >
+          <div
+            className="container"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: 12,
+              color: "var(--fg-muted)",
+            }}
+          >
+            <span>{"© 2026 DigitalMind Team. All rights reserved."}</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: "var(--primary)",
+                  display: "inline-block",
+                }}
+              />
+              All systems operational
+            </span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
