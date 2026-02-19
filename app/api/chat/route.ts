@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
     ];
 
     const completion = await client.chat.completions.create({
-      model: "gpt-4.1-mini",
+      model: "gpt-4o-mini",
       messages,
       temperature: 0.7,
       max_tokens: 700,
