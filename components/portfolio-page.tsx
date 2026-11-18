@@ -217,8 +217,9 @@ function AboutSection() {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[.75fr_1.25fr] lg:gap-20 lg:px-12 lg:py-24">
         <div>
           <p className="section-label"><span>01</span> / About</p>
-          <h2 className="mt-5 max-w-md text-3xl font-semibold leading-tight tracking-[-0.045em] text-[#f1f4ee] sm:text-4xl">Security starts with staying curious.</h2>
-          <p className="mt-5 max-w-sm text-sm leading-6 text-[#a0aea5]">A student, a builder, and a careful learner—turning coursework into practical, defensive projects.</p>
+          <h2 className="mt-5 max-w-md text-3xl font-semibold leading-tight tracking-[-0.045em] text-[#f1f4ee] sm:text-4xl">Ashmin Aryal</h2>
+          <p className="mt-3 max-w-md text-lg font-medium text-[#c7f36a]">Cybersecurity student, builder, and curious learner.</p>
+          <p className="mt-4 max-w-sm text-sm leading-6 text-[#a0aea5]">Turning coursework into practical, defensive projects—and always looking for the next thing to learn.</p>
         </div>
         <div>
           <p className="text-base leading-8 text-[#d0d8d1] sm:text-lg">
@@ -262,6 +263,21 @@ function ExperienceSection() {
           ))}
         </ul>
       </article>
+      <div className="mt-10">
+        <p className="section-label"><span>03</span> / Projects I&apos;ve built</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {projects.map((project) => (
+            <article key={project.number} className="border border-[#34423b] bg-[#101814] p-6 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#c7f36a]">{project.eyebrow}</p>
+              <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-[#f1f4ee]">{project.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-[#a0aea5]">{project.description}</p>
+              <a href={project.url} {...externalLinkProps} className="mt-5 inline-flex items-center gap-2 border-b border-[#607349] pb-1.5 text-sm font-semibold text-[#d6f69a] transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c7f36a]">
+                {project.action}<ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
