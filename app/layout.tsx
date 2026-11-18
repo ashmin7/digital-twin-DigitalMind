@@ -8,16 +8,8 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "Ashmin Aryal | Cybersecurity Analyst",
-  description: "Ashmin Aryal is a final-year Cyber Security student in Sydney with hands-on experience in cloud security, identity protection, and security monitoring.",
-  metadataBase: new URL("https://ashminaryal.info"),
-  openGraph: {
-    title: "Ashmin Aryal | Cybersecurity Analyst",
-    description: "Cloud security, identity protection, and hands-on defensive security projects.",
-    url: "https://ashminaryal.info",
-    siteName: "Ashmin Aryal",
-    type: "website",
-  },
+  title: "LearnLab | Four Essential Tool Guides",
+  description: "Learn how GitHub, Git, v0 Templates, and NotebookLM work, when to use each tool, and how to get started.",
   generator: "v0.app",
   icons: {
     icon: [
