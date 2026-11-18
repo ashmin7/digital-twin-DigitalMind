@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { GithubIcon, GitBranchIcon, Zap, BookOpen, ArrowRight, Menu, X } from "lucide-react"
+import { GithubIcon, GitBranchIcon, Zap, BookOpen, ArrowRight, Menu, X, Sparkles, ShoppingBag, NotebookPen, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function Home() {
@@ -111,6 +111,104 @@ export default function Home() {
             </div>
           </Link>
         </div>
+
+        <section aria-labelledby="ai-tools-heading" className="mt-32 text-left">
+          <div className="max-w-3xl mb-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">Explore more</p>
+            <h2 id="ai-tools-heading" className="mt-3 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
+              AI tools for work, study & ideas
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              A practical guide to the newest AI products, useful skills, and ways to put them to work.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <article className="rounded-2xl border border-indigo-200 bg-indigo-50/50 p-7 md:p-8">
+              <div className="flex items-center gap-3">
+                <Sparkles className="size-7 text-indigo-600" aria-hidden="true" />
+                <h3 className="text-2xl font-bold text-gray-900">AI tools worth knowing</h3>
+              </div>
+              <p className="mt-3 text-gray-600">New releases and useful tools for building, thinking, and keeping track of ideas.</p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-xl bg-white p-5">
+                  <p className="font-semibold text-gray-900">Fresh releases</p>
+                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">Gemini 4 Carbon + Google Antigravity</strong> — long-running coding and research tasks, with multi-agent workflows.</li>
+                    <li><strong className="text-gray-800">Claude Meetings</strong> — meeting plans, notes, and action items for Google Meet.</li>
+                    <li><strong className="text-gray-800">TK by Medium</strong> — a private notebook and journal for writing to think.</li>
+                  </ul>
+                </div>
+                <div className="rounded-xl bg-white p-5">
+                  <p className="font-semibold text-gray-900">Coding & notes</p>
+                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">Cursor, Claude Code, Codex, Copilot</strong> — AI coding assistants for different development workflows.</li>
+                    <li><strong className="text-gray-800">Obsidian, Granola, Evernote</strong> — personal notes, meeting capture, and AI-assisted search.</li>
+                    <li><strong className="text-gray-800">Tana</strong> — connected notes designed to become shared team work.</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <article className="rounded-2xl border border-amber-200 bg-amber-50/50 p-7 md:p-8">
+              <div className="flex items-center gap-3">
+                <NotebookPen className="size-7 text-amber-600" aria-hidden="true" />
+                <h3 className="text-2xl font-bold text-gray-900">Study & learning</h3>
+              </div>
+              <p className="mt-3 text-gray-600">Find a tool that fits how you collect sources, review, and remember what you learn.</p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-xl bg-white p-5">
+                  <p className="font-semibold text-gray-900">Study assistants</p>
+                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">NotebookLM</strong> — study and ask questions grounded in your own sources.</li>
+                    <li><strong className="text-gray-800">Zoho Notebook</strong> — notes with AI features for students.</li>
+                    <li><strong className="text-gray-800">Recall</strong> — save and summarize articles, videos, and podcasts.</li>
+                  </ul>
+                </div>
+                <div className="rounded-xl bg-white p-5">
+                  <p className="font-semibold text-gray-900">Research & standards</p>
+                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">Elicit</strong> — search academic papers and organize research findings.</li>
+                    <li><strong className="text-gray-800">Agent Skills</strong> — reusable workflows that teach AI agents how to perform a task. <a className="text-blue-700 underline underline-offset-2" href="https://agentskills.io" target="_blank" rel="noreferrer">Learn more</a>.</li>
+                    <li><strong className="text-gray-800">MCP</strong> — a standard for connecting AI assistants to apps and data. <a className="text-blue-700 underline underline-offset-2" href="https://modelcontextprotocol.io" target="_blank" rel="noreferrer">Explore MCP</a>.</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <article className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-7 md:p-8 lg:col-span-2">
+              <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <ShoppingBag className="size-7 text-emerald-700" aria-hidden="true" />
+                    <h3 className="text-2xl font-bold text-gray-900">Dropshipping & AI dropshipping</h3>
+                  </div>
+                  <p className="mt-3 leading-7 text-gray-600">
+                    Dropshipping is an ecommerce model where a supplier ships products directly to customers. AI can help with research and routine work, but it cannot guarantee demand or profit.
+                  </p>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-xl bg-white p-5">
+                    <p className="font-semibold text-gray-900">1. Validate first</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Research customer needs and competition. Check supplier reliability, shipping times, returns, and product quality before listing.</p>
+                  </div>
+                  <div className="rounded-xl bg-white p-5">
+                    <p className="font-semibold text-gray-900">2. Use AI as a helper</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Brainstorm niches, compare product feedback, draft listings, translate copy, and plan customer-support replies. Verify every claim and detail.</p>
+                  </div>
+                  <div className="rounded-xl bg-white p-5">
+                    <p className="font-semibold text-gray-900">3. Know the numbers</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Calculate product, shipping, platform, payment, advertising, and refund costs. Follow consumer-protection and advertising rules in your market.</p>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-5 flex items-center gap-2 text-sm text-emerald-900">
+                <Users className="size-4" aria-hidden="true" />
+                Start with a small test and transparent delivery expectations; treat AI suggestions as drafts, not proof of product quality or market demand.
+              </p>
+            </article>
+          </div>
+        </section>
       </section>
 
       {/* Footer */}
