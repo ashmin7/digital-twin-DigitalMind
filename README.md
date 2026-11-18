@@ -1,9 +1,9 @@
-# Digital Twin III – Cyber-Hardened Portfolio - Team 3
+# Digital Twin III – Independent Cyber Range
 
-Transforming a personal web portfolio into a secure, monitored, and AI-assisted digital presence.
+An independent security lab built and maintained by Ashmin Aryal, combining controlled exercises with monitored defensive controls and an auditable event trail.
 
-**Project Repository:** [digital-twin-DigitalMind-Team3]  
-**Owner:** DigitalMind Team3
+**Project Repository:** digital-twin-DigitalMind
+**Owner:** Ashmin Aryal
 
 ---
 
@@ -21,9 +21,9 @@ digital-twin-DigitalMind/
 ├── 📁 docs/ # Documentation hub
 │ └── 📄 prd.md # Product Requirements Document
 ├── 📁 data/ # Structured intelligence
-│ └── 📄 star.json # Team & project data (STAR format)
+│ └── 📄 star.json # Project data (STAR format)
 ├── 📁 project-management/ # Workflow coordination
-│ ├── 📄 github-proof.pdf # Collaboration evidence
+│ ├── 📄 github-proof.pdf # Project evidence archive
 │ └── 📄 clickup-board.png # Project management state
 ├── 📁 app/ # Next.js application (Week 2+)
 ├── 📁 lib/ # Shared utilities & AI agents
@@ -35,7 +35,7 @@ digital-twin-DigitalMind/
 - **`agents.md`**: Primary context file for AI tools (GitHub Copilot, Claude Desktop)
 - **`docs/prd.md`**: Requirements and specifications for AI code generation
 - **`docs/design.md`**: Technical design and architecture for implementation
-- **`data/star.json`**: Structured team intelligence for agent context
+- **`data/star.json`**: Structured lab and creator context for agent guidance
 - **`README.md`**: Human onboarding and project overview
 
 ## Design & Architecture

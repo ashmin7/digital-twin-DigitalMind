@@ -10,7 +10,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Digital Twin III",
-  description: "Cyber-Hardened Portfolio with sandbox and security dashboard",
+  description: "An independently built cyber range by Ashmin Aryal, with controlled security exercises and live defensive telemetry.",
 };
 
 export const viewport: Viewport = {

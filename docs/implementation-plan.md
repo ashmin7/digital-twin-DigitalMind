@@ -147,12 +147,12 @@ Docs
 - HTTPS enforced with secure headers
 - AI-assisted development evidence (agents, commits, PRs)
 
-## 9. Ownership & RACI (Placeholders)
+## 9. Project Ownership & Responsibilities
 
 - Product/Tech Lead: Ashmin Aryal (approvals, releases)
 - Backend & AI Agents: Phuntshok Wangdruk (APIs, embeddings, security)
 - Frontend & PRD: Victor Kamanja (UI, dashboard, docs)
-- Reviewer: Team3 (peer reviews, QA)
+- Reviewer: Ashmin Aryal (peer reviews, QA)
 
 ## 10. Links
 
@@ -162,8 +162,8 @@ Docs
 
 =======
 # Implementation Plan
-## Digital Twin III – Cyber-Hardened Portfolio
-### Team 3 
+## Digital Twin III – Independent Cyber Range
+### Project Owner: Ashmin Aryal
 
 ---
 
@@ -670,13 +670,11 @@ ARCJET_KEY=your_arcjet_key
 
 ---
 
-## 7. Team Responsibilities
+## 7. Project Ownership
 
-| Team Member | Responsibilities |
-|-------------|------------------|
-| All Members | Commit at least one meaningful change |
-| All Members | Document AI tool usage (Copilot, Claude) |
-| All Members | Participate in security testing |
+| Owner | Responsibilities |
+|-------|------------------|
+| Ashmin Aryal | Maintain the lab, review security changes, and approve releases |
 
 ---
 ## 8. Code Review Standards
@@ -726,7 +724,7 @@ Document all AI tool usage for PRD compliance:
 
 ---
 
-**Document Prepared By:** Team 3  
+**Document Prepared By:** Ashmin Aryal
 **AI Assistance:** GitHub Copilot, Claude  
 **Last Updated:** January 27, 2026
 >>>>>>> origin/main

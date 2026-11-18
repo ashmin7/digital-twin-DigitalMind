@@ -194,18 +194,17 @@ export default function Home() {
         <section style={{ display: "flex", flexWrap: "wrap", gap: 32, alignItems: "stretch", marginBottom: 40 }}>
           <div style={{ flex: "1 1 260px" }}>
             <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--accent)", textTransform: "uppercase" }}>
-              Cyber-Hardened Portfolio
+              Independent Cyber Range
             </p>
-            <h1 style={{ fontSize: 34, fontWeight: 700, marginTop: 8, marginBottom: 6 }}>DigitalMind</h1>
+            <h1 style={{ fontSize: 34, fontWeight: 700, marginTop: 8, marginBottom: 6 }}>Ashmin Aryal</h1>
             <p style={{ color: "var(--fg-muted)", fontSize: 14, maxWidth: 560, marginBottom: 10, lineHeight: 1.7 }}>
-              A secure, cloud-deployed AI portfolio developed through teamwork and real-world
-              testing. This Digital Twin is more than a website — it is a live hacking lab where
-              you can safely attack defined surfaces and watch the detections appear in real time.
+              A secure, cloud-deployed cyber range built and maintained by Ashmin Aryal. This
+              Digital Twin is more than a website — it is a live hacking lab where you can safely
+              test defined surfaces and watch defensive signals appear in real time.
             </p>
             <p style={{ color: "var(--fg-muted)", fontSize: 14, maxWidth: 560, marginBottom: 10, lineHeight: 1.7 }}>
-              Built within an industry-aligned program, it showcases cloud deployment,
-              cybersecurity engineering, and collaborative software development using
-              modern AI tools.
+              Built around applied defensive engineering, it showcases cloud deployment,
+              monitored security controls, and resilient web architecture using modern tools.
             </p>
             <p style={{ fontSize: 13, fontWeight: 500 }}>
               Secure. Monitored. Production-ready. Built to be tested, attacked, and improved.
@@ -217,7 +216,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right card - DIGITALMIND TEAM Status */}
+          {/* Right card - lab status */}
           <div
             style={{
               flexBasis: 310,
@@ -235,7 +234,7 @@ export default function Home() {
             {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--fg-muted)" }}>
-                DIGITALMIND TEAM
+                ASHMIN&apos;S CYBER LAB
               </span>
               <span
                 style={{
@@ -465,18 +464,15 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Team */}
-        <section style={{ marginBottom: 32 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>{"Team mission & collaboration"}</h2>
+        {/* Lab ownership */}
+        <section id="lab-owner" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Built and maintained by its creator</h2>
           <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>
-            Our mission is to design and deploy intelligent digital systems that are secure,
-            resilient, and production-ready. We believe modern web applications must be built
-            with security as a continuous lifecycle, supported by collaborative development,
-            real-world testing, and measurable improvement.
+            I created this independent cyber range to explore practical web security and make defensive engineering visible.
+            The lab brings together controlled exercises, live telemetry, and clear response signals in one place.
           </p>
           <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
-            Through structured teamwork and cloud-based deployment, we transform concepts into
-            defensible, operational systems that reflect professional engineering standards.
+            Every scenario stays within the lab&apos;s defined surfaces, with a focus on learning how to detect, contain, and improve.
           </p>
         </section>
 
@@ -508,8 +504,8 @@ export default function Home() {
           <div>
             <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 12 }}>Digital Twin III</p>
             <p style={{ color: "var(--fg-muted)", fontSize: 13, lineHeight: 1.7, marginBottom: 16, maxWidth: 320 }}>
-              A cyber-hardened personal portfolio with integrated AI agents, real-time threat
-              detection, and security analytics. Built by the DigitalMind Team.
+              An independent cyber range with controlled security exercises, real-time threat
+              detection, and security analytics. Built and maintained by Ashmin Aryal.
             </p>
             {/* Social icons (decorative, not clickable) */}
             <div style={{ display: "flex", gap: 14 }}>
@@ -543,7 +539,7 @@ export default function Home() {
                 { href: "/#about", label: "About" },
                 { href: "/#sandbox", label: "Projects" },
                 { href: "/chat", label: "AI Agents" },
-                { href: "/#team", label: "Team" },
+                { href: "/#lab-owner", label: "Lab mission" }
               ].map((link) => (
                 <a
                   key={link.href}
@@ -601,7 +597,7 @@ export default function Home() {
               color: "var(--fg-muted)",
             }}
           >
-            <span>{"© 2026 DigitalMind Team. All rights reserved."}</span>
+            <span>{"© 2026 Ashmin Aryal. Independent security lab."}</span>
             <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <span
                 style={{

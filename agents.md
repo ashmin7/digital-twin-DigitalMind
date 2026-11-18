@@ -1,8 +1,8 @@
-# Digital Twin III – Agent Architecture (Team 3)
+# Digital Twin III – Agent Architecture (Ashmin Aryal)
 
 ## Overview
 
-This document defines the AI agents and their configurations for the Digital Twin III Cyber-Hardened Portfolio. These agents work together to provide an interactive, secure, and self-defending digital presence.
+This document defines the AI agents and their configurations for the independent Digital Twin III cyber range maintained by Ashmin Aryal. The agents support an interactive, secure, and self-defending digital presence.
 
 Demo alignment and scope notes:
 - Digital Twin 3’s key requirement is to function as a "hacking simulation website" with a sandbox area where users can safely attempt common web vulnerabilities (e.g., SQL injection, XSS) and immediately see telemetry and blocking outcomes.
