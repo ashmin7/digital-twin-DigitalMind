@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
@@ -8,12 +8,13 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "Ashmin Aryal | Cybersecurity Analyst",
-  description: "Ashmin Aryal is a final-year Cyber Security student in Sydney with hands-on experience in cloud security, identity protection, and security monitoring.",
+  title: "Ashmin Aryal | Cybersecurity Student & Builder",
+  description: "Ashmin Aryal is a final-year Cyber Security student at Victoria University, Sydney, focused on cloud security, identity, defensive monitoring, and hands-on security projects.",
+  keywords: ["Ashmin Aryal", "Cybersecurity student", "Cloud security", "Security analyst internship", "Live hacking lab", "Cybersecurity projects"],
   metadataBase: new URL("https://ashminaryal.info"),
   openGraph: {
-    title: "Ashmin Aryal | Cybersecurity Analyst",
-    description: "Cloud security, identity protection, and hands-on defensive security projects.",
+    title: "Ashmin Aryal | Cybersecurity Student & Builder",
+    description: "Cloud security, identity protection, defensive monitoring, and hands-on security projects from Ashmin Aryal.",
     url: "https://ashminaryal.info",
     siteName: "Ashmin Aryal",
     type: "website",
@@ -36,6 +37,12 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#080d0b",
 }
 
 export default function RootLayout({
