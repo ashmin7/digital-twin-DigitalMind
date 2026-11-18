@@ -1,15 +1,24 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const geist = Geist({ subsets: ["latin"] })
-const geistMono = Geist_Mono({ subsets: ["latin"] })
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
+  title: "Ashmin Aryal | Cybersecurity Student & Builder",
+  description: "Ashmin Aryal is a final-year Cyber Security student at Victoria University, Sydney, focused on cloud security, identity, defensive monitoring, and hands-on security projects.",
+  keywords: ["Ashmin Aryal", "Cybersecurity student", "Cloud security", "Security analyst internship", "Live hacking lab", "Cybersecurity projects"],
+  metadataBase: new URL("https://ashminaryal.info"),
+  openGraph: {
+    title: "Ashmin Aryal | Cybersecurity Student & Builder",
+    description: "Cloud security, identity protection, defensive monitoring, and hands-on security projects from Ashmin Aryal.",
+    url: "https://ashminaryal.info",
+    siteName: "Ashmin Aryal",
+    type: "website",
+  },
   generator: "v0.app",
   icons: {
     icon: [
@@ -30,15 +39,20 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#080d0b",
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={geist.className}>
-      {/* <CHANGE> Applied Geist font to html element */}
-      <body className={`${geistMono.className} antialiased`}>
+    <html lang="en" className={`${geist.className} ${geistMono.variable}`}>
+      <body className="antialiased">
         {children}
         <Analytics />
       </body>

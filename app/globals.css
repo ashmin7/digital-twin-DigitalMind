@@ -4,78 +4,49 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  --primary: 240 5.9% 10%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 240 4.8% 20.2%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 240 2.4% 33.9%;
-  --muted-foreground: 240 3.8% 46.1%;
-  --accent: 240 5.9% 10%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 240 10% 3.9%;
-  --radius: 0.5rem;
-  --chart-1: #12b981;
-  --chart-2: #06b6d4;
-  --chart-3: #3b82f6;
-  --chart-4: #f59e0b;
-  --chart-5: #8b5cf6;
-  --sidebar: #f8f9fa;
-  --sidebar-foreground: #1e293b;
-  --sidebar-primary: #1e293b;
-  --sidebar-primary-foreground: #f8f9fa;
-  --sidebar-accent: #f3f4f6;
-  --sidebar-accent-foreground: #1e293b;
-  --sidebar-border: #e2e8f0;
-  --sidebar-ring: #64748b;
+  color-scheme: dark;
+  --background: #080d0b;
+  --foreground: #f1f4ee;
+  --card: #101814;
+  --card-foreground: #f1f4ee;
+  --popover: #101814;
+  --popover-foreground: #f1f4ee;
+  --primary: #c7f36a;
+  --primary-foreground: #111811;
+  --secondary: #18231b;
+  --secondary-foreground: #e5ece5;
+  --muted: #18211c;
+  --muted-foreground: #a0aea5;
+  --accent: #c7f36a;
+  --accent-foreground: #111811;
+  --destructive: #dc5656;
+  --destructive-foreground: #ffffff;
+  --border: #34423b;
+  --input: #34423b;
+  --ring: #c7f36a;
+  --radius: 0.75rem;
+  --chart-1: #c7f36a;
+  --chart-2: #7f9b8a;
+  --chart-3: #a0aea5;
+  --chart-4: #cfaa72;
+  --chart-5: #659884;
+  --sidebar: #0d1411;
+  --sidebar-foreground: #f1f4ee;
+  --sidebar-primary: #c7f36a;
+  --sidebar-primary-foreground: #111811;
+  --sidebar-accent: #18231b;
+  --sidebar-accent-foreground: #e5ece5;
+  --sidebar-border: #34423b;
+  --sidebar-ring: #c7f36a;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 100%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 100%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 100%;
-  --primary: 0 0% 100%;
-  --primary-foreground: 240 5.9% 10%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 4.3% 46%;
-  --accent: 0 0% 100%;
-  --accent-foreground: 240 5.9% 10%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 0 0% 100%;
-  --chart-1: #10b981;
-  --chart-2: #06b6d4;
-  --chart-3: #8b5cf6;
-  --chart-4: #f59e0b;
-  --chart-5: #ec4899;
-  --sidebar: #1e293b;
-  --sidebar-foreground: #f8f9fa;
-  --sidebar-primary: #10b981;
-  --sidebar-primary-foreground: #f8f9fa;
-  --sidebar-accent: #334155;
-  --sidebar-accent-foreground: #f8f9fa;
-  --sidebar-border: #334155;
-  --sidebar-ring: #64748b;
+  color-scheme: dark;
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -118,7 +89,45 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  a:focus-visible {
+    outline: 2px solid #c7f36a;
+    outline-offset: 4px;
+  }
+}
+
+.section-label {
+  color: #9aa89e;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.section-label span {
+  color: #c7f36a;
+}
+
+.portfolio-grid {
+  background-image:
+    linear-gradient(to right, rgb(164 184 167 / 5%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(164 184 167 / 5%) 1px, transparent 1px);
+  background-position: center top;
+  background-size: 68px 68px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 92%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
