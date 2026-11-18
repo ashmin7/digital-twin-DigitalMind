@@ -75,12 +75,12 @@ const experience = [
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#f7f8f5] text-[#15251f]">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
+      <header className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-y-4 px-5 py-5 sm:px-8">
         <Link href="#home" className="flex items-center gap-3" aria-label="Ashmin Aryal, home">
           <span className="grid size-10 place-items-center rounded-full bg-[#173b32] text-sm font-bold text-[#d5f46a]">AA</span>
           <span className="text-sm font-semibold tracking-tight">ASHMIN ARYAL</span>
         </Link>
-        <nav aria-label="Main navigation" className="hidden items-center gap-8 text-sm text-[#53645d] md:flex">
+        <nav aria-label="Main navigation" className="order-3 flex w-full items-center justify-center gap-5 overflow-x-auto pb-1 text-xs text-[#53645d] sm:gap-8 sm:text-sm md:order-none md:w-auto md:justify-start">
           <Link className="transition hover:text-[#15251f]" href="#about">About</Link>
           <Link className="transition hover:text-[#15251f]" href="#experience">Experience</Link>
           <Link className="transition hover:text-[#15251f]" href="#projects">Projects</Link>

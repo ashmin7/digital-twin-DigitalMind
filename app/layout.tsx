@@ -4,8 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const geist = Geist({ subsets: ["latin"] })
-const geistMono = Geist_Mono({ subsets: ["latin"] })
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
   title: "Ashmin Aryal | Cybersecurity Analyst",
@@ -44,9 +44,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={geist.className}>
-      {/* <CHANGE> Applied Geist font to html element */}
-      <body className={`${geistMono.className} antialiased`}>
+    <html lang="en" className={`${geist.className} ${geistMono.variable}`}>
+      <body className="antialiased">
         {children}
         <Analytics />
       </body>
