@@ -4,40 +4,39 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  color-scheme: light;
-  --background: 42 35% 97%;
-  --foreground: 231 28% 13%;
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
-  --card-foreground: 231 28% 13%;
+  --card-foreground: 240 10% 3.9%;
   --popover: 0 0% 100%;
-  --popover-foreground: 231 28% 13%;
-  --primary: 235 39% 24%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 38 25% 92%;
-  --secondary-foreground: 231 28% 18%;
-  --muted: 38 25% 94%;
-  --muted-foreground: 225 10% 42%;
-  --accent: 74 78% 67%;
-  --accent-foreground: 231 34% 15%;
-  --destructive: 0 72% 48%;
+  --secondary: 240 4.8% 20.2%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 240 2.4% 33.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 5.9% 10%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 100%;
-  --border: 38 18% 86%;
-  --input: 38 18% 86%;
-  --ring: 235 39% 38%;
-  --radius: 0.875rem;
-  --chart-1: #6257d9;
-  --chart-2: #148a9b;
-  --chart-3: #dc8651;
-  --chart-4: #a8b744;
-  --chart-5: #cb6682;
-  --sidebar: #f3f0e8;
-  --sidebar-foreground: #20243d;
-  --sidebar-primary: #343774;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e8e4d9;
-  --sidebar-accent-foreground: #20243d;
-  --sidebar-border: #ded9cb;
-  --sidebar-ring: #6257d9;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 10% 3.9%;
+  --radius: 0.5rem;
+  --chart-1: #12b981;
+  --chart-2: #06b6d4;
+  --chart-3: #3b82f6;
+  --chart-4: #f59e0b;
+  --chart-5: #8b5cf6;
+  --sidebar: #f8f9fa;
+  --sidebar-foreground: #1e293b;
+  --sidebar-primary: #1e293b;
+  --sidebar-primary-foreground: #f8f9fa;
+  --sidebar-accent: #f3f4f6;
+  --sidebar-accent-foreground: #1e293b;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #64748b;
 }
 
 .dark {
@@ -76,27 +75,26 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -114,18 +112,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-}
-
-@layer components {
-  .topic-icon-purple { @apply bg-violet-100 text-violet-700; }
-  .topic-icon-orange { @apply bg-orange-100 text-orange-700; }
-  .topic-icon-blue { @apply bg-blue-100 text-blue-700; }
-  .topic-icon-amber { @apply bg-amber-100 text-amber-700; }
-  .topic-icon-green { @apply bg-lime-100 text-lime-800; }
-  .topic-icon-pink { @apply bg-pink-100 text-pink-700; }
-  .topic-icon-teal { @apply bg-teal-100 text-teal-700; }
-
-  .topic-details[open] summary svg { transform: rotate(180deg); }
 }
 
 @layer base {
