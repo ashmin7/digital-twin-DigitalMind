@@ -32,12 +32,12 @@ const securityFocus = [
 
 const projects = [
   {
-    name: "Digital Twin III — Live Hacking Lab",
-    type: "Personal cybersecurity project · featured",
-    description: "A secure portfolio that doubles as a controlled practice lab. I simulate common web attacks, then build protections to detect or block them—bringing offensive scenarios and defensive thinking together.",
+    name: "Live Hacking Lab 1",
+    type: "Cybersecurity lab · featured",
+    description: "A live, controlled environment for exploring web security scenarios and defensive measures, including authentication, access control, and activity logging.",
     url: "https://digital-twin-digitalmind222.vercel.app",
     linkLabel: "Open live hacking lab",
-    tags: ["SQL injection", "XSS", "Access control", "Next.js"],
+    tags: ["Web security", "Authentication", "Logging", "Next.js"],
   },
   {
     name: "Digital Twin DigitalMind 111",
@@ -188,24 +188,6 @@ export default function Home() {
               <a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-medium text-[#d5f46a] hover:text-white">{project.linkLabel} <ArrowUpRight size={15} aria-hidden="true" /></a>
             </article>)}
           </div>
-          <section aria-labelledby="lab-story-heading" className="mt-6 rounded-[1.5rem] border border-white/15 bg-[#102f28]/70 p-6 sm:p-8">
-            <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-start">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[.15em] text-[#d5f46a]">Behind the build</p>
-                <h3 id="lab-story-heading" className="mt-3 text-2xl font-medium tracking-tight sm:text-3xl">Who I am, and why I built it.</h3>
-                <p className="mt-4 text-sm leading-6 text-[#c3d7ca]">I&apos;m Ashmin Aryal, a final-year Cyber Security student at Victoria University in Sydney. I created Digital Twin III as a hands-on way to connect what I learn about web security with the practical work of defending an application.</p>
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[.15em] text-[#d5f46a]">How I built the lab</p>
-                <ol className="mt-4 grid gap-3 sm:grid-cols-3">
-                  <li className="rounded-2xl border border-white/10 bg-white/[.04] p-4"><span className="font-mono text-xs text-[#d5f46a]">01 / BUILD</span><h4 className="mt-2 text-sm font-semibold">A working web app</h4><p className="mt-2 text-sm leading-6 text-[#c3d7ca]">Built the portfolio and lab with Next.js and TypeScript, using Supabase and Vercel.</p></li>
-                  <li className="rounded-2xl border border-white/10 bg-white/[.04] p-4"><span className="font-mono text-xs text-[#d5f46a]">02 / SIMULATE</span><h4 className="mt-2 text-sm font-semibold">Common web threats</h4><p className="mt-2 text-sm leading-6 text-[#c3d7ca]">Created controlled scenarios for SQL injection, cross-site scripting, login bypass, and bot traffic.</p></li>
-                  <li className="rounded-2xl border border-white/10 bg-white/[.04] p-4"><span className="font-mono text-xs text-[#d5f46a]">03 / DEFEND</span><h4 className="mt-2 text-sm font-semibold">Detect and protect</h4><p className="mt-2 text-sm leading-6 text-[#c3d7ca]">Added secure login, access controls, and activity logging to help identify and block suspicious behavior.</p></li>
-                </ol>
-                <p className="mt-4 text-xs leading-5 text-[#a9c0b4]">The attack scenarios are for controlled learning and defensive testing—not for use against systems without permission.</p>
-              </div>
-            </div>
-          </section>
           <div className="mt-5 rounded-2xl border border-white/10 bg-[#102f28]/60 p-5 sm:flex sm:items-center sm:justify-between sm:gap-8"><div><p className="text-xs font-semibold uppercase tracking-[.15em] text-[#d5f46a]">Academic project work</p><p className="mt-2 text-sm leading-6 text-[#c3d7ca]">University security labs: firewall configuration, IDS/IPS testing, network segmentation, controlled vulnerability assessments, penetration-testing exercises, and malware / incident analysis.</p></div><span className="mt-4 inline-flex shrink-0 rounded-full border border-white/15 px-3 py-1 text-xs text-[#dce8e0] sm:mt-0">Victoria University</span></div>
         </div>
       </section>
