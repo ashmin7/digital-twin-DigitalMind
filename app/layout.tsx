@@ -8,8 +8,8 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "LearnLab | AI, Technology & Skills",
-  description: "Explore detailed learning paths on AI, Claude, technology, coding, online business, and future-ready skills, with clear explanations and practical first steps.",
+  title: "LearnLab | Four Essential Tool Guides",
+  description: "Learn how GitHub, Git, v0 Templates, and NotebookLM work, when to use each tool, and how to get started.",
   generator: "v0.app",
   icons: {
     icon: [
