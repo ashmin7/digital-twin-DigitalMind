@@ -86,7 +86,7 @@ export default function Home() {
           <Link className="transition hover:text-[#15251f]" href="#projects">Projects</Link>
           <Link className="transition hover:text-[#15251f]" href="#skills">Skills</Link>
         </nav>
-        <a href="mailto:ashminaryal111@gmail.com" className="inline-flex items-center gap-2 rounded-full border border-[#cbd4cc] px-4 py-2 text-sm font-medium transition hover:border-[#173b32] hover:bg-white">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashminaryal111%40gmail.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#cbd4cc] px-4 py-2 text-sm font-medium transition hover:border-[#173b32] hover:bg-white">
           Get in touch <ArrowUpRight aria-hidden="true" size={15} />
         </a>
       </header>
@@ -104,7 +104,7 @@ export default function Home() {
             I&apos;m Ashmin, a final-year Cyber Security student with hands-on experience in cloud security, identity protection, and security monitoring. I&apos;m looking for an opportunity to learn, contribute, and grow with a security team.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a href="mailto:ashminaryal111@gmail.com" className="inline-flex items-center gap-2 rounded-full bg-[#173b32] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#245446]">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashminaryal111%40gmail.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#173b32] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#245446]">
               Let&apos;s connect <ArrowUpRight aria-hidden="true" size={16} />
             </a>
             <Link href="#projects" className="inline-flex items-center gap-2 rounded-full border border-[#cbd4cc] px-5 py-3 text-sm font-medium transition hover:bg-white">
@@ -206,7 +206,7 @@ export default function Home() {
       <footer className="border-t border-[#e1e7df] bg-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-7 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#718e3d]">Have an opportunity?</p><h2 className="mt-2 text-2xl font-semibold tracking-tight">Let&apos;s make security stronger.</h2></div>
-          <div className="flex flex-wrap gap-3"><a href="mailto:ashminaryal111@gmail.com" className="inline-flex items-center gap-2 rounded-full bg-[#173b32] px-5 py-3 text-sm font-medium text-white hover:bg-[#245446]"><Mail size={16} aria-hidden="true" /> Email me <ArrowRight size={15} aria-hidden="true" /></a><a href="https://www.linkedin.com/in/ashmin-aryal-b42bab2a9" target="_blank" rel="noreferrer" aria-label="Connect on LinkedIn" className="grid size-11 place-items-center rounded-full border border-[#cbd4cc] hover:bg-[#f7f8f5]"><Linkedin size={17} aria-hidden="true" /></a><a href="https://github.com/ashmin7" target="_blank" rel="noreferrer" aria-label="View GitHub profile" className="grid size-11 place-items-center rounded-full border border-[#cbd4cc] hover:bg-[#f7f8f5]"><Github size={17} aria-hidden="true" /></a></div>
+          <div className="flex flex-wrap gap-3"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashminaryal111%40gmail.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#173b32] px-5 py-3 text-sm font-medium text-white hover:bg-[#245446]"><Mail size={16} aria-hidden="true" /> Email me <ArrowRight size={15} aria-hidden="true" /></a><a href="https://www.linkedin.com/in/ashmin-aryal-b42bab2a9" target="_blank" rel="noreferrer" aria-label="Connect on LinkedIn" className="grid size-11 place-items-center rounded-full border border-[#cbd4cc] hover:bg-[#f7f8f5]"><Linkedin size={17} aria-hidden="true" /></a><a href="https://github.com/ashmin7" target="_blank" rel="noreferrer" aria-label="View GitHub profile" className="grid size-11 place-items-center rounded-full border border-[#cbd4cc] hover:bg-[#f7f8f5]"><Github size={17} aria-hidden="true" /></a></div>
         </div>
         <div className="mx-auto flex max-w-6xl justify-between border-t border-[#e1e7df] px-5 pt-4 pb-20 text-xs text-[#718078] sm:px-8 sm:pb-6"><span>© 2026 Ashmin Aryal</span><a href="#home" className="inline-flex items-center gap-1 hover:text-[#15251f]">Back to top <ArrowDownRight size={13} aria-hidden="true" className="-rotate-90" /></a></div>
       </footer>
