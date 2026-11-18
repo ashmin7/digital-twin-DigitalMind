@@ -104,7 +104,7 @@ export default function Home() {
             I&apos;m Ashmin, a final-year Cyber Security student with hands-on experience in cloud security, identity protection, and security monitoring. I&apos;m looking for an opportunity to learn, contribute, and grow with a security team.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashminaryal111%40gmail.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#173b32] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#245446]">
+            <a href="https://www.linkedin.com/in/ashmin-aryal-b42bab2a9" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#173b32] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#245446]">
               Let&apos;s connect <ArrowUpRight aria-hidden="true" size={16} />
             </a>
             <Link href="#projects" className="inline-flex items-center gap-2 rounded-full border border-[#cbd4cc] px-5 py-3 text-sm font-medium transition hover:bg-white">
