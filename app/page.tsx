@@ -129,23 +129,32 @@ export default function Home() {
                 <Sparkles className="size-7 text-indigo-600" aria-hidden="true" />
                 <h3 className="text-2xl font-bold text-gray-900">AI tools worth knowing</h3>
               </div>
-              <p className="mt-3 text-gray-600">New releases and useful tools for building, thinking, and keeping track of ideas.</p>
+              <p className="mt-3 text-gray-600">Choose a tool by the kind of work you need to do, then verify important output before you rely on it.</p>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl bg-white p-5">
-                  <p className="font-semibold text-gray-900">Fresh releases</p>
-                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">Gemini 4 Carbon + Google Antigravity</strong> — long-running coding and research tasks, with multi-agent workflows.</li>
-                    <li><strong className="text-gray-800">Claude Meetings</strong> — meeting plans, notes, and action items for Google Meet.</li>
-                    <li><strong className="text-gray-800">TK by Medium</strong> — a private notebook and journal for writing to think.</li>
+                  <p className="font-semibold text-gray-900">New and notable</p>
+                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">Gemini 4 Carbon + Google Antigravity</strong><br />Positioned for long coding and research tasks. Antigravity&apos;s swarm approach can split a broad prompt into coordinated agent tasks; review the plan, intermediate work, and final output.</li>
+                    <li><strong className="text-gray-800">Claude Meetings</strong><br />A meeting companion that can draft an agenda or plan, capture discussion notes, and extract action items. Tell participants when an AI note taker is present and check the notes before sharing.</li>
+                    <li><strong className="text-gray-800">TK by Medium</strong><br />A private notebook for journaling and developing ideas, with a community layer and an MCP connection for working with AI tools. A fit for writers who want a dedicated thinking space.</li>
                   </ul>
                 </div>
                 <div className="rounded-xl bg-white p-5">
-                  <p className="font-semibold text-gray-900">Coding & notes</p>
-                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">Cursor, Claude Code, Codex, Copilot</strong> — AI coding assistants for different development workflows.</li>
-                    <li><strong className="text-gray-800">Obsidian, Granola, Evernote</strong> — personal notes, meeting capture, and AI-assisted search.</li>
-                    <li><strong className="text-gray-800">Tana</strong> — connected notes designed to become shared team work.</li>
+                  <p className="font-semibold text-gray-900">Pick a coding workflow</p>
+                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">Cursor</strong> — an AI-focused editor for asking questions and making changes in your code as you work.</li>
+                    <li><strong className="text-gray-800">Claude Code</strong> — a coding agent suited to multi-step changes across a repository; inspect its proposed edits and run your project checks.</li>
+                    <li><strong className="text-gray-800">OpenAI Codex</strong> — delegate coding tasks to cloud agents, including parallel tasks when work can be separated.</li>
+                    <li><strong className="text-gray-800">GitHub Copilot</strong> — inline suggestions and chat in supported editors; a convenient starting point if your workflow already centers on GitHub.</li>
                   </ul>
+                </div>
+                <div className="rounded-xl bg-white p-5 sm:col-span-2">
+                  <p className="font-semibold text-gray-900">Notes, meetings & team knowledge</p>
+                  <div className="mt-3 grid gap-4 sm:grid-cols-3">
+                    <p className="text-sm leading-6 text-gray-600"><strong className="text-gray-800">Obsidian</strong><br />Local Markdown notes connected by links. Useful for a personal knowledge base; its CLI can support scripting and automation.</p>
+                    <p className="text-sm leading-6 text-gray-600"><strong className="text-gray-800">Granola</strong><br />AI meeting notes designed to capture your own notes without a visible bot joining the call. Review transcripts and summaries for accuracy.</p>
+                    <p className="text-sm leading-6 text-gray-600"><strong className="text-gray-800">Evernote & Tana</strong><br />Evernote combines notebooks with AI-assisted search and meeting notes. Tana connects structured notes and can turn them into shared team knowledge.</p>
+                  </div>
                 </div>
               </div>
             </article>
@@ -155,25 +164,26 @@ export default function Home() {
                 <NotebookPen className="size-7 text-amber-600" aria-hidden="true" />
                 <h3 className="text-2xl font-bold text-gray-900">Study & learning</h3>
               </div>
-              <p className="mt-3 text-gray-600">Find a tool that fits how you collect sources, review, and remember what you learn.</p>
+              <p className="mt-3 text-gray-600">Build a simple learning loop: gather trusted sources, ask focused questions, make your own notes, and test your recall.</p>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl bg-white p-5">
                   <p className="font-semibold text-gray-900">Study assistants</p>
-                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">NotebookLM</strong> — study and ask questions grounded in your own sources.</li>
-                    <li><strong className="text-gray-800">Zoho Notebook</strong> — notes with AI features for students.</li>
-                    <li><strong className="text-gray-800">Recall</strong> — save and summarize articles, videos, and podcasts.</li>
+                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">NotebookLM</strong><br />Add class readings or your own documents, then ask questions tied to those sources. Use it to make a study guide or clarify a concept, and check the citations against the original material.</li>
+                    <li><strong className="text-gray-800">Zoho Notebook</strong><br />Keep class notes, lists, and references organized in notebooks; explore its student-focused AI features where available.</li>
+                    <li><strong className="text-gray-800">Recall</strong><br />Save articles, videos, or podcasts and use summaries as a quick review layer. Keep the original source for details and context.</li>
                   </ul>
                 </div>
                 <div className="rounded-xl bg-white p-5">
                   <p className="font-semibold text-gray-900">Research & standards</p>
-                  <ul className="mt-3 flex flex-col gap-3 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">Elicit</strong> — search academic papers and organize research findings.</li>
-                    <li><strong className="text-gray-800">Agent Skills</strong> — reusable workflows that teach AI agents how to perform a task. <a className="text-blue-700 underline underline-offset-2" href="https://agentskills.io" target="_blank" rel="noreferrer">Learn more</a>.</li>
-                    <li><strong className="text-gray-800">MCP</strong> — a standard for connecting AI assistants to apps and data. <a className="text-blue-700 underline underline-offset-2" href="https://modelcontextprotocol.io" target="_blank" rel="noreferrer">Explore MCP</a>.</li>
+                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
+                    <li><strong className="text-gray-800">Elicit</strong><br />Find relevant academic papers and extract comparable details to support a literature review. Confirm study methods and findings in each paper.</li>
+                    <li><strong className="text-gray-800">Agent Skills</strong><br />A format for reusable instructions that help compatible AI agents follow a repeatable workflow. Useful for standardizing tasks such as code review or research. <a className="text-blue-700 underline underline-offset-2" href="https://agentskills.io" target="_blank" rel="noreferrer">Learn more</a>.</li>
+                    <li><strong className="text-gray-800">MCP</strong><br />Model Context Protocol lets compatible AI tools connect to external apps and data through a shared interface. Consider permissions carefully before connecting sensitive accounts. <a className="text-blue-700 underline underline-offset-2" href="https://modelcontextprotocol.io" target="_blank" rel="noreferrer">Explore MCP</a>.</li>
                   </ul>
                 </div>
               </div>
+              <p className="mt-5 rounded-lg bg-amber-100/70 p-4 text-sm leading-6 text-amber-950">For coursework, follow your institution&apos;s AI policy. AI summaries can omit context or make mistakes; cite the original source and write final explanations in your own words.</p>
             </article>
 
             <article className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-7 md:p-8 lg:col-span-2">
@@ -184,27 +194,36 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-gray-900">Dropshipping & AI dropshipping</h3>
                   </div>
                   <p className="mt-3 leading-7 text-gray-600">
-                    Dropshipping is an ecommerce model where a supplier ships products directly to customers. AI can help with research and routine work, but it cannot guarantee demand or profit.
+                    In dropshipping, your store takes the order while a third-party supplier stores and ships the item. You still own the customer experience: pricing, accurate product information, support, refunds, and clear delivery expectations. AI dropshipping means using AI tools to assist parts of that work—it does not remove the need to verify suppliers or comply with the law.
                   </p>
+                  <p className="mt-4 text-sm leading-6 text-gray-600"><strong className="text-gray-800">A useful mental model:</strong> You are responsible for the promise your store makes, even when another company fulfills the package.</p>
                 </div>
-                <div className="grid gap-4 sm:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div className="rounded-xl bg-white p-5">
-                    <p className="font-semibold text-gray-900">1. Validate first</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Research customer needs and competition. Check supplier reliability, shipping times, returns, and product quality before listing.</p>
+                    <p className="font-semibold text-gray-900">1. Choose a customer problem</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Start with a defined audience and need, not a viral-product list. Read reviews and community discussions to learn what people value, what disappoints them, and what alternatives they already use.</p>
                   </div>
                   <div className="rounded-xl bg-white p-5">
-                    <p className="font-semibold text-gray-900">2. Use AI as a helper</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Brainstorm niches, compare product feedback, draft listings, translate copy, and plan customer-support replies. Verify every claim and detail.</p>
+                    <p className="font-semibold text-gray-900">2. Vet products & suppliers</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Order samples where possible. Confirm stock consistency, packaging, tracking, delivery ranges, return handling, product safety, and who pays for defects or lost parcels.</p>
                   </div>
                   <div className="rounded-xl bg-white p-5">
-                    <p className="font-semibold text-gray-900">3. Know the numbers</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Calculate product, shipping, platform, payment, advertising, and refund costs. Follow consumer-protection and advertising rules in your market.</p>
+                    <p className="font-semibold text-gray-900">3. Calculate true margin</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Subtract product and shipping costs, transaction and platform fees, taxes, ad spend, discounts, refunds, and chargebacks from the sale price. Model a conservative scenario before launch.</p>
+                  </div>
+                  <div className="rounded-xl bg-white p-5">
+                    <p className="font-semibold text-gray-900">4. Build trust & test small</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Publish truthful photos and descriptions, clear delivery windows, contact details, and a workable refund policy. Test a small campaign and pause if service quality or unit economics are poor.</p>
+                  </div>
+                  <div className="rounded-xl bg-white p-5 sm:col-span-2">
+                    <p className="font-semibold text-gray-900">Where AI can help—and where it cannot</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-600">Use AI to cluster review themes, outline product comparisons, draft and translate listing copy, generate customer-service templates, or summarize campaign results. Check source data, edit for accuracy and brand voice, and never invent reviews, certifications, inventory, shipping promises, or product benefits. AI cannot validate a supplier, guarantee sales, or replace your legal and customer-service responsibilities.</p>
                   </div>
                 </div>
               </div>
               <p className="mt-5 flex items-center gap-2 text-sm text-emerald-900">
-                <Users className="size-4" aria-hidden="true" />
-                Start with a small test and transparent delivery expectations; treat AI suggestions as drafts, not proof of product quality or market demand.
+                <Users className="size-4 shrink-0" aria-hidden="true" />
+                Before accepting orders, check the consumer, tax, privacy, product-safety, and advertising rules that apply in your location and to your customers.
               </p>
             </article>
           </div>
