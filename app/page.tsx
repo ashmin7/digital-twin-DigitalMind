@@ -15,11 +15,54 @@ import {
 } from "lucide-react"
 
 const skills = [
-  { title: "Cloud security", items: "AWS IAM · Cognito · CloudWatch · Secrets Manager · API Gateway · Azure fundamentals" },
-  { title: "Identity & access", items: "MFA · Access control · API security · mTLS fundamentals" },
-  { title: "Security operations", items: "Monitoring · Alerting · Vulnerability assessment · Incident detection" },
-  { title: "Networks & systems", items: "TCP/IP · DNS · Firewalls · IDS/IPS · Windows Server · Active Directory · Ubuntu" },
-  { title: "Development", items: "Next.js · TypeScript · Supabase · Vercel" },
+  { title: "Cloud security", items: "AWS IAM policies · Cognito MFA · CloudWatch monitoring · Secrets Manager · API Gateway · Azure fundamentals" },
+  { title: "Identity & access", items: "Least-privilege access · User permissions · Multi-factor authentication · Certificate-based API security" },
+  { title: "Security operations", items: "Security event monitoring · Alerting and dashboards · Incident detection · Threat research" },
+  { title: "Network defence", items: "TCP/IP · DNS · Firewall rules · IDS/IPS · Network segmentation · LAN/WAN" },
+  { title: "Systems & assessment", items: "Windows Server · Active Directory · Ubuntu Linux · Vulnerability assessment · Controlled penetration-testing labs" },
+  { title: "Development & tooling", items: "Next.js · TypeScript · Supabase · Vercel · GitHub · Virtual machines" },
+]
+
+const securityFocus = [
+  { title: "Protect identity & data", detail: "Use scoped permissions, MFA, secrets management, and safer API connections to reduce unnecessary exposure." },
+  { title: "See what is happening", detail: "Build monitoring dashboards and alerts that bring security-relevant events into view for investigation." },
+  { title: "Understand the attack surface", detail: "Practice vulnerability assessment and common web-attack scenarios in controlled learning environments." },
+  { title: "Strengthen the network", detail: "Explore firewalls, IDS/IPS, segmentation, and core networking concepts as layers of defensive control." },
+]
+
+const projects = [
+  {
+    name: "Live Hacking Lab 1",
+    type: "Cybersecurity lab · featured",
+    description: "A live, controlled environment for exploring web security scenarios and defensive measures, including authentication, access control, and activity logging.",
+    url: "https://digital-twin-digitalmind222.vercel.app",
+    linkLabel: "Open live hacking lab",
+    tags: ["Web security", "Authentication", "Logging", "Next.js"],
+  },
+  {
+    name: "Digital Twin DigitalMind 111",
+    type: "Cybersecurity portfolio deployment",
+    description: "A deployed Digital Twin project from my security portfolio work. Visit the live site to explore the project directly.",
+    url: "https://digital-twin-digitalmind111-ashmin7s-projects.vercel.app",
+    linkLabel: "Open Digital Twin 111",
+    tags: ["Digital Twin", "Cybersecurity", "Live deployment"],
+  },
+  {
+    name: "AI Study Assistant",
+    type: "AI learning project",
+    description: "An AI-focused study project that reflects my interest in applying modern web tools to make learning and technical concepts easier to explore.",
+    url: "https://notes.ashminaryal.info",
+    linkLabel: "Open AI Study Assistant",
+    tags: ["AI", "Learning", "Web development"],
+  },
+  {
+    name: "My Digital Portfolio",
+    type: "Personal portfolio project",
+    description: "A personal site for presenting my learning, technical interests, and project work in one place.",
+    url: "https://my-digital-portfolio-ashmin7s-projects.vercel.app",
+    linkLabel: "Open digital portfolio",
+    tags: ["Portfolio", "Web development", "Vercel"],
+  },
 ]
 
 const experience = [
@@ -69,7 +112,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-[#53645d]">
-            <a className="inline-flex items-center gap-2 hover:text-[#15251f]" href="https://www.linkedin.com/in/ashmin-aryal-b42bab2a9" target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> LinkedIn</a>
+            <a className="inline-flex items-center gap-2 hover:text-[#15251f]" href="https://www.linkedin.com/in/ashmin-aryal-b42bab2a9" target="_blank" rel="noreferrer"><Linkedin size={16} aria-hidden="true" /> linkedin.com/in/ashmin-aryal-b42bab2a9</a>
             <a className="inline-flex items-center gap-2 hover:text-[#15251f]" href="https://github.com/ashmin7" target="_blank" rel="noreferrer"><Github size={16} aria-hidden="true" /> GitHub</a>
             <a className="inline-flex items-center gap-2 hover:text-[#15251f]" href="https://ashminaryal.info" target="_blank" rel="noreferrer"><ArrowUpRight size={16} aria-hidden="true" /> Portfolio</a>
           </div>
@@ -119,31 +162,38 @@ export default function Home() {
         </article>
       </section>
 
-      <section id="projects" className="bg-[#173b32] text-white">
+      <section aria-labelledby="security-focus-heading" className="border-y border-[#dce5dc] bg-[#eef2eb]">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#d5f46a]">03 / Selected work</p><h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Practice. Test. Defend.</h2></div><p className="max-w-sm text-sm leading-6 text-[#c3d7ca]">A personal security lab and controlled university exercises.</p></div>
-          <div className="grid gap-5 md:grid-cols-2">
-            <article className="flex flex-col rounded-[1.5rem] border border-white/15 bg-white/[.06] p-6 sm:p-8">
-              <div className="flex items-center justify-between"><span className="grid size-11 place-items-center rounded-xl bg-[#d5f46a] text-[#173b32]"><Terminal size={21} aria-hidden="true" /></span><span className="text-xs uppercase tracking-[.15em] text-[#c3d7ca]">Featured project</span></div>
-              <h3 className="mt-6 text-2xl font-medium">Digital Twin III</h3><p className="mt-1 text-sm text-[#d5f46a]">Live Cybersecurity Hacking Lab</p>
-              <p className="mt-4 text-sm leading-6 text-[#c3d7ca]">A secure portfolio that doubles as a controlled space to understand common web attack patterns and test defensive measures.</p>
-              <ul className="mt-5 flex flex-col gap-2 text-sm text-[#e5eee8]"><li>Simulated SQL injection, XSS, login bypass, and bot traffic scenarios.</li><li>Added secure authentication, access control, and activity logging.</li><li>Explored detection and protective controls in a live environment.</li></ul>
-              <div className="mt-6 flex flex-wrap gap-2">{["Next.js", "TypeScript", "Supabase", "Vercel"].map((tag) => <span key={tag} className="rounded-full border border-white/15 px-3 py-1 text-xs text-[#dce8e0]">{tag}</span>)}</div>
-              <a href="https://digital-twin-digitalmind222.vercel.app" target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-[#d5f46a] hover:text-white">View live project <ArrowUpRight size={15} aria-hidden="true" /></a>
-            </article>
-            <article className="flex flex-col rounded-[1.5rem] border border-white/15 bg-white/[.06] p-6 sm:p-8">
-              <div className="flex items-center justify-between"><span className="grid size-11 place-items-center rounded-xl bg-white/10 text-[#d5f46a]"><Shield size={21} aria-hidden="true" /></span><span className="text-xs uppercase tracking-[.15em] text-[#c3d7ca]">University labs</span></div>
-              <h3 className="mt-6 text-2xl font-medium">Network defence & threat analysis</h3><p className="mt-1 text-sm text-[#d5f46a]">Controlled security exercises</p>
-              <p className="mt-4 text-sm leading-6 text-[#c3d7ca]">Practical exercises in defensive security, completed in controlled learning environments.</p>
-              <ul className="mt-5 flex flex-col gap-2 text-sm text-[#e5eee8]"><li>Configured and tested firewall rules, IDS/IPS, and network segmentation.</li><li>Completed vulnerability assessments and penetration-testing exercises.</li><li>Analysed malware samples and incident scenarios to understand attack patterns and defensive responses.</li></ul>
-              <div className="mt-6 flex flex-wrap gap-2">{["Firewalls", "IDS/IPS", "Vulnerability assessment", "Incident analysis"].map((tag) => <span key={tag} className="rounded-full border border-white/15 px-3 py-1 text-xs text-[#dce8e0]">{tag}</span>)}</div>
-            </article>
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#718e3d]">03 / Security focus</p>
+            <h2 id="security-focus-heading" className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">A practical, defence-first mindset.</h2>
+            <p className="mt-4 text-base leading-7 text-[#53645d]">My learning connects identity, cloud configuration, network controls, and visibility—so I can understand how security measures work together, not in isolation.</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {securityFocus.map((item, index) => <article key={item.title} className="rounded-2xl border border-[#d8e1d6] bg-white p-5"><div className="mb-5 flex items-center justify-between"><span className="grid size-10 place-items-center rounded-xl bg-[#e8efe3] text-[#43644b]"><Shield size={19} aria-hidden="true" /></span><span className="font-mono text-xs text-[#8a9a8e]">0{index + 1}</span></div><h3 className="font-semibold tracking-tight">{item.title}</h3><p className="mt-2 text-sm leading-6 text-[#64736b]">{item.detail}</p></article>)}
           </div>
         </div>
       </section>
 
+      <section id="projects" className="bg-[#173b32] text-white">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#d5f46a]">04 / Projects</p><h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Work I&apos;ve put into the world.</h2></div><p className="max-w-sm text-sm leading-6 text-[#c3d7ca]">Explore my cybersecurity, AI learning, and portfolio projects.</p></div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {projects.map((project, index) => <article key={project.name} className="flex flex-col rounded-[1.5rem] border border-white/15 bg-white/[.06] p-6 transition-colors hover:bg-white/[.09] sm:p-7">
+              <div className="flex items-center justify-between"><span className="grid size-11 place-items-center rounded-xl bg-[#d5f46a] text-[#173b32]"><Terminal size={20} aria-hidden="true" /></span><span className="font-mono text-xs text-[#c3d7ca]">PROJECT 0{index + 1}</span></div>
+              <p className="mt-6 text-xs font-semibold uppercase tracking-[.15em] text-[#d5f46a]">{project.type}</p>
+              <h3 className="mt-2 text-2xl font-medium tracking-tight">{project.name}</h3>
+              <p className="mt-3 flex-1 text-sm leading-6 text-[#c3d7ca]">{project.description}</p>
+              <div className="mt-5 flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full border border-white/15 px-3 py-1 text-xs text-[#dce8e0]">{tag}</span>)}</div>
+              <a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-medium text-[#d5f46a] hover:text-white">{project.linkLabel} <ArrowUpRight size={15} aria-hidden="true" /></a>
+            </article>)}
+          </div>
+          <div className="mt-5 rounded-2xl border border-white/10 bg-[#102f28]/60 p-5 sm:flex sm:items-center sm:justify-between sm:gap-8"><div><p className="text-xs font-semibold uppercase tracking-[.15em] text-[#d5f46a]">Academic project work</p><p className="mt-2 text-sm leading-6 text-[#c3d7ca]">University security labs: firewall configuration, IDS/IPS testing, network segmentation, controlled vulnerability assessments, penetration-testing exercises, and malware / incident analysis.</p></div><span className="mt-4 inline-flex shrink-0 rounded-full border border-white/15 px-3 py-1 text-xs text-[#dce8e0] sm:mt-0">Victoria University</span></div>
+        </div>
+      </section>
+
       <section id="skills" className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <div className="mb-10"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#718e3d]">04 / Toolkit</p><h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Skills I&apos;m building on.</h2></div>
+        <div className="mb-10"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#718e3d]">05 / Toolkit</p><h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Skills I&apos;m building on.</h2></div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((skill, index) => <article key={skill.title} className="rounded-2xl border border-[#e1e7df] bg-white p-5"><div className="flex items-center justify-between"><h3 className="font-semibold">{skill.title}</h3><span className="text-xs font-mono text-[#8a9a8e]">0{index + 1}</span></div><p className="mt-3 text-sm leading-6 text-[#64736b]">{skill.items}</p></article>)}
         </div>
