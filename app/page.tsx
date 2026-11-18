@@ -59,7 +59,7 @@ const projects = [
     name: "My Digital Portfolio",
     type: "Personal portfolio project",
     description: "A personal site for presenting my learning, technical interests, and project work in one place.",
-    url: "https://my-digital-portfolio-ashmin7s-projects.vercel.app",
+    url: "https://ashminaryal.info",
     linkLabel: "Open digital portfolio",
     tags: ["Portfolio", "Web development", "Vercel"],
   },
