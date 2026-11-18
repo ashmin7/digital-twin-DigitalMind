@@ -120,7 +120,7 @@ function SectionHeading({
 function SiteHeader() {
   return (
     <header className="relative z-10 mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8 lg:px-12">
-      <a href="#home" className="group inline-flex items-center gap-3 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c7f36a]" aria-label="Ashmin Aryal, home">
+      <a href="/" className="group inline-flex items-center gap-3 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c7f36a]" aria-label="Ashmin Aryal, home">
         <span className="grid size-10 place-items-center border border-[#34423b] bg-[#111a16] font-mono text-xs font-semibold text-[#c7f36a]">AA<span className="sr-only"> initials</span></span>
         <span className="flex flex-col gap-0.5">
           <span className="text-sm font-semibold tracking-[0.08em] text-[#f1f4ee]">ASHMIN ARYAL</span>
@@ -129,10 +129,10 @@ function SiteHeader() {
       </a>
 
       <nav aria-label="Main navigation" className="order-3 flex w-full items-center gap-6 overflow-x-auto border-t border-[#25312b] pt-4 text-xs text-[#a0aea5] sm:order-none sm:w-auto sm:border-0 sm:pt-0 sm:text-sm">
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#about">About</a>
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#experience">Experience</a>
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#projects">Projects</a>
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#toolkit">Toolkit</a>
+        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="/about">About</a>
+        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="/experience">Experience</a>
+        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="/projects">Projects</a>
+        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="/toolkit">Toolkit</a>
       </nav>
 
       <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashminaryal111%40gmail.com" {...externalLinkProps} className="inline-flex items-center gap-2 border border-[#405047] px-4 py-2.5 text-xs font-semibold text-[#f1f4ee] transition-colors hover:border-[#c7f36a] hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c7f36a]">
@@ -354,22 +354,35 @@ function ContactSection() {
         </div>
         <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-[#2b3831] pt-5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#77857c]">
           <span>© 2026 Ashmin Aryal</span>
-          <a href="#home" className="transition-colors hover:text-[#c7f36a]">Back to top ↑</a>
+          <a href="/" className="transition-colors hover:text-[#c7f36a]">Back to top ↑</a>
         </div>
       </div>
     </footer>
   )
 }
 
-export default function PortfolioPage() {
+export type PortfolioPageName = "home" | "about" | "experience" | "projects" | "toolkit"
+
+export default function PortfolioPage({ page = "home" }: { page?: PortfolioPageName }) {
+  const section = {
+    about: <AboutSection />,
+    experience: <ExperienceSection />,
+    projects: <ProjectsSection />,
+    toolkit: <ToolkitSection />,
+  }[page as Exclude<PortfolioPageName, "home">]
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#080d0b] text-[#f1f4ee]">
       <SiteHeader />
-      <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <ToolkitSection />
+      {page === "home" ? (
+        <>
+          <HeroSection />
+          <AboutSection />
+          <ExperienceSection />
+          <ProjectsSection />
+          <ToolkitSection />
+        </>
+      ) : section}
       <ContactSection />
     </main>
   )
