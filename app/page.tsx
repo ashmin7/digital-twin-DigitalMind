@@ -1,208 +1,131 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
+import { useMemo, useState } from "react"
 import {
-  GithubIcon,
-  GitBranchIcon,
-  Zap,
-  BookOpen,
+  Activity,
+  ArrowDownRight,
   ArrowRight,
+  ArrowUpRight,
+  Bell,
+  BookOpen,
+  Check,
+  ChevronDown,
+  Clock3,
+  Command,
+  Crosshair,
+  FileSearch,
+  Filter,
+  Flag,
+  Globe2,
+  LockKeyhole,
   Menu,
-  X,
-  BrainCircuit,
-  Bot,
-  ShoppingCart,
-  Sparkles,
-  Code2,
+  Radio,
+  Search,
+  Shield,
+  ShieldAlert,
   ShieldCheck,
-  Workflow,
-  BriefcaseBusiness,
-  Database,
-  Rocket,
-  LineChart,
+  Terminal,
+  X,
+  Zap,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
 
-const learningSections = [
-  {
-    eyebrow: "Build with AI",
-    title: "AI, tools & technology",
-    description: "Understand the ideas and tools changing how people build, learn, and work.",
-    topics: [
-      { title: "Generative AI", description: "How language, image, and multimodal models turn prompts into useful drafts, ideas, and software.", icon: BrainCircuit, color: "violet", tag: "Core concept" },
-      { title: "Claude", description: "Explore Claude for writing, analysis, coding, and working through long documents with context.", icon: Sparkles, color: "orange", tag: "AI assistant" },
-      { title: "AI agents", description: "Learn how agents combine a model, tools, and a goal to complete multi-step tasks with human oversight.", icon: Bot, color: "blue", tag: "Emerging tech" },
-      { title: "Prompt engineering", description: "Give AI clear context, constraints, examples, and success criteria for more reliable results.", icon: BookOpen, color: "amber", tag: "Practical skill" },
-      { title: "AI coding tools", description: "Use coding assistants to explore unfamiliar code, generate tests, and speed up everyday development.", icon: Code2, color: "cyan", tag: "Developer tools" },
-      { title: "AI automation", description: "Connect repetitive tasks into workflows, and keep approvals in place for consequential actions.", icon: Workflow, color: "emerald", tag: "Productivity" },
-      { title: "Data & machine learning", description: "A friendly introduction to datasets, model training, evaluation, and responsible use of predictions.", icon: Database, color: "indigo", tag: "Technology" },
-      { title: "AI safety & privacy", description: "Check outputs, protect sensitive information, and understand bias, permissions, and data handling.", icon: ShieldCheck, color: "rose", tag: "Work smarter" },
-    ],
-  },
-  {
-    eyebrow: "Start something",
-    title: "Online business & careers",
-    description: "Get grounded introductions to modern business models and the skills behind them.",
-    topics: [
-      { title: "Dropshipping basics", description: "Understand the supplier-fulfilled retail model, margins, shipping expectations, and customer service.", icon: ShoppingCart, color: "cyan", tag: "E-commerce" },
-      { title: "AI dropshipping", description: "See where AI can help with product research, product descriptions, support, and creative testing—without promising easy profits.", icon: Rocket, color: "violet", tag: "AI + business" },
-      { title: "E-commerce essentials", description: "Learn how storefronts, product pages, checkout, fulfillment, and returns fit together.", icon: LineChart, color: "emerald", tag: "Business skills" },
-      { title: "Future-ready skills", description: "Build durable skills in communication, critical thinking, digital literacy, and learning new tools.", icon: BriefcaseBusiness, color: "amber", tag: "Career growth" },
-    ],
-  },
+const labs = [
+  { title: "Harden the perimeter", category: "Defensive ops", level: "Beginner", time: "12 min", icon: ShieldCheck, accent: "mint", description: "Review a fictional service configuration and close common security gaps." },
+  { title: "Trace the signal", category: "Threat hunting", level: "Intermediate", time: "18 min", icon: FileSearch, accent: "blue", description: "Follow a suspicious login through a curated, synthetic event timeline." },
+  { title: "Spot the phish", category: "Awareness", level: "Beginner", time: "8 min", icon: Radio, accent: "amber", description: "Inspect a mock message and learn the clues that reveal social engineering." },
+  { title: "Map the attack surface", category: "Threat modeling", level: "Intermediate", time: "20 min", icon: Crosshair, accent: "violet", description: "Model a sample application, prioritize risks, and plan mitigations." },
+  { title: "Read the headers", category: "Web security", level: "Beginner", time: "10 min", icon: Globe2, accent: "blue", description: "Explore a safe response-header exercise and improve a demo configuration." },
+  { title: "Incident first response", category: "Incident response", level: "Advanced", time: "25 min", icon: Activity, accent: "rose", description: "Triage a contained incident scenario and document your response decisions." },
 ]
 
-const topicStyles: Record<string, string> = {
-  violet: "border-violet-200 text-violet-600",
-  orange: "border-orange-200 text-orange-600",
-  blue: "border-blue-200 text-blue-600",
-  amber: "border-amber-200 text-amber-600",
-  cyan: "border-cyan-200 text-cyan-600",
-  emerald: "border-emerald-200 text-emerald-600",
-  indigo: "border-indigo-200 text-indigo-600",
-  rose: "border-rose-200 text-rose-600",
-}
+const filters = ["All labs", "Defensive ops", "Threat hunting", "Awareness"]
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeFilter, setActiveFilter] = useState("All labs")
+  const [search, setSearch] = useState("")
+  const [activeLab, setActiveLab] = useState<string | null>(null)
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+
+  const visibleLabs = useMemo(() => labs.filter((lab) => {
+    const matchesFilter = activeFilter === "All labs" || lab.category === activeFilter
+    const matchesSearch = `${lab.title} ${lab.category} ${lab.description}`.toLowerCase().includes(search.toLowerCase())
+    return matchesFilter && matchesSearch
+  }), [activeFilter, search])
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-            DevTools Guide
-          </div>
-
-          <button className="md:hidden text-gray-800" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
+    <main className="lab-shell min-h-screen bg-[#0b1116] text-[#e8eff1]">
+      <aside className={`lab-sidebar ${mobileNavOpen ? "lab-sidebar-open" : ""}`}>
+        <div className="flex items-center gap-3 px-6 py-7">
+          <div className="grid size-9 place-items-center rounded-xl bg-[#b8f36b] text-[#13200c]"><Shield size={19} strokeWidth={2.5} /></div>
+          <div><p className="text-sm font-bold tracking-wide">FIELDNOTE</p><p className="text-[10px] uppercase tracking-[0.2em] text-[#75848c]">Cyber range</p></div>
+          <button onClick={() => setMobileNavOpen(false)} className="ml-auto rounded-md p-1 text-[#8b989d] md:hidden" aria-label="Close navigation"><X size={18} /></button>
+        </div>
+        <div className="px-4 pb-5"><div className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.025] px-3 py-2 text-xs text-[#75848c]"><Command size={13} /><span>Search anything</span><kbd className="ml-auto rounded border border-white/10 px-1.5 py-0.5 text-[10px]">⌘ K</kbd></div></div>
+        <p className="px-6 pb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#65747c]">Workspace</p>
+        <nav aria-label="Main navigation" className="flex flex-col gap-1 px-3">
+          <a href="#overview" className="side-link side-link-active"><Activity size={16} />Overview</a>
+          <a href="#labs" className="side-link"><Terminal size={16} />Training labs<span className="ml-auto rounded-full bg-white/[0.08] px-2 py-0.5 text-[10px]">06</span></a>
+          <a href="#progress" className="side-link"><Flag size={16} />My progress</a>
+          <a href="#field-guide" className="side-link"><BookOpen size={16} />Field guide</a>
+        </nav>
+        <div className="mx-5 my-6 border-t border-white/[0.07]" />
+        <div className="mx-4 rounded-xl border border-[#b8f36b]/15 bg-[#b8f36b]/[0.055] p-4">
+          <div className="mb-3 flex items-center gap-2 text-[#b8f36b]"><LockKeyhole size={14} /><span className="text-[10px] font-semibold uppercase tracking-[0.14em]">Safe by design</span></div>
+          <p className="text-xs leading-relaxed text-[#9ca9a8]">Every exercise runs on fictional scenarios and isolated training materials.</p>
+        </div>
+        <div className="mt-auto border-t border-white/[0.07] p-4">
+          <button className="flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-white/[0.04]">
+            <div className="grid size-8 place-items-center rounded-full bg-[#243a35] text-xs font-semibold text-[#b8f36b]">JD</div><div className="min-w-0 flex-1"><p className="truncate text-xs font-medium">Jordan Davis</p><p className="text-[10px] text-[#75848c]">Learner account</p></div><ChevronDown size={14} className="text-[#75848c]" />
           </button>
+        </div>
+      </aside>
 
-          <div
-            className={`${mobileMenuOpen ? "flex" : "hidden"} md:flex gap-8 absolute md:relative top-full left-0 md:top-auto md:left-auto w-full md:w-auto flex-col md:flex-row bg-white md:bg-transparent p-6 md:p-0`}
-          >
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition">
-              Home
-            </Link>
-            <Link href="/github" className="text-gray-700 hover:text-blue-600 transition">
-              GitHub
-            </Link>
-            <Link href="/git" className="text-gray-700 hover:text-blue-600 transition">
-              Git
-            </Link>
-            <Link href="/v0-templates" className="text-gray-700 hover:text-blue-600 transition">
-              v0 Templates
-            </Link>
-            <Link href="/notebooklm" className="text-gray-700 hover:text-blue-600 transition">
-              Notebook LM
-            </Link>
+      <section className="lab-main" id="overview">
+        <header className="flex h-[70px] items-center justify-between border-b border-white/[0.07] px-5 md:px-10">
+          <div className="flex items-center gap-3"><button className="rounded-lg p-2 text-[#a1adb1] md:hidden" aria-label="Open navigation" onClick={() => setMobileNavOpen(true)}><Menu size={19} /></button><div className="hidden items-center gap-2 text-xs text-[#74828a] sm:flex"><span>Workspace</span><span>/</span><span className="text-[#dce4e5]">Overview</span></div><span className="text-sm font-semibold sm:hidden">Overview</span></div>
+          <div className="flex items-center gap-3"><span className="hidden rounded-full border border-[#b8f36b]/20 bg-[#b8f36b]/[0.06] px-3 py-1.5 text-[10px] font-medium text-[#b8f36b] sm:inline-flex"><span className="mr-2 mt-1 size-1.5 rounded-full bg-[#b8f36b]" />TRAINING ENVIRONMENT</span><button className="relative rounded-lg border border-white/[0.08] p-2 text-[#9aa7aa] hover:bg-white/[0.04]" aria-label="Notifications"><Bell size={16} /><span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-[#b8f36b]" /></button></div>
+        </header>
+
+        <div className="mx-auto max-w-[1320px] px-5 pb-16 pt-8 md:px-10 md:pt-10">
+          <div className="mb-9 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
+            <div><p className="mb-3 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-[#b8f36b]"><span className="size-1.5 rounded-full bg-[#b8f36b]" />Tuesday, November 18, 2026</p><h1 className="text-3xl font-semibold tracking-[-0.04em] text-[#edf2f1] md:text-[40px]">Good morning, Jordan<span className="text-[#b8f36b]">.</span></h1><p className="mt-2 text-sm text-[#89979c]">A little practice today makes a stronger defender tomorrow.</p></div>
+            <button onClick={() => document.getElementById("labs")?.scrollIntoView({ behavior: "smooth" })} className="flex w-fit items-center gap-2 rounded-lg bg-[#b8f36b] px-4 py-2.5 text-xs font-semibold text-[#14200e] transition hover:bg-[#c9ff83]">Pick up a lab <ArrowRight size={15} /></button>
           </div>
-        </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="relative max-w-6xl mx-auto px-6 py-32 text-center">
-        <div className="space-y-8">
-          <h1 className="text-6xl md:text-7xl font-bold text-gray-900 text-balance">
-            Master Essential{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              Developer Tools
-            </span>
-          </h1>
+          <div className="mb-8 grid gap-4 md:grid-cols-3">
+            <article className="stat-card"><div className="flex items-start justify-between"><div><p className="text-xs text-[#89979c]">Learning streak</p><p className="mt-3 text-3xl font-semibold tracking-tight">04 <span className="text-sm font-normal text-[#89979c]">days</span></p></div><span className="stat-icon text-[#b8f36b]"><Zap size={17} /></span></div><div className="mt-4 flex items-center gap-2 text-[10px] text-[#b8f36b]"><ArrowUpRight size={13} />You’re building a habit</div></article>
+            <article className="stat-card"><div className="flex items-start justify-between"><div><p className="text-xs text-[#89979c]">Labs completed</p><p className="mt-3 text-3xl font-semibold tracking-tight">08 <span className="text-sm font-normal text-[#89979c]">/ 24</span></p></div><span className="stat-icon text-[#7ec9ed]"><Check size={17} /></span></div><div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/[0.07]"><div className="h-full w-1/3 rounded-full bg-[#7ec9ed]" /></div></article>
+            <article className="stat-card"><div className="flex items-start justify-between"><div><p className="text-xs text-[#89979c]">Practice time</p><p className="mt-3 text-3xl font-semibold tracking-tight">3.5 <span className="text-sm font-normal text-[#89979c]">hrs</span></p></div><span className="stat-icon text-[#d3a7ff]"><Clock3 size={17} /></span></div><div className="mt-4 flex items-center gap-2 text-[10px] text-[#a9b3b5]"><ArrowDownRight size={13} className="text-[#b8f36b]" />45 min this week</div></article>
+          </div>
 
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto text-balance">
-            Learn how GitHub, Git, v0 Templates, and Notebook LM can transform your development workflow and boost
-            productivity
-          </p>
-
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl" asChild>
-            <Link href="/github">
-              Start Learning <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-          </Button>
-        </div>
-
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-20">
-          <Link href="/github">
-            <div className="bg-white border border-blue-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <GithubIcon className="w-12 h-12 text-blue-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">GitHub</h3>
-              <p className="text-gray-600 mb-4">Cloud hosting & version control for collaborative development</p>
-              <span className="text-blue-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-
-          <Link href="/git">
-            <div className="bg-white border border-cyan-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <GitBranchIcon className="w-12 h-12 text-cyan-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Git</h3>
-              <p className="text-gray-600 mb-4">Version control system for tracking code changes</p>
-              <span className="text-cyan-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-
-          <Link href="/v0-templates">
-            <div className="bg-white border border-purple-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <Zap className="w-12 h-12 text-purple-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">v0 Templates</h3>
-              <p className="text-gray-600 mb-4">AI-powered project templates for rapid development</p>
-              <span className="text-purple-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-
-          <Link href="/notebooklm">
-            <div className="bg-white border border-amber-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <BookOpen className="w-12 h-12 text-amber-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Notebook LM</h3>
-              <p className="text-gray-600 mb-4">AI study assistant for learning & document management</p>
-              <span className="text-amber-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-        </div>
-
-        <div className="mt-28 space-y-24 text-left">
-          {learningSections.map((section) => (
-            <section key={section.title} aria-labelledby={`${section.title.replaceAll(" ", "-")}-heading`}>
-              <div className="mb-10 max-w-2xl">
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">{section.eyebrow}</p>
-                <h2 id={`${section.title.replaceAll(" ", "-")}-heading`} className="text-3xl font-bold text-gray-900 md:text-4xl">{section.title}</h2>
-                <p className="mt-4 text-lg leading-relaxed text-gray-600">{section.description}</p>
+          <section id="progress" className="mb-10 grid gap-5 lg:grid-cols-[1.45fr_1fr]">
+            <article className="feature-card relative overflow-hidden">
+              <div className="feature-orb" aria-hidden="true" /><div className="relative z-10 max-w-lg">
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#b8f36b]/20 bg-[#b8f36b]/[0.07] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-[#b8f36b]"><ShieldAlert size={13} />Continue learning</div>
+                <p className="mb-2 text-[10px] uppercase tracking-[0.15em] text-[#829092]">Your current path · Module 03</p><h2 className="text-2xl font-semibold tracking-tight">Foundations of threat hunting</h2><p className="mt-2 max-w-md text-xs leading-relaxed text-[#9aa7aa]">Learn to recognize patterns in sample security events and distinguish signal from noise.</p>
+                <div className="mt-6 flex flex-wrap items-center gap-4"><button onClick={() => setActiveLab("Trace the signal")} className="inline-flex items-center gap-2 rounded-lg bg-[#b8f36b] px-4 py-2.5 text-xs font-semibold text-[#14200e] hover:bg-[#c9ff83]">Resume module <ArrowRight size={14} /></button><span className="flex items-center gap-1.5 text-[10px] text-[#94a1a3]"><Clock3 size={13} />18 min left</span></div>
+                <div className="mt-6 max-w-xs"><div className="mb-2 flex justify-between text-[10px] text-[#91a0a2]"><span>Path progress</span><span>62%</span></div><div className="h-1 rounded-full bg-white/[0.08]"><div className="h-full w-[62%] rounded-full bg-[#b8f36b]" /></div></div>
               </div>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {section.topics.map((topic) => {
-                  const Icon = topic.icon
-                  return (
-                    <article key={topic.title} className={`group rounded-2xl border bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg ${topicStyles[topic.color]}`}>
-                      <div className="mb-5 flex items-center justify-between gap-3">
-                        <Icon aria-hidden="true" className="size-10 transition-transform group-hover:scale-110" />
-                        <span className="rounded-full bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600">{topic.tag}</span>
-                      </div>
-                      <h3 className="mb-3 text-xl font-bold text-gray-900">{topic.title}</h3>
-                      <p className="text-base leading-relaxed text-gray-600">{topic.description}</p>
-                    </article>
-                  )
-                })}
-              </div>
-            </section>
-          ))}
+            </article>
+            <article className="path-card"><div className="flex items-center justify-between"><div><p className="text-xs text-[#89979c]">Your learning path</p><h2 className="mt-1 text-lg font-semibold">Blue team essentials</h2></div><div className="grid size-10 place-items-center rounded-xl border border-[#7ec9ed]/20 bg-[#7ec9ed]/[0.08] text-[#7ec9ed]"><Shield size={18} /></div></div><div className="mt-6 flex items-end gap-2"><span className="text-3xl font-semibold">62%</span><span className="mb-1 text-[10px] text-[#89979c]">completed</span></div><div className="mt-3 h-1.5 rounded-full bg-white/[0.07]"><div className="h-full w-[62%] rounded-full bg-[#7ec9ed]" /></div><div className="mt-6 flex flex-col gap-3"><div className="path-step"><span className="step-done"><Check size={11} /></span><span>Security fundamentals</span><span className="ml-auto text-[#b8f36b]">Done</span></div><div className="path-step"><span className="step-current"><span /></span><span>Threat hunting</span><span className="ml-auto text-[#7ec9ed]">In progress</span></div><div className="path-step opacity-50"><span className="step-upcoming" /><span>Incident response</span><span className="ml-auto">Next</span></div></div></article>
+          </section>
+
+          <section id="labs">
+            <div className="mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.18em] text-[#b8f36b]"><span className="size-1.5 rounded-full bg-[#b8f36b]" />Practice library</div><h2 className="mt-2 text-2xl font-semibold tracking-tight">Choose your next exercise</h2><p className="mt-1 text-xs text-[#89979c]">Short, guided scenarios built for safe hands-on learning.</p></div><div className="relative w-full md:w-64"><Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#74828a]" /><input aria-label="Search labs" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search the library..." className="w-full rounded-lg border border-white/[0.09] bg-white/[0.025] py-2.5 pl-9 pr-3 text-xs text-[#e8eff1] outline-none transition placeholder:text-[#65747c] focus:border-[#b8f36b]/40" /></div></div>
+            <div className="mb-5 flex flex-wrap items-center gap-2"><Filter size={14} className="mr-1 text-[#65747c]" />{filters.map((filter) => <button key={filter} onClick={() => setActiveFilter(filter)} className={`rounded-full border px-3 py-1.5 text-[10px] transition ${activeFilter === filter ? "border-[#b8f36b]/30 bg-[#b8f36b]/[0.08] text-[#b8f36b]" : "border-white/[0.08] text-[#89979c] hover:border-white/20 hover:text-[#dce4e5]"}`}>{filter}</button>)}</div>
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {visibleLabs.map((lab) => { const Icon = lab.icon; return <article key={lab.title} className="lab-card"><div className="mb-4 flex items-start justify-between"><span className={`lab-icon lab-icon-${lab.accent}`}><Icon size={18} /></span><span className="rounded-full border border-white/[0.08] px-2.5 py-1 text-[9px] text-[#96a2a5]">{lab.level}</span></div><p className="mb-1 text-[10px] font-medium text-[#7f8e92]">{lab.category}</p><h3 className="text-sm font-semibold text-[#e4ebeb]">{lab.title}</h3><p className="mt-2 min-h-[36px] text-[11px] leading-relaxed text-[#89979c]">{lab.description}</p><div className="mt-5 flex items-center justify-between border-t border-white/[0.06] pt-3"><span className="flex items-center gap-1.5 text-[10px] text-[#7e8b90]"><Clock3 size={12} />{lab.time}</span><button onClick={() => setActiveLab(lab.title)} className="flex items-center gap-1.5 text-[10px] font-semibold text-[#b8f36b] hover:text-[#d0ffa1]">Open lab <ArrowRight size={12} /></button></div></article> })}
+            </div>
+            {visibleLabs.length === 0 && <div className="rounded-xl border border-dashed border-white/10 py-12 text-center text-sm text-[#89979c]">No labs match that search. Try another term.</div>}
+            <div className="mt-6 flex items-center justify-center"><button className="flex items-center gap-2 rounded-lg border border-white/[0.1] px-4 py-2.5 text-xs text-[#b4c0c1] transition hover:border-white/20 hover:bg-white/[0.03]">View all 24 labs <ArrowRight size={14} /></button></div>
+          </section>
+
+          <section id="field-guide" className="mt-11 flex flex-col justify-between gap-4 rounded-xl border border-white/[0.07] bg-white/[0.02] p-5 sm:flex-row sm:items-center"><div className="flex items-start gap-3"><div className="grid size-9 shrink-0 place-items-center rounded-lg bg-white/[0.06] text-[#b8f36b]"><BookOpen size={16} /></div><div><h2 className="text-xs font-semibold">Built for ethical practice</h2><p className="mt-1 max-w-xl text-[10px] leading-relaxed text-[#89979c]">Practice only in these fictional, contained exercises. Real systems require explicit authorization before any security testing.</p></div></div><span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/[0.08] px-2.5 py-1.5 text-[9px] text-[#89979c]"><LockKeyhole size={11} />Isolated scenarios</span></section>
+          <footer className="mt-8 flex flex-col justify-between gap-2 border-t border-white/[0.07] pt-5 text-[9px] text-[#637178] sm:flex-row"><span>FIELDNOTE CYBER RANGE <span className="px-1.5">·</span> Learn safely. Defend thoughtfully.</span><span>Fictional training materials · No live targets</span></footer>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-gray-50 py-12">
-        <div className="max-w-6xl mx-auto px-6 text-center text-gray-600">{/* LinkedIn sharing prompt removed */}</div>
-      </footer>
-    </div>
+      {activeLab && <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setActiveLab(null) }}><section role="dialog" aria-modal="true" aria-labelledby="lab-dialog-title" className="w-full max-w-md rounded-2xl border border-white/10 bg-[#111a20] p-6 shadow-2xl"><div className="flex items-start justify-between"><div className="grid size-10 place-items-center rounded-xl bg-[#b8f36b]/10 text-[#b8f36b]"><Terminal size={18} /></div><button onClick={() => setActiveLab(null)} aria-label="Close lab details" className="rounded-md p-1 text-[#89979c] hover:bg-white/5"><X size={18} /></button></div><p className="mt-5 text-[10px] font-medium uppercase tracking-[0.15em] text-[#b8f36b]">Contained training exercise</p><h2 id="lab-dialog-title" className="mt-2 text-xl font-semibold">{activeLab}</h2><p className="mt-2 text-sm leading-relaxed text-[#9aa7aa]">This fictional exercise is part of the learning library. Work through the guided scenario, review the defensive takeaways, and keep all practice within authorized environments.</p><div className="mt-5 flex items-start gap-2 rounded-lg border border-[#b8f36b]/15 bg-[#b8f36b]/[0.05] p-3 text-[11px] leading-relaxed text-[#aeb9b7]"><LockKeyhole size={14} className="mt-0.5 shrink-0 text-[#b8f36b]" />No real systems are contacted. The exercise uses sample data and a simulated environment.</div><button onClick={() => setActiveLab(null)} className="mt-5 w-full rounded-lg bg-[#b8f36b] py-2.5 text-xs font-semibold text-[#14200e] hover:bg-[#c9ff83]">Got it <Check size={14} className="ml-1 inline" /></button></section></div>}
+    </main>
   )
 }

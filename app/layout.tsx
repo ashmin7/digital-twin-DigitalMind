@@ -8,8 +8,8 @@ const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Tech & AI Learning Guide",
-  description: "Explore clear, practical notes on AI, Claude, coding tools, dropshipping, e-commerce, and future-ready skills.",
+  title: "Fieldnote Cyber Range | Practice. Learn. Defend.",
+  description: "Build practical cybersecurity skills with safe, guided, fictional training scenarios in the Fieldnote cyber range.",
   generator: "v0.app",
   icons: {
     icon: [
