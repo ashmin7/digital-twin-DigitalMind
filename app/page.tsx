@@ -2,8 +2,67 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { GithubIcon, GitBranchIcon, Zap, BookOpen, ArrowRight, Menu, X } from "lucide-react"
+import {
+  GithubIcon,
+  GitBranchIcon,
+  Zap,
+  BookOpen,
+  ArrowRight,
+  Menu,
+  X,
+  BrainCircuit,
+  Bot,
+  ShoppingCart,
+  Sparkles,
+  Code2,
+  ShieldCheck,
+  Workflow,
+  BriefcaseBusiness,
+  Database,
+  Rocket,
+  LineChart,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+const learningSections = [
+  {
+    eyebrow: "Build with AI",
+    title: "AI, tools & technology",
+    description: "Understand the ideas and tools changing how people build, learn, and work.",
+    topics: [
+      { title: "Generative AI", description: "How language, image, and multimodal models turn prompts into useful drafts, ideas, and software.", icon: BrainCircuit, color: "violet", tag: "Core concept" },
+      { title: "Claude", description: "Explore Claude for writing, analysis, coding, and working through long documents with context.", icon: Sparkles, color: "orange", tag: "AI assistant" },
+      { title: "AI agents", description: "Learn how agents combine a model, tools, and a goal to complete multi-step tasks with human oversight.", icon: Bot, color: "blue", tag: "Emerging tech" },
+      { title: "Prompt engineering", description: "Give AI clear context, constraints, examples, and success criteria for more reliable results.", icon: BookOpen, color: "amber", tag: "Practical skill" },
+      { title: "AI coding tools", description: "Use coding assistants to explore unfamiliar code, generate tests, and speed up everyday development.", icon: Code2, color: "cyan", tag: "Developer tools" },
+      { title: "AI automation", description: "Connect repetitive tasks into workflows, and keep approvals in place for consequential actions.", icon: Workflow, color: "emerald", tag: "Productivity" },
+      { title: "Data & machine learning", description: "A friendly introduction to datasets, model training, evaluation, and responsible use of predictions.", icon: Database, color: "indigo", tag: "Technology" },
+      { title: "AI safety & privacy", description: "Check outputs, protect sensitive information, and understand bias, permissions, and data handling.", icon: ShieldCheck, color: "rose", tag: "Work smarter" },
+    ],
+  },
+  {
+    eyebrow: "Start something",
+    title: "Online business & careers",
+    description: "Get grounded introductions to modern business models and the skills behind them.",
+    topics: [
+      { title: "Dropshipping basics", description: "Understand the supplier-fulfilled retail model, margins, shipping expectations, and customer service.", icon: ShoppingCart, color: "cyan", tag: "E-commerce" },
+      { title: "AI dropshipping", description: "See where AI can help with product research, product descriptions, support, and creative testing—without promising easy profits.", icon: Rocket, color: "violet", tag: "AI + business" },
+      { title: "E-commerce essentials", description: "Learn how storefronts, product pages, checkout, fulfillment, and returns fit together.", icon: LineChart, color: "emerald", tag: "Business skills" },
+      { title: "Future-ready skills", description: "Build durable skills in communication, critical thinking, digital literacy, and learning new tools.", icon: BriefcaseBusiness, color: "amber", tag: "Career growth" },
+    ],
+  },
+]
+
+const topicStyles: Record<string, string> = {
+  violet: "border-violet-200 text-violet-600",
+  orange: "border-orange-200 text-orange-600",
+  blue: "border-blue-200 text-blue-600",
+  amber: "border-amber-200 text-amber-600",
+  cyan: "border-cyan-200 text-cyan-600",
+  emerald: "border-emerald-200 text-emerald-600",
+  indigo: "border-indigo-200 text-indigo-600",
+  rose: "border-rose-200 text-rose-600",
+}
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -110,6 +169,33 @@ export default function Home() {
               </span>
             </div>
           </Link>
+        </div>
+
+        <div className="mt-28 space-y-24 text-left">
+          {learningSections.map((section) => (
+            <section key={section.title} aria-labelledby={`${section.title.replaceAll(" ", "-")}-heading`}>
+              <div className="mb-10 max-w-2xl">
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">{section.eyebrow}</p>
+                <h2 id={`${section.title.replaceAll(" ", "-")}-heading`} className="text-3xl font-bold text-gray-900 md:text-4xl">{section.title}</h2>
+                <p className="mt-4 text-lg leading-relaxed text-gray-600">{section.description}</p>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {section.topics.map((topic) => {
+                  const Icon = topic.icon
+                  return (
+                    <article key={topic.title} className={`group rounded-2xl border bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg ${topicStyles[topic.color]}`}>
+                      <div className="mb-5 flex items-center justify-between gap-3">
+                        <Icon aria-hidden="true" className="size-10 transition-transform group-hover:scale-110" />
+                        <span className="rounded-full bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600">{topic.tag}</span>
+                      </div>
+                      <h3 className="mb-3 text-xl font-bold text-gray-900">{topic.title}</h3>
+                      <p className="text-base leading-relaxed text-gray-600">{topic.description}</p>
+                    </article>
+                  )
+                })}
+              </div>
+            </section>
+          ))}
         </div>
       </section>
 
