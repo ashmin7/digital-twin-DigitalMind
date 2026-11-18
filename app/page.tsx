@@ -57,7 +57,7 @@ export default function Home() {
       <aside className={`lab-sidebar ${mobileNavOpen ? "lab-sidebar-open" : ""}`}>
         <div className="flex items-center gap-3 px-6 py-7">
           <div className="grid size-9 place-items-center rounded-xl bg-[#b8f36b] text-[#13200c]"><Shield size={19} strokeWidth={2.5} /></div>
-          <div><p className="text-sm font-bold tracking-wide">FIELDNOTE</p><p className="text-[10px] uppercase tracking-[0.2em] text-[#75848c]">Cyber range</p></div>
+          <div><p className="text-sm font-bold tracking-wide">DIGITAL TWIN III</p><p className="text-[10px] uppercase tracking-[0.2em] text-[#75848c]">Cyber range</p></div>
           <button onClick={() => setMobileNavOpen(false)} className="ml-auto rounded-md p-1 text-[#8b989d] md:hidden" aria-label="Close navigation"><X size={18} /></button>
         </div>
         <div className="px-4 pb-5"><div className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.025] px-3 py-2 text-xs text-[#75848c]"><Command size={13} /><span>Search anything</span><kbd className="ml-auto rounded border border-white/10 px-1.5 py-0.5 text-[10px]">⌘ K</kbd></div></div>
@@ -75,7 +75,7 @@ export default function Home() {
         </div>
         <div className="mt-auto border-t border-white/[0.07] p-4">
           <button className="flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-white/[0.04]">
-            <div className="grid size-8 place-items-center rounded-full bg-[#243a35] text-xs font-semibold text-[#b8f36b]">JD</div><div className="min-w-0 flex-1"><p className="truncate text-xs font-medium">Jordan Davis</p><p className="text-[10px] text-[#75848c]">Learner account</p></div><ChevronDown size={14} className="text-[#75848c]" />
+            <div className="grid size-8 place-items-center rounded-full bg-[#243a35] text-xs font-semibold text-[#b8f36b]">AA</div><div className="min-w-0 flex-1"><p className="truncate text-xs font-medium">Ashmin Aryal</p><p className="text-[10px] text-[#75848c]">Creator · Cybersecurity student</p></div><ChevronDown size={14} className="text-[#75848c]" />
           </button>
         </div>
       </aside>
@@ -88,7 +88,7 @@ export default function Home() {
 
         <div className="mx-auto max-w-[1320px] px-5 pb-16 pt-8 md:px-10 md:pt-10">
           <div className="mb-9 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-            <div><p className="mb-3 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-[#b8f36b]"><span className="size-1.5 rounded-full bg-[#b8f36b]" />Tuesday, November 18, 2026</p><h1 className="text-3xl font-semibold tracking-[-0.04em] text-[#edf2f1] md:text-[40px]">Good morning, Jordan<span className="text-[#b8f36b]">.</span></h1><p className="mt-2 text-sm text-[#89979c]">A little practice today makes a stronger defender tomorrow.</p></div>
+            <div><p className="mb-3 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-[#b8f36b]"><span className="size-1.5 rounded-full bg-[#b8f36b]" />Tuesday, November 18, 2026</p><h1 className="text-3xl font-semibold tracking-[-0.04em] text-[#edf2f1] md:text-[40px]">Welcome to my cyber range<span className="text-[#b8f36b]">.</span></h1><p className="mt-2 text-sm text-[#89979c]">I&apos;m Ashmin Aryal. Explore the lab I built to practice web security and defensive thinking.</p></div>
             <button onClick={() => document.getElementById("labs")?.scrollIntoView({ behavior: "smooth" })} className="flex w-fit items-center gap-2 rounded-lg bg-[#b8f36b] px-4 py-2.5 text-xs font-semibold text-[#14200e] transition hover:bg-[#c9ff83]">Pick up a lab <ArrowRight size={15} /></button>
           </div>
 
@@ -121,7 +121,26 @@ export default function Home() {
           </section>
 
           <section id="field-guide" className="mt-11 flex flex-col justify-between gap-4 rounded-xl border border-white/[0.07] bg-white/[0.02] p-5 sm:flex-row sm:items-center"><div className="flex items-start gap-3"><div className="grid size-9 shrink-0 place-items-center rounded-lg bg-white/[0.06] text-[#b8f36b]"><BookOpen size={16} /></div><div><h2 className="text-xs font-semibold">Built for ethical practice</h2><p className="mt-1 max-w-xl text-[10px] leading-relaxed text-[#89979c]">Practice only in these fictional, contained exercises. Real systems require explicit authorization before any security testing.</p></div></div><span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/[0.08] px-2.5 py-1.5 text-[9px] text-[#89979c]"><LockKeyhole size={11} />Isolated scenarios</span></section>
-          <footer className="mt-8 flex flex-col justify-between gap-2 border-t border-white/[0.07] pt-5 text-[9px] text-[#637178] sm:flex-row"><span>FIELDNOTE CYBER RANGE <span className="px-1.5">·</span> Learn safely. Defend thoughtfully.</span><span>Fictional training materials · No live targets</span></footer>
+          <section aria-labelledby="about-lab-heading" className="mt-11 rounded-2xl border border-[#b8f36b]/15 bg-[#b8f36b]/[0.04] p-5 sm:p-7">
+            <div className="grid gap-7 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+              <div>
+                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#b8f36b]">About the creator</p>
+                <h2 id="about-lab-heading" className="mt-2 text-xl font-semibold tracking-tight text-[#edf2f1]">A hands-on lab built by Ashmin Aryal.</h2>
+                <p className="mt-3 text-xs leading-relaxed text-[#a3afb0]">I&apos;m a final-year Bachelor of Cyber Security student at Victoria University in Sydney. I built Digital Twin III to turn what I&apos;m learning about web security into a safe, practical space for exploring attacks and defenses.</p>
+                <p className="mt-3 text-xs leading-relaxed text-[#89979c]">My 10-week cybersecurity analyst internship at AusBiz Consulting also gave me hands-on experience with cloud security, identity protection, and security monitoring.</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#b8f36b]">How I made it</p>
+                <ol className="mt-3 grid gap-3 sm:grid-cols-3">
+                  <li className="rounded-xl border border-white/[0.07] bg-[#0b1116]/60 p-4"><span className="font-mono text-[10px] text-[#b8f36b]">01 · BUILD</span><h3 className="mt-2 text-xs font-semibold text-[#e4ebeb]">Web technologies</h3><p className="mt-2 text-[11px] leading-relaxed text-[#89979c]">Built with Next.js and TypeScript, using Supabase and Vercel.</p></li>
+                  <li className="rounded-xl border border-white/[0.07] bg-[#0b1116]/60 p-4"><span className="font-mono text-[10px] text-[#b8f36b]">02 · SIMULATE</span><h3 className="mt-2 text-xs font-semibold text-[#e4ebeb]">Common web threats</h3><p className="mt-2 text-[11px] leading-relaxed text-[#89979c]">Created contained scenarios for SQL injection, XSS, login bypass, and bot traffic.</p></li>
+                  <li className="rounded-xl border border-white/[0.07] bg-[#0b1116]/60 p-4"><span className="font-mono text-[10px] text-[#b8f36b]">03 · DEFEND</span><h3 className="mt-2 text-xs font-semibold text-[#e4ebeb]">Protect and monitor</h3><p className="mt-2 text-[11px] leading-relaxed text-[#89979c]">Added secure login, access control, and activity logging to help detect suspicious behavior.</p></li>
+                </ol>
+                <p className="mt-3 text-[10px] leading-relaxed text-[#76858a]">All scenarios are fictional and designed for authorized, defensive learning—not for testing real systems.</p>
+              </div>
+            </div>
+          </section>
+          <footer className="mt-8 flex flex-col justify-between gap-2 border-t border-white/[0.07] pt-5 text-[9px] text-[#637178] sm:flex-row"><span>DIGITAL TWIN III CYBER RANGE <span className="px-1.5">·</span> Learn safely. Defend thoughtfully.</span><span>Fictional training materials · No live targets</span></footer>
         </div>
       </section>
 
