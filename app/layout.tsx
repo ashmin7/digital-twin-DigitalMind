@@ -8,8 +8,16 @@ const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Tech & AI Learning Guide",
-  description: "Explore clear, practical notes on AI, Claude, coding tools, dropshipping, e-commerce, and future-ready skills.",
+  title: "Ashmin Aryal | Cybersecurity Analyst",
+  description: "Ashmin Aryal is a final-year Cyber Security student in Sydney with hands-on experience in cloud security, identity protection, and security monitoring.",
+  metadataBase: new URL("https://ashminaryal.info"),
+  openGraph: {
+    title: "Ashmin Aryal | Cybersecurity Analyst",
+    description: "Cloud security, identity protection, and hands-on defensive security projects.",
+    url: "https://ashminaryal.info",
+    siteName: "Ashmin Aryal",
+    type: "website",
+  },
   generator: "v0.app",
   icons: {
     icon: [
