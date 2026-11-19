@@ -9,15 +9,15 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "Ashmin Aryal | Cybersecurity Student & Builder",
-  description: "Ashmin Aryal is a final-year Cyber Security student at Victoria University, Sydney, focused on cloud security, identity, defensive monitoring, and hands-on security projects.",
-  keywords: ["Ashmin Aryal", "Cybersecurity student", "Cloud security", "Security analyst internship", "Live hacking lab", "Cybersecurity projects"],
-  metadataBase: new URL("https://ashminaryal.info"),
+  title: "Digital Twin III | Live Hacking Lab",
+  description: "Practice web security in a controlled cyber range. Explore simulated attack scenarios, observe defensive signals, and learn how security controls respond.",
+  keywords: ["live hacking lab", "cyber range", "web security training", "security simulations", "defensive engineering"],
+  metadataBase: new URL("https://digital-twin-digitalmind222.vercel.app"),
   openGraph: {
-    title: "Ashmin Aryal | Cybersecurity Student & Builder",
-    description: "Cloud security, identity protection, defensive monitoring, and hands-on security projects from Ashmin Aryal.",
-    url: "https://ashminaryal.info",
-    siteName: "Ashmin Aryal",
+    title: "Digital Twin III | Live Hacking Lab",
+    description: "A controlled cyber range for practicing web security and exploring defensive controls.",
+    url: "https://digital-twin-digitalmind222.vercel.app",
+    siteName: "Digital Twin III | Live Hacking Lab",
     type: "website",
   },
   generator: "v0.app",
