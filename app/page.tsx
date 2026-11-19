@@ -1,239 +1,618 @@
-"use client"
+"use client";
+import { useState, useRef, useEffect } from "react";
 
-import { useState } from "react"
-import Link from "next/link"
-import { GithubIcon, GitBranchIcon, Zap, BookOpen, ArrowRight, Menu, X, Sparkles, ShoppingBag, NotebookPen, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
+function SandboxDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  const items = [
+    { href: "/sandbox/sql", label: "SQL Injection" },
+    { href: "/sandbox/xss", label: "XSS Testing" },
+    { href: "/sandbox/rate-limit", label: "Rate Limiting" },
+    { href: "/sandbox/auth", label: "Auth Testing" },
+  ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-            DevTools Guide
-          </div>
+    <div ref={ref} style={{ position: "relative" }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          background: "none",
+          border: "none",
+          color: "var(--fg-muted)",
+          cursor: "pointer",
+          fontSize: 13,
+          fontFamily: "inherit",
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          padding: 0,
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary)")}
+        onMouseLeave={(e) => {
+          if (!open) e.currentTarget.style.color = "var(--fg-muted)";
+        }}
+      >
+        Sandbox
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            transition: "transform 0.2s",
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+          }}
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
 
-          <button className="md:hidden text-gray-800" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </button>
-
-          <div
-            className={`${mobileMenuOpen ? "flex" : "hidden"} md:flex gap-8 absolute md:relative top-full left-0 md:top-auto md:left-auto w-full md:w-auto flex-col md:flex-row bg-white md:bg-transparent p-6 md:p-0`}
-          >
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition">
-              Home
-            </Link>
-            <Link href="/github" className="text-gray-700 hover:text-blue-600 transition">
-              GitHub
-            </Link>
-            <Link href="/git" className="text-gray-700 hover:text-blue-600 transition">
-              Git
-            </Link>
-            <Link href="/v0-templates" className="text-gray-700 hover:text-blue-600 transition">
-              v0 Templates
-            </Link>
-            <Link href="/notebooklm" className="text-gray-700 hover:text-blue-600 transition">
-              Notebook LM
-            </Link>
-          </div>
+      {open && (
+        <div
+          style={{
+            position: "absolute",
+            top: "calc(100% + 8px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            borderRadius: 10,
+            padding: "6px 0",
+            minWidth: 180,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+            zIndex: 50,
+          }}
+        >
+          {items.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              style={{
+                display: "block",
+                padding: "8px 16px",
+                fontSize: 13,
+                color: "var(--fg)",
+                textDecoration: "none",
+                transition: "background 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(34,197,94,0.08)";
+                e.currentTarget.style.color = "var(--primary)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--fg)";
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
-      </nav>
+      )}
+    </div>
+  );
+}
 
-      {/* Hero Section */}
-      <section className="relative max-w-6xl mx-auto px-6 py-32 text-center">
-        <div className="space-y-8">
-          <h1 className="text-6xl md:text-7xl font-bold text-gray-900 text-balance">
-            Master Essential{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              Developer Tools
-            </span>
-          </h1>
-
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto text-balance">
-            Learn how GitHub, Git, v0 Templates, and Notebook LM can transform your development workflow and boost
-            productivity
-          </p>
-
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl" asChild>
-            <Link href="/github">
-              Start Learning <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-          </Button>
+export default function Home() {
+  return (
+    <div className="cyber-bg">
+      {/* Header */}
+      <header
+        style={{
+          borderBottom: "1px solid rgba(30,41,59,0.5)",
+          backdropFilter: "blur(12px)",
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+        }}
+      >
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingTop: 14,
+            paddingBottom: 14,
+          }}
+        >
+          <a href="/" style={{ fontWeight: 600, fontSize: 15, color: "var(--fg)", textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--primary)", boxShadow: "0 0 8px var(--primary), 0 0 20px rgba(34,197,94,0.3)", display: "inline-block" }} />
+            Digital Twin III
+          </a>
+          <nav style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 13 }}>
+            {[
+              { href: "/#about", label: "About" },
+              { href: "/#threats", label: "Threats" },
+              { href: "/#stack", label: "Stack" },
+              { href: "/lab", label: "Lab Case Study" },
+            ].map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                style={{ color: "var(--fg-muted)", textDecoration: "none" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
+              >
+                {l.label}
+              </a>
+            ))}
+            <SandboxDropdown />
+            <a
+              href="/dashboard"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "8px 20px",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "var(--primary)",
+                border: "2px solid var(--primary)",
+                borderRadius: 999,
+                background: "transparent",
+                textDecoration: "none",
+                transition: "background 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--primary)";
+                e.currentTarget.style.color = "#000";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--primary)";
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="1" y="1" width="6" height="6" rx="1" />
+                <rect x="9" y="1" width="6" height="6" rx="1" />
+                <rect x="1" y="9" width="6" height="6" rx="1" />
+                <rect x="9" y="9" width="6" height="6" rx="1" />
+              </svg>
+              Dashboard
+            </a>
+          </nav>
         </div>
+      </header>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-20">
-          <Link href="/github">
-            <div className="bg-white border border-blue-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <GithubIcon className="w-12 h-12 text-blue-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">GitHub</h3>
-              <p className="text-gray-600 mb-4">Cloud hosting & version control for collaborative development</p>
-              <span className="text-blue-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-
-          <Link href="/git">
-            <div className="bg-white border border-cyan-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <GitBranchIcon className="w-12 h-12 text-cyan-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Git</h3>
-              <p className="text-gray-600 mb-4">Version control system for tracking code changes</p>
-              <span className="text-cyan-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-
-          <Link href="/v0-templates">
-            <div className="bg-white border border-purple-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <Zap className="w-12 h-12 text-purple-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">v0 Templates</h3>
-              <p className="text-gray-600 mb-4">AI-powered project templates for rapid development</p>
-              <span className="text-purple-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-
-          <Link href="/notebooklm">
-            <div className="bg-white border border-amber-200 rounded-2xl p-8 hover:shadow-lg transition cursor-pointer group">
-              <BookOpen className="w-12 h-12 text-amber-600 mb-4 group-hover:scale-110 transition" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Notebook LM</h3>
-              <p className="text-gray-600 mb-4">AI study assistant for learning & document management</p>
-              <span className="text-amber-600 flex items-center gap-2">
-                Learn more <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-        </div>
-
-        <section aria-labelledby="ai-tools-heading" className="mt-32 text-left">
-          <div className="max-w-3xl mb-10">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">Explore more</p>
-            <h2 id="ai-tools-heading" className="mt-3 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
-              AI tools for work, study & ideas
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-gray-600">
-              A practical guide to the newest AI products, useful skills, and ways to put them to work.
+      <main className="container" style={{ paddingTop: 32, paddingBottom: 40 }}>
+        {/* Hero */}
+        <section style={{ display: "flex", flexWrap: "wrap", gap: 32, alignItems: "stretch", marginBottom: 40 }}>
+          <div style={{ flex: "1 1 260px" }}>
+            <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--accent)", textTransform: "uppercase" }}>
+              Independent Cyber Range
             </p>
+            <h1 style={{ fontSize: 34, fontWeight: 700, marginTop: 8, marginBottom: 6 }}>Ashmin Aryal</h1>
+            <p style={{ color: "var(--fg-muted)", fontSize: 14, maxWidth: 560, marginBottom: 10, lineHeight: 1.7 }}>
+              A secure, cloud-deployed cyber range built and maintained by Ashmin Aryal. This
+              Digital Twin is more than a website — it is a live hacking lab where you can safely
+              test defined surfaces and watch defensive signals appear in real time.
+            </p>
+            <p style={{ color: "var(--fg-muted)", fontSize: 14, maxWidth: 560, marginBottom: 10, lineHeight: 1.7 }}>
+              Built around applied defensive engineering, it showcases cloud deployment,
+              monitored security controls, and resilient web architecture using modern tools.
+            </p>
+            <p style={{ fontSize: 13, fontWeight: 500 }}>
+              Secure. Monitored. Production-ready. Built to be tested, attacked, and improved.
+            </p>
+            <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <a href="/#sandbox" className="btn-primary">Explore attack sandbox</a>
+              <a href="/dashboard" className="btn-outline">View security dashboard</a>
+              <a href="/lab" className="btn-outline">Read case study</a>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <article className="rounded-2xl border border-indigo-200 bg-indigo-50/50 p-7 md:p-8">
-              <div className="flex items-center gap-3">
-                <Sparkles className="size-7 text-indigo-600" aria-hidden="true" />
-                <h3 className="text-2xl font-bold text-gray-900">AI tools worth knowing</h3>
-              </div>
-              <p className="mt-3 text-gray-600">Choose a tool by the kind of work you need to do, then verify important output before you rely on it.</p>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-xl bg-white p-5">
-                  <p className="font-semibold text-gray-900">New and notable</p>
-                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">Gemini 4 Carbon + Google Antigravity</strong><br />Positioned for long coding and research tasks. Antigravity&apos;s swarm approach can split a broad prompt into coordinated agent tasks; review the plan, intermediate work, and final output.</li>
-                    <li><strong className="text-gray-800">Claude Meetings</strong><br />A meeting companion that can draft an agenda or plan, capture discussion notes, and extract action items. Tell participants when an AI note taker is present and check the notes before sharing.</li>
-                    <li><strong className="text-gray-800">TK by Medium</strong><br />A private notebook for journaling and developing ideas, with a community layer and an MCP connection for working with AI tools. A fit for writers who want a dedicated thinking space.</li>
-                  </ul>
-                </div>
-                <div className="rounded-xl bg-white p-5">
-                  <p className="font-semibold text-gray-900">Pick a coding workflow</p>
-                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">Cursor</strong> — an AI-focused editor for asking questions and making changes in your code as you work.</li>
-                    <li><strong className="text-gray-800">Claude Code</strong> — a coding agent suited to multi-step changes across a repository; inspect its proposed edits and run your project checks.</li>
-                    <li><strong className="text-gray-800">OpenAI Codex</strong> — delegate coding tasks to cloud agents, including parallel tasks when work can be separated.</li>
-                    <li><strong className="text-gray-800">GitHub Copilot</strong> — inline suggestions and chat in supported editors; a convenient starting point if your workflow already centers on GitHub.</li>
-                  </ul>
-                </div>
-                <div className="rounded-xl bg-white p-5 sm:col-span-2">
-                  <p className="font-semibold text-gray-900">Notes, meetings & team knowledge</p>
-                  <div className="mt-3 grid gap-4 sm:grid-cols-3">
-                    <p className="text-sm leading-6 text-gray-600"><strong className="text-gray-800">Obsidian</strong><br />Local Markdown notes connected by links. Useful for a personal knowledge base; its CLI can support scripting and automation.</p>
-                    <p className="text-sm leading-6 text-gray-600"><strong className="text-gray-800">Granola</strong><br />AI meeting notes designed to capture your own notes without a visible bot joining the call. Review transcripts and summaries for accuracy.</p>
-                    <p className="text-sm leading-6 text-gray-600"><strong className="text-gray-800">Evernote & Tana</strong><br />Evernote combines notebooks with AI-assisted search and meeting notes. Tana connects structured notes and can turn them into shared team knowledge.</p>
-                  </div>
-                </div>
-              </div>
-            </article>
+          {/* Right card - lab status */}
+          <div
+            style={{
+              flexBasis: 310,
+              flexGrow: 0,
+              flexShrink: 0,
+              borderRadius: 20,
+              padding: 24,
+              background: "radial-gradient(ellipse at top, rgba(56,189,248,0.12), transparent 60%), var(--bg-card)",
+              border: "1px solid rgba(30,41,59,0.5)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 18,
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--fg-muted)" }}>
+                ASHMIN&apos;S CYBER LAB
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: "var(--primary)",
+                  border: "1px solid var(--primary)",
+                  borderRadius: 999,
+                  padding: "3px 12px",
+                }}
+              >
+                Online
+              </span>
+            </div>
 
-            <article className="rounded-2xl border border-amber-200 bg-amber-50/50 p-7 md:p-8">
-              <div className="flex items-center gap-3">
-                <NotebookPen className="size-7 text-amber-600" aria-hidden="true" />
-                <h3 className="text-2xl font-bold text-gray-900">Study & learning</h3>
-              </div>
-              <p className="mt-3 text-gray-600">Build a simple learning loop: gather trusted sources, ask focused questions, make your own notes, and test your recall.</p>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-xl bg-white p-5">
-                  <p className="font-semibold text-gray-900">Study assistants</p>
-                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">NotebookLM</strong><br />Add class readings or your own documents, then ask questions tied to those sources. Use it to make a study guide or clarify a concept, and check the citations against the original material.</li>
-                    <li><strong className="text-gray-800">Zoho Notebook</strong><br />Keep class notes, lists, and references organized in notebooks; explore its student-focused AI features where available.</li>
-                    <li><strong className="text-gray-800">Recall</strong><br />Save articles, videos, or podcasts and use summaries as a quick review layer. Keep the original source for details and context.</li>
-                  </ul>
+            {/* Status rows */}
+            <div
+              style={{
+                borderRadius: 14,
+                border: "1px solid rgba(30,41,59,0.6)",
+                background: "rgba(8,14,30,0.7)",
+                padding: "4px 0",
+              }}
+            >
+              {[
+                { label: "STATUS", value: "OPERATIONAL", color: "var(--primary)" },
+                { label: "ACCESS LEVEL", value: "PUBLIC", color: "var(--fg)" },
+                { label: "THREAT DETECTION", value: "ACTIVE", color: "var(--primary)" },
+              ].map((row, i, arr) => (
+                <div
+                  key={row.label}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "12px 18px",
+                    borderBottom: i < arr.length - 1 ? "1px solid rgba(30,41,59,0.4)" : "none",
+                    fontSize: 13,
+                  }}
+                >
+                  <span style={{ color: "var(--fg-muted)", fontWeight: 500 }}>{row.label}</span>
+                  <span style={{ fontWeight: 700, color: row.color }}>{row.value}</span>
                 </div>
-                <div className="rounded-xl bg-white p-5">
-                  <p className="font-semibold text-gray-900">Research & standards</p>
-                  <ul className="mt-3 flex flex-col gap-4 text-sm leading-6 text-gray-600">
-                    <li><strong className="text-gray-800">Elicit</strong><br />Find relevant academic papers and extract comparable details to support a literature review. Confirm study methods and findings in each paper.</li>
-                    <li><strong className="text-gray-800">Agent Skills</strong><br />A format for reusable instructions that help compatible AI agents follow a repeatable workflow. Useful for standardizing tasks such as code review or research. <a className="text-blue-700 underline underline-offset-2" href="https://agentskills.io" target="_blank" rel="noreferrer">Learn more</a>.</li>
-                    <li><strong className="text-gray-800">MCP</strong><br />Model Context Protocol lets compatible AI tools connect to external apps and data through a shared interface. Consider permissions carefully before connecting sensitive accounts. <a className="text-blue-700 underline underline-offset-2" href="https://modelcontextprotocol.io" target="_blank" rel="noreferrer">Explore MCP</a>.</li>
-                  </ul>
-                </div>
-              </div>
-              <p className="mt-5 rounded-lg bg-amber-100/70 p-4 text-sm leading-6 text-amber-950">For coursework, follow your institution&apos;s AI policy. AI summaries can omit context or make mistakes; cite the original source and write final explanations in your own words.</p>
-            </article>
+              ))}
+            </div>
 
-            <article className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-7 md:p-8 lg:col-span-2">
-              <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <ShoppingBag className="size-7 text-emerald-700" aria-hidden="true" />
-                    <h3 className="text-2xl font-bold text-gray-900">Dropshipping & AI dropshipping</h3>
-                  </div>
-                  <p className="mt-3 leading-7 text-gray-600">
-                    In dropshipping, your store takes the order while a third-party supplier stores and ships the item. You still own the customer experience: pricing, accurate product information, support, refunds, and clear delivery expectations. AI dropshipping means using AI tools to assist parts of that work—it does not remove the need to verify suppliers or comply with the law.
-                  </p>
-                  <p className="mt-4 text-sm leading-6 text-gray-600"><strong className="text-gray-800">A useful mental model:</strong> You are responsible for the promise your store makes, even when another company fulfills the package.</p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-xl bg-white p-5">
-                    <p className="font-semibold text-gray-900">1. Choose a customer problem</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Start with a defined audience and need, not a viral-product list. Read reviews and community discussions to learn what people value, what disappoints them, and what alternatives they already use.</p>
-                  </div>
-                  <div className="rounded-xl bg-white p-5">
-                    <p className="font-semibold text-gray-900">2. Vet products & suppliers</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Order samples where possible. Confirm stock consistency, packaging, tracking, delivery ranges, return handling, product safety, and who pays for defects or lost parcels.</p>
-                  </div>
-                  <div className="rounded-xl bg-white p-5">
-                    <p className="font-semibold text-gray-900">3. Calculate true margin</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Subtract product and shipping costs, transaction and platform fees, taxes, ad spend, discounts, refunds, and chargebacks from the sale price. Model a conservative scenario before launch.</p>
-                  </div>
-                  <div className="rounded-xl bg-white p-5">
-                    <p className="font-semibold text-gray-900">4. Build trust & test small</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Publish truthful photos and descriptions, clear delivery windows, contact details, and a workable refund policy. Test a small campaign and pause if service quality or unit economics are poor.</p>
-                  </div>
-                  <div className="rounded-xl bg-white p-5 sm:col-span-2">
-                    <p className="font-semibold text-gray-900">Where AI can help—and where it cannot</p>
-                    <p className="mt-2 text-sm leading-6 text-gray-600">Use AI to cluster review themes, outline product comparisons, draft and translate listing copy, generate customer-service templates, or summarize campaign results. Check source data, edit for accuracy and brand voice, and never invent reviews, certifications, inventory, shipping promises, or product benefits. AI cannot validate a supplier, guarantee sales, or replace your legal and customer-service responsibilities.</p>
-                  </div>
-                </div>
-              </div>
-              <p className="mt-5 flex items-center gap-2 text-sm text-emerald-900">
-                <Users className="size-4 shrink-0" aria-hidden="true" />
-                Before accepting orders, check the consumer, tax, privacy, product-safety, and advertising rules that apply in your location and to your customers.
-              </p>
-            </article>
+            {/* WAF badge */}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: "var(--fg-muted)",
+                  border: "1px solid rgba(30,41,59,0.6)",
+                  borderRadius: 999,
+                  padding: "6px 18px",
+                  background: "rgba(8,14,30,0.5)",
+                }}
+              >
+                WAF Protection ENABLED
+              </span>
+            </div>
           </div>
         </section>
-      </section>
+
+        {/* About */}
+        <section id="about" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>What this Digital Twin represents</h2>
+          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>
+            Every production web app is a target. This Digital Twin turns that risk into a
+            teaching tool: a controlled cyber range where you can deliberately attack, observe
+            detections and blocks, practise incident response, and document how you harden the
+            system release by release.
+          </p>
+          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
+            For hiring managers, this site is both a portfolio and a live security case study:
+            it hosts my professional identity and projects, exposes safe attack surfaces, and
+            shows how I manage security as an ongoing lifecycle instead of a one-time checkbox.
+          </p>
+        </section>
+
+        {/* Threats */}
+        <section id="threats" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Threats you train against</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
+            {[
+              { title: "Injection attacks", desc: "SQL injection, prompt injection, and malicious payloads." },
+              { title: "Auth & access control", desc: "Authentication failures, broken access control, privilege abuse." },
+              { title: "Bots & automation", desc: "Automated scanners, brute-force tools, and scripted attacks." },
+            ].map((t) => (
+              <div key={t.title} className="link-card">
+                <h3 style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{t.title}</h3>
+                <p style={{ color: "var(--fg-muted)", fontSize: 13, margin: 0, lineHeight: 1.6 }}>{t.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Sandbox */}
+        <section id="sandbox" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>Hacking simulation sandbox</h2>
+          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 18 }}>
+            These live sandboxes are wired to real detection, logging, and rate limiting. You can
+            safely try common attacks and immediately see how the application reacts.
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { href: "/sandbox/sql", path: "/sandbox/sql", desc: "SQL injection payloads, detection, and safe query patterns." },
+              { href: "/sandbox/xss", path: "/sandbox/xss", desc: "reflected XSS attempts, output encoding, and malicious payload detection." },
+              { href: "/sandbox/rate-limit", path: "/sandbox/rate-limit", desc: "automated/bot-style traffic, scanners, and basic WAF-style rate limiting." },
+              { href: "/sandbox/auth", path: "/sandbox/auth", desc: "authentication failures, broken access control, and privilege-abuse scenarios." },
+            ].map((s) => (
+              <a
+                key={s.href}
+                href={s.href}
+                style={{
+                  display: "block",
+                  padding: "14px 18px",
+                  borderRadius: 10,
+                  background: "var(--bg-card)",
+                  borderLeft: "3px solid var(--accent)",
+                  textDecoration: "none",
+                  color: "var(--fg)",
+                  fontSize: 14,
+                  lineHeight: 1.6,
+                }}
+              >
+                <span style={{ color: "var(--accent)", fontFamily: "monospace", fontWeight: 600 }}>{s.path}</span>
+                <span style={{ color: "var(--fg-muted)" }}>{" \u2014 "}{s.desc}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* Stack */}
+        <section id="stack" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Security-focused stack behind the lab</h2>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: 12,
+            }}
+          >
+            {[
+              {
+                name: "Next.js (App Router)",
+                desc: "Modern, testable, security-first frontend",
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                ),
+              },
+              {
+                name: "Supabase",
+                desc: "Database, authentication, and structured security event logging",
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <ellipse cx="12" cy="5" rx="9" ry="3" />
+                    <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+                    <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+                  </svg>
+                ),
+              },
+              {
+                name: "Arcjet",
+                desc: "WAF protections, basic bot controls, and rate limiting",
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                ),
+              },
+              {
+                name: "Vercel",
+                desc: "Hardened deployments, previews, and production-like environments",
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 20h20L12 4z" />
+                  </svg>
+                ),
+              },
+              {
+                name: "TypeScript",
+                desc: "Strict type safety across the full stack",
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M12 8v8" />
+                    <path d="M8 12h8" />
+                  </svg>
+                ),
+              },
+              {
+                name: "Security Utils",
+                desc: "Injection detection, sanitisation, and logging",
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                  </svg>
+                ),
+              },
+            ].map((item) => (
+              <div
+                key={item.name}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  padding: "14px 16px",
+                  borderRadius: 12,
+                  background: "var(--bg-card)",
+                  border: "1px solid rgba(30,41,59,0.5)",
+                }}
+              >
+                <span style={{ color: "var(--fg-muted)", flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <p style={{ margin: 0, fontWeight: 600, fontSize: 14 }}>{item.name}</p>
+                  <p style={{ margin: 0, color: "var(--fg-muted)", fontSize: 12 }}>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Lab ownership */}
+        <section id="lab-owner" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Built and maintained by its creator</h2>
+          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>
+            I created this independent cyber range to explore practical web security and make defensive engineering visible.
+            The lab brings together controlled exercises, live telemetry, and clear response signals in one place.
+          </p>
+          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
+            Every scenario stays within the lab&apos;s defined surfaces, with a focus on learning how to detect, contain, and improve.
+          </p>
+        </section>
+
+        {/* CTA */}
+        <section style={{ marginBottom: 16 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Use this live lab as your case study</h2>
+          <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
+            Share this site with recruiters, hiring managers, and mentors. It is a deployable,
+            auditable cyber lab that demonstrates how you design, test, and improve defences —
+            not just theory on a CV, but a running system that can be safely attacked, defended,
+            and analysed.
+          </p>
+        </section>
+      </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-gray-50 py-12">
-        <div className="max-w-6xl mx-auto px-6 text-center text-gray-600">{/* LinkedIn sharing prompt removed */}</div>
+      <footer style={{ borderTop: "1px solid var(--border)", background: "var(--bg-card)" }}>
+        <div
+          className="container"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: 40,
+            paddingTop: 48,
+            paddingBottom: 40,
+          }}
+        >
+          {/* Left column - Brand */}
+          <div>
+            <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 12 }}>Digital Twin III</p>
+            <p style={{ color: "var(--fg-muted)", fontSize: 13, lineHeight: 1.7, marginBottom: 16, maxWidth: 320 }}>
+              An independent cyber range with controlled security exercises, real-time threat
+              detection, and security analytics. Built and maintained by Ashmin Aryal.
+            </p>
+            {/* Social icons (decorative, not clickable) */}
+            <div style={{ display: "flex", gap: 14 }}>
+              {/* GitHub */}
+              <span aria-label="GitHub" style={{ color: "var(--fg-muted)" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+              </span>
+              {/* LinkedIn */}
+              <span aria-label="LinkedIn" style={{ color: "var(--fg-muted)" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </span>
+              {/* Email */}
+              <span aria-label="Email" style={{ color: "var(--fg-muted)" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M22 7l-10 7L2 7" />
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          {/* Project column */}
+          <div>
+            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 14 }}>Project</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[
+                { href: "/#about", label: "About" },
+                { href: "/#sandbox", label: "Projects" },
+                { href: "/chat", label: "AI Agents" },
+                { href: "/#lab-owner", label: "Lab mission" }
+              ].map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  style={{ color: "var(--fg-muted)", fontSize: 13, textDecoration: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Security column */}
+          <div>
+            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 14 }}>Security</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[
+                { href: "https://owasp.org/www-project-top-ten/", label: "OWASP", external: true },
+                { href: "/#about", label: "Security Policy" },
+                { href: "/#about", label: "Responsible Disclosure" },
+                { href: "/dashboard", label: "Audit Logs" },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                  style={{ color: "var(--fg-muted)", fontSize: 13, textDecoration: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright bar */}
+        <div
+          style={{
+            borderTop: "1px solid var(--border)",
+            padding: "16px 0",
+          }}
+        >
+          <div
+            className="container"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: 12,
+              color: "var(--fg-muted)",
+            }}
+          >
+            <span>{"© 2026 Ashmin Aryal. Independent security lab."}</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: "var(--primary)",
+                  display: "inline-block",
+                }}
+              />
+              All systems operational
+            </span>
+          </div>
+        </div>
       </footer>
     </div>
-  )
+  );
 }
