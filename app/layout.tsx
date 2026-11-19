@@ -9,15 +9,15 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "DevTools Guide | Learn Essential Developer Tools",
-  description: "Learn how GitHub, Git, v0 Templates, and Notebook LM can improve your development workflow and study routine.",
-  keywords: ["developer tools", "GitHub", "Git", "v0 templates", "Notebook LM", "study notes"],
+  title: "Ashmin’s Notes | Learning in public",
+  description: "A personal notebook of field guides, technical notes, and ideas Ashmin is learning along the way.",
+  keywords: ["notes", "learning", "Git", "GitHub", "web development", "study notes"],
   metadataBase: new URL("https://notes.ashminaryal.info"),
   openGraph: {
-    title: "DevTools Guide | Learn Essential Developer Tools",
-    description: "Learn how GitHub, Git, v0 Templates, and Notebook LM can improve your development workflow and study routine.",
+    title: "Ashmin’s Notes | Learning in public",
+    description: "A personal notebook of field guides, technical notes, and ideas Ashmin is learning along the way.",
     url: "https://notes.ashminaryal.info",
-    siteName: "DevTools Guide",
+    siteName: "Ashmin’s Notes",
     type: "website",
   },
   generator: "v0.app",
