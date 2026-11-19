@@ -4,11 +4,76 @@ import Link from "next/link";
 import { useState } from "react";
 import type { LabScenario } from "../scenarios";
 
+type SimulationResult = {
+  signal: string;
+  response: string;
+  outcome: string;
+  severity: "LOW" | "MEDIUM" | "HIGH";
+  action: "ALLOW" | "BLOCK" | "CHALLENGE";
+  inputSummary: string;
+  preview?: string;
+};
+
 export default function ScenarioClient({ scenario }: { scenario: LabScenario }) {
   const [runs, setRuns] = useState(0);
   const [lastRun, setLastRun] = useState<string | null>(null);
+  const [result, setResult] = useState<SimulationResult | null>(null);
+  const [sampleInput, setSampleInput] = useState("");
+  const [requestCount, setRequestCount] = useState("12");
+  const [requesterRole, setRequesterRole] = useState("visitor");
+  const [requestedResource, setRequestedResource] = useState("admin-console");
 
   function runSimulation() {
+    let nextResult: SimulationResult;
+
+    if (scenario.id === "SQL-01") {
+      const hasQueryMarkers = /(?:['"`=;]|--|\/\*|\*\/|\b(?:select|union|insert|update|delete|drop)\b)/i.test(sampleInput);
+      nextResult = {
+        signal: hasQueryMarkers ? "Query-like syntax markers found in sample" : "No query-like markers found in sample",
+        response: "Parameterized-query handling keeps the sample as a value; nothing is executed.",
+        outcome: hasQueryMarkers ? "INPUT KEPT AS DATA" : "SAFE SAMPLE",
+        severity: hasQueryMarkers ? "MEDIUM" : "LOW",
+        action: "ALLOW",
+        inputSummary: `${sampleInput.length} characters inspected in this browser`,
+        preview: sampleInput || "No sample entered",
+      };
+    } else if (scenario.id === "XSS-02") {
+      const hasMarkupDelimiters = /[<>]/.test(sampleInput);
+      nextResult = {
+        signal: hasMarkupDelimiters ? "Markup delimiters found in sample" : "Plain-text sample provided",
+        response: "React renders the sample as text; no HTML parsing or script execution occurs.",
+        outcome: hasMarkupDelimiters ? "DISPLAY STAYS INERT" : "PLAIN TEXT",
+        severity: hasMarkupDelimiters ? "MEDIUM" : "LOW",
+        action: "ALLOW",
+        inputSummary: "Output is displayed as an escaped text node",
+        preview: sampleInput || "No sample entered",
+      };
+    } else if (scenario.id === "RATE-03") {
+      const modeledRequests = Math.max(0, Math.min(50, Number.parseInt(requestCount, 10) || 0));
+      const exceededLimit = modeledRequests > 5;
+      nextResult = {
+        signal: `${modeledRequests} requests modeled against a sample limit of 5`,
+        response: exceededLimit ? "Requests above the sample threshold receive a challenge." : "The modeled request count stays within the sample threshold.",
+        outcome: exceededLimit ? "BURST CHALLENGED" : "WITHIN LIMIT",
+        severity: exceededLimit ? "MEDIUM" : "LOW",
+        action: exceededLimit ? "CHALLENGE" : "ALLOW",
+        inputSummary: "Count-only model; no requests were generated",
+      };
+    } else {
+      const allowed = requestedResource === "public-page"
+        || (requestedResource === "profile" && requesterRole !== "visitor")
+        || (requestedResource === "admin-console" && requesterRole === "admin");
+      nextResult = {
+        signal: `${requesterRole} role requested ${requestedResource}`,
+        response: allowed ? "The sample role policy grants this request." : "The sample role policy denies access before data is returned.",
+        outcome: allowed ? "ACCESS ALLOWED" : "ACCESS DENIED",
+        severity: allowed ? "LOW" : "HIGH",
+        action: allowed ? "ALLOW" : "BLOCK",
+        inputSummary: "Role decision evaluated locally; no account or protected data was used",
+      };
+    }
+
+    setResult(nextResult);
     setRuns((current) => current + 1);
     setLastRun(new Intl.DateTimeFormat("en-GB", {
       hour: "2-digit",
@@ -59,7 +124,50 @@ export default function ScenarioClient({ scenario }: { scenario: LabScenario }) 
               </div>
               <span className="scenario-run-count">RUNS <strong>{runs.toString().padStart(2, "0")}</strong></span>
             </div>
-            <p className="scenario-panel-copy">The simulator creates a sample signal and shows the expected defensive decision. It does not send attack traffic, execute payloads, or contact any target.</p>
+            <p className="scenario-panel-copy">Try your own sample below. Analysis happens in this browser only; no requests are sent, no scripts or queries are executed, and no live target is contacted.</p>
+
+            {scenario.id === "SQL-01" && (
+              <label className="scenario-field">
+                <span>Query input to inspect</span>
+                <input className="scenario-input" type="text" maxLength={160} value={sampleInput} onChange={(event) => setSampleInput(event.target.value)} placeholder="Type or paste a sample value" />
+                <small>Illustrative signal check only; this is not a complete SQL parser.</small>
+              </label>
+            )}
+            {scenario.id === "XSS-02" && (
+              <label className="scenario-field">
+                <span>Text to inspect and render safely</span>
+                <textarea className="scenario-input scenario-textarea" maxLength={240} value={sampleInput} onChange={(event) => setSampleInput(event.target.value)} placeholder="Type or paste markup-like text" rows={3} />
+                <small>The result is rendered as text and is never interpreted as HTML.</small>
+              </label>
+            )}
+            {scenario.id === "RATE-03" && (
+              <label className="scenario-field">
+                <span>Number of requests to model</span>
+                <input className="scenario-input scenario-number-input" type="number" min={0} max={50} value={requestCount} onChange={(event) => setRequestCount(event.target.value)} />
+                <small>Models at most 50 requests; it does not generate network traffic.</small>
+              </label>
+            )}
+            {scenario.id === "AUTH-04" && (
+              <div className="scenario-access-fields">
+                <label className="scenario-field">
+                  <span>Requesting role</span>
+                  <select className="scenario-input" value={requesterRole} onChange={(event) => setRequesterRole(event.target.value)}>
+                    <option value="visitor">Visitor</option>
+                    <option value="member">Member</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </label>
+                <label className="scenario-field">
+                  <span>Requested resource</span>
+                  <select className="scenario-input" value={requestedResource} onChange={(event) => setRequestedResource(event.target.value)}>
+                    <option value="public-page">Public page</option>
+                    <option value="profile">Member profile</option>
+                    <option value="admin-console">Admin console</option>
+                  </select>
+                </label>
+                <p className="scenario-field-help">Sample role rules only; no real identity or protected record is accessed.</p>
+              </div>
+            )}
 
             <ol className="scenario-steps">
               {scenario.steps.map((step, index) => (
@@ -75,20 +183,22 @@ export default function ScenarioClient({ scenario }: { scenario: LabScenario }) 
               <span aria-hidden="true">→</span>
             </button>
 
-            {lastRun ? (
+            {lastRun && result ? (
               <div className="scenario-result" role="status" aria-live="polite">
                 <div className="scenario-result-heading">
                   <span className="scenario-result-mark" aria-hidden="true">✓</span>
                   <div>
                     <p>SIMULATION COMPLETE · {lastRun} UTC</p>
-                    <strong>{scenario.outcome}</strong>
+                    <strong>{result.outcome}</strong>
                   </div>
-                  <span className={`scenario-action ${scenario.action.toLowerCase()}`}>{scenario.action}</span>
+                  <span className={`scenario-action ${result.action.toLowerCase()}`}>{result.action}</span>
                 </div>
                 <div className="scenario-result-details">
-                  <div><span>DETECTED SIGNAL</span><strong>{scenario.signal}</strong></div>
-                  <div><span>DEFENSIVE RESPONSE</span><strong>{scenario.response}</strong></div>
-                  <div><span>SEVERITY</span><strong className={`scenario-severity ${scenario.severity.toLowerCase()}`}>{scenario.severity}</strong></div>
+                  <div><span>OBSERVED</span><strong>{result.signal}</strong></div>
+                  <div><span>POLICY RESPONSE</span><strong>{result.response}</strong></div>
+                  <div><span>SEVERITY</span><strong className={`scenario-severity ${result.severity.toLowerCase()}`}>{result.severity}</strong></div>
+                  <div><span>LOCAL CHECK</span><strong>{result.inputSummary}</strong></div>
+                  {result.preview !== undefined && <div><span>SAFE TEXT PREVIEW</span><code className="scenario-safe-preview">{result.preview}</code></div>}
                 </div>
               </div>
             ) : (
