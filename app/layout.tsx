@@ -9,15 +9,15 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "Ashmin Aryal | Cybersecurity Student & Builder",
-  description: "Ashmin Aryal is a final-year Cyber Security student at Victoria University, Sydney, focused on cloud security, identity, defensive monitoring, and hands-on security projects.",
-  keywords: ["Ashmin Aryal", "Cybersecurity student", "Cloud security", "Security analyst internship", "Live hacking lab", "Cybersecurity projects"],
-  metadataBase: new URL("https://ashminaryal.info"),
+  title: "Notebook LM | DevTools Guide",
+  description: "An AI-powered study assistant overview for organizing learning materials, exploring topics, and preparing for exams.",
+  keywords: ["Notebook LM", "AI study assistant", "study notes", "learning tools", "document management"],
+  metadataBase: new URL("https://notes.ashminaryal.info"),
   openGraph: {
-    title: "Ashmin Aryal | Cybersecurity Student & Builder",
-    description: "Cloud security, identity protection, defensive monitoring, and hands-on security projects from Ashmin Aryal.",
-    url: "https://ashminaryal.info",
-    siteName: "Ashmin Aryal",
+    title: "Notebook LM | DevTools Guide",
+    description: "An AI-powered study assistant overview for organizing learning materials and preparing for exams.",
+    url: "https://notes.ashminaryal.info",
+    siteName: "Notebook LM | DevTools Guide",
     type: "website",
   },
   generator: "v0.app",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#080d0b",
+  themeColor: "#ffffff",
 }
 
 export default function RootLayout({
