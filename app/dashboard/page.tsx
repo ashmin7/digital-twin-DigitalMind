@@ -28,7 +28,7 @@ function groupBy<T, K extends string | number | symbol>(items: T[], getKey: (ite
 }
 
 export default async function DashboardPage() {
-  const supabase = getSupabaseServer();
+  const supabase = await getSupabaseServer();
 
   if (!supabase) {
     return <DashboardClient events={[]} liveConnected={false} stats={EMPTY_DASHBOARD_STATS} />;
