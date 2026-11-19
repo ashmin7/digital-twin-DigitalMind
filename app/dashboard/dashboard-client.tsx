@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useMemo } from "react";
+import { useRangeRuns } from "../range-run-context";
 
 export interface SecurityEventRow {
   id: string;
@@ -40,14 +42,7 @@ interface Scenario {
   code: string;
   title: string;
   description: string;
-  threatType: string;
-  severity: "MEDIUM" | "HIGH";
-  action: "BLOCK" | "CHALLENGE";
   endpoint: string;
-}
-
-interface DemoEvent extends SecurityEventRow {
-  localSimulation: true;
 }
 
 interface ActivityEvent extends SecurityEventRow {
@@ -55,42 +50,10 @@ interface ActivityEvent extends SecurityEventRow {
 }
 
 const scenarios: Scenario[] = [
-  {
-    code: "SQL",
-    title: "Injection probe",
-    description: "Simulate a suspicious query pattern",
-    threatType: "SQL_INJECTION",
-    severity: "HIGH",
-    action: "BLOCK",
-    endpoint: "/sandbox/sql",
-  },
-  {
-    code: "XSS",
-    title: "Script injection",
-    description: "Simulate an unsafe markup signal",
-    threatType: "XSS",
-    severity: "HIGH",
-    action: "BLOCK",
-    endpoint: "/sandbox/xss",
-  },
-  {
-    code: "BOT",
-    title: "Bot traffic burst",
-    description: "Simulate an automated traffic spike",
-    threatType: "BOT_BEHAVIOR",
-    severity: "MEDIUM",
-    action: "CHALLENGE",
-    endpoint: "/sandbox/rate-limit",
-  },
-  {
-    code: "AUTH",
-    title: "Access violation",
-    description: "Simulate an unauthorized access signal",
-    threatType: "ACCESS_CONTROL",
-    severity: "HIGH",
-    action: "BLOCK",
-    endpoint: "/sandbox/auth",
-  },
+  { code: "SQL", title: "Query boundary", description: "Open the injection-defense replay", endpoint: "/sandbox/sql" },
+  { code: "XSS", title: "Output encoding", description: "Open the browser-rendering replay", endpoint: "/sandbox/xss" },
+  { code: "RATE", title: "Traffic controls", description: "Open the rate-control replay", endpoint: "/sandbox/rate-limit" },
+  { code: "AUTH", title: "Access policy", description: "Open the authorization replay", endpoint: "/sandbox/auth" },
 ];
 
 const knownThreatTypes = ["SQL_INJECTION", "XSS", "BOT_BEHAVIOR", "ACCESS_CONTROL"];
@@ -142,45 +105,45 @@ function MetricCard({
 }
 
 export default function DashboardClient({ events, liveConnected, stats }: DashboardClientProps) {
-  const [demoEvents, setDemoEvents] = useState<DemoEvent[]>([]);
-  const [announcement, setAnnouncement] = useState("");
+  const { runs: rangeRuns } = useRangeRuns();
+  const latestRun = rangeRuns[0] ?? null;
+
+  const rangeEvents = useMemo<ActivityEvent[]>(
+    () => rangeRuns.map((run) => ({
+      id: run.id,
+      event_type: "RANGE_SIMULATION_COMPLETE",
+      severity: run.severity,
+      threat_type: run.threatType,
+      action: run.action,
+      endpoint: run.path,
+      source_ip: run.sourceIp,
+      user_agent: "Contained client-side emulator",
+      timestamp: run.timestamp,
+      metadata: {
+        source: "scenario-lab",
+        outcome: run.outcome,
+        statusCode: run.statusCode,
+        transactionId: run.transactionId,
+      },
+      localSimulation: true,
+    })),
+    [rangeRuns],
+  );
 
   const activity = useMemo<ActivityEvent[]>(
-    () =>
-      [
-        ...demoEvents.map((event) => ({ ...event, localSimulation: true })),
-        ...events.map((event) => ({ ...event, localSimulation: false })),
-      ]
-        .sort((left, right) => Date.parse(right.timestamp) - Date.parse(left.timestamp))
-        .slice(0, 8),
-    [demoEvents, events],
+    () => [...rangeEvents, ...events.map((event) => ({ ...event, localSimulation: false }))]
+      .sort((left, right) => Date.parse(right.timestamp) - Date.parse(left.timestamp))
+      .slice(0, 8),
+    [rangeEvents, events],
   );
 
   const threatRows = knownThreatTypes.map((type) => ({
     type,
-    count: stats.threatsByType[type] || 0,
+    count: (stats.threatsByType[type] || 0) + rangeRuns.filter((run) => run.threatType === type).length,
   }));
   const criticalAlerts = events.filter((event) => event.severity === "CRITICAL").length;
-  const highAlerts = events.filter((event) => event.severity === "HIGH").length;
-
-  function runScenario(scenario: Scenario) {
-    const event: DemoEvent = {
-      id: `demo-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      event_type: "THREAT_DETECTED",
-      severity: scenario.severity,
-      threat_type: scenario.threatType,
-      action: scenario.action,
-      endpoint: scenario.endpoint,
-      source_ip: null,
-      user_agent: "Local dashboard simulator",
-      timestamp: new Date().toISOString(),
-      metadata: { source: "local-simulator" },
-      localSimulation: true,
-    };
-
-    setDemoEvents((current) => [event, ...current].slice(0, 12));
-    setAnnouncement(`${scenario.title} simulated. ${scenario.action.toLowerCase()} decision added to the local event feed.`);
-  }
+  const highAlerts = events.filter((event) => event.severity === "HIGH").length
+    + rangeRuns.filter((run) => run.severity === "HIGH").length;
 
   return (
     <div className="cyber-bg dashboard-shell">
@@ -199,17 +162,17 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
             </div>
           </div>
           <div className="dashboard-header-actions">
-            <span className={`dashboard-connection ${liveConnected ? "is-connected" : "is-disconnected"}`}>
+            <span className={`dashboard-connection ${liveConnected ? "is-connected" : rangeRuns.length ? "is-local" : "is-disconnected"}`}>
               <span className="dashboard-connection-dot" aria-hidden="true" />
-              {liveConnected ? "Live telemetry connected" : "Telemetry unavailable"}
+              {liveConnected ? "Live telemetry connected" : rangeRuns.length ? "Local range session active" : "Live telemetry offline"}
             </span>
-            <a href="/" className="dashboard-back-link">Back to lab <span aria-hidden="true">↗</span></a>
+            <Link href="/" className="dashboard-back-link">Back to lab <span aria-hidden="true">↗</span></Link>
           </div>
         </header>
 
         <section className="dashboard-hero" aria-labelledby="dashboard-title">
           <div className="dashboard-hero-copy">
-            <p className="dashboard-eyebrow"><span className="dashboard-eyebrow-line" /> DEFENSE CONSOLE <span>/</span> LAST 24 HOURS</p>
+            <p className="dashboard-eyebrow"><span className="dashboard-eyebrow-line" /> DEFENSE CONSOLE <span>/</span> LIVE 24H + SESSION</p>
             <h2 id="dashboard-title">Observe the signal.<br /><span>Own the response.</span></h2>
             <p className="dashboard-hero-description">
               A focused view of the lab&apos;s security activity, edge decisions, and controlled training scenarios.
@@ -241,12 +204,13 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
           </div>
         </section>
 
-        <section className="dashboard-metrics" aria-label="Last 24 hour security metrics">
-          <MetricCard label="Signals" value={stats.totalRequests} detail="events recorded · 24h" tone="cyan" />
-          <MetricCard label="Blocked" value={stats.blocked} detail="denied by policy" tone="red" />
-          <MetricCard label="Rate limited" value={stats.rateLimited} detail="traffic throttled" tone="amber" />
-          <MetricCard label="Bot signals" value={stats.botDetections} detail="automated behavior" tone="violet" />
-          <MetricCard label="Unique sources" value={stats.uniqueIps} detail="distinct addresses" tone="green" />
+        <section className="dashboard-metrics" aria-label="Live security metrics and current session activity">
+          <MetricCard label="Live signals" value={stats.totalRequests} detail="telemetry · 24h" tone="cyan" />
+          <MetricCard label="Blocked" value={stats.blocked} detail="denied by live policy" tone="red" />
+          <MetricCard label="Rate limited" value={stats.rateLimited} detail="live traffic throttled" tone="amber" />
+          <MetricCard label="Bot signals" value={stats.botDetections} detail="live automated behavior" tone="violet" />
+          <MetricCard label="Unique sources" value={stats.uniqueIps} detail="live addresses · 24h" tone="green" />
+          <MetricCard label="Range runs" value={rangeRuns.length} detail="this browser session" tone="cyan" />
         </section>
 
         <div className="dashboard-section-heading">
@@ -259,6 +223,37 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
 
         <div className="dashboard-grid">
           <div className="dashboard-main-column">
+            <section className="dashboard-panel dashboard-latest-run" aria-labelledby="latest-run-title">
+              <div className="dashboard-panel-heading">
+                <div>
+                  <p className="dashboard-eyebrow">SESSION TRACE</p>
+                  <h3 id="latest-run-title">Latest range result</h3>
+                </div>
+                {latestRun && <span className="dashboard-run-id">{latestRun.transactionId}</span>}
+              </div>
+              {latestRun ? (
+                <>
+                  <div className="dashboard-latest-run-summary">
+                    <div><span>SCENARIO</span><strong>{latestRun.title}</strong></div>
+                    <div><span>OUTCOME</span><strong>{latestRun.outcome}</strong></div>
+                    <div><span>HTTP</span><strong className={`dashboard-http-result ${latestRun.statusCode >= 400 ? "is-blocked" : "is-success"}`}>{latestRun.statusCode}</strong></div>
+                    <div><span>DECISION</span><strong className={`dashboard-verdict ${latestRun.action.toLowerCase()}`}>{latestRun.action}</strong></div>
+                  </div>
+                  <p className="dashboard-latest-run-response">{latestRun.response}</p>
+                  <ol className="dashboard-latest-trace">
+                    {latestRun.trace.map((entry, index) => (
+                      <li key={`${latestRun.id}-${index}`}><span>{String(index + 1).padStart(2, "0")}</span><code>{entry}</code></li>
+                    ))}
+                  </ol>
+                </>
+              ) : (
+                <div className="dashboard-empty-run">
+                  <strong>No contained runs in this session</strong>
+                  <p>Open a lab, execute a contained run, and its outcome and trace will appear here.</p>
+                </div>
+              )}
+            </section>
+
             <section className="dashboard-panel simulator-panel" aria-labelledby="simulator-title">
               <div className="dashboard-panel-heading">
                 <div>
@@ -268,16 +263,15 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
                 <span className="dashboard-demo-badge"><span aria-hidden="true" /> LOCAL SIM</span>
               </div>
               <p className="dashboard-panel-description">
-                Rehearse common threat signals and watch the response appear in the event ledger.
+                Open a contained scenario, configure its test signal, and return here to review the generated transaction trace.
               </p>
               <div className="dashboard-scenario-grid">
                 {scenarios.map((scenario) => (
-                  <button
+                  <Link
                     key={scenario.code}
-                    type="button"
+                    href={scenario.endpoint}
                     className="dashboard-scenario"
-                    onClick={() => runScenario(scenario)}
-                    aria-label={`Simulate ${scenario.title}`}
+                    aria-label={`Open ${scenario.title} lab`}
                   >
                     <span className="dashboard-scenario-code">{scenario.code}</span>
                     <span className="dashboard-scenario-copy">
@@ -285,14 +279,13 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
                       <span>{scenario.description}</span>
                     </span>
                     <span className="dashboard-scenario-arrow" aria-hidden="true">↗</span>
-                  </button>
+                  </Link>
                 ))}
               </div>
               <div className="dashboard-simulation-notice">
                 <span className="dashboard-notice-icon" aria-hidden="true">i</span>
-                <p><strong>Local-only simulation.</strong> These controls add demo telemetry to this screen; they send no requests and do not touch a live target.</p>
+                <p><strong>Contained by design.</strong> Each lab runs a local policy model; results return to this dashboard during the current browser session.</p>
               </div>
-              <p className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</p>
             </section>
 
             <section className="dashboard-panel event-panel" aria-labelledby="event-ledger-title">
@@ -317,10 +310,11 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
                       <div className="dashboard-event-main">
                         <div className="dashboard-event-title-row">
                           <strong>{prettyLabel(event.threat_type || event.event_type)}</strong>
-                          {event.localSimulation && <span className="dashboard-mini-badge">DEMO</span>}
+                          {event.localSimulation && <span className="dashboard-mini-badge">RANGE</span>}
                           <span className={`dashboard-severity ${severityClass(event.severity)}`}>{event.severity}</span>
                         </div>
                         <span className="dashboard-event-meta">{event.endpoint} <span>·</span> {formatTime(event.timestamp)} UTC</span>
+                        {event.localSimulation && <span className="dashboard-event-result">{String(event.metadata?.outcome || "RANGE RUN")} · HTTP {String(event.metadata?.statusCode ?? "—")}</span>}
                       </div>
                       <span className={`dashboard-verdict ${event.action.toLowerCase()}`}>{event.action}</span>
                     </article>
@@ -329,7 +323,7 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
               )}
               <div className="dashboard-event-footer">
                 <span>{stats.shieldTriggers} threat detections from live telemetry</span>
-                <a href="/dashboard" aria-label="Refresh dashboard data">Refresh view <span aria-hidden="true">↗</span></a>
+                <span>{rangeRuns.length} contained run{rangeRuns.length === 1 ? "" : "s"} in this session</span>
               </div>
             </section>
           </div>
@@ -346,7 +340,7 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
               <div className="dashboard-posture-status">
                 <span>{criticalAlerts ? "CRITICAL" : highAlerts ? "ELEVATED" : "NOMINAL"}</span>
                 <strong>{criticalAlerts + highAlerts}</strong>
-                <small>high-priority alerts · 24h</small>
+                <small>high-priority · live + session</small>
               </div>
               <div className="dashboard-posture-rows">
                 <div><span>Edge blocks</span><strong>{stats.arcjetBlocks}</strong></div>
@@ -365,7 +359,7 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
                   <p className="dashboard-eyebrow">OBSERVED VECTORS</p>
                   <h3 id="signal-mix-title">Signal mix</h3>
                 </div>
-                <span className="dashboard-muted-count">24H</span>
+                <span className="dashboard-muted-count">LIVE + SESSION</span>
               </div>
               <div className="dashboard-signal-list">
                 {threatRows.map(({ type, count }) => (
@@ -384,10 +378,10 @@ export default function DashboardClient({ events, liveConnected, stats }: Dashbo
               <h3 id="sandbox-title">Isolated training labs</h3>
               <p className="dashboard-panel-description">Test within the purpose-built routes, then return here to inspect the recorded response.</p>
               <div className="dashboard-sandbox-links">
-                <a href="/sandbox/sql"><span>SQL lab</span><span aria-hidden="true">↗</span></a>
-                <a href="/sandbox/xss"><span>Markup lab</span><span aria-hidden="true">↗</span></a>
-                <a href="/sandbox/rate-limit"><span>Traffic lab</span><span aria-hidden="true">↗</span></a>
-                <a href="/sandbox/auth"><span>Access lab</span><span aria-hidden="true">↗</span></a>
+                <Link href="/sandbox/sql"><span>SQL lab</span><span aria-hidden="true">↗</span></Link>
+                <Link href="/sandbox/xss"><span>Markup lab</span><span aria-hidden="true">↗</span></Link>
+                <Link href="/sandbox/rate-limit"><span>Traffic lab</span><span aria-hidden="true">↗</span></Link>
+                <Link href="/sandbox/auth"><span>Access lab</span><span aria-hidden="true">↗</span></Link>
               </div>
             </section>
           </aside>
