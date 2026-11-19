@@ -15,6 +15,7 @@ import {
   Terminal,
   type LucideIcon,
 } from "lucide-react"
+import { PortfolioHeader } from "@/components/portfolio-header"
 
 const experience = [
   "Secured AWS and Azure environments by configuring IAM permissions, protecting credentials with Secrets Manager, and limiting database access with firewall rules.",
@@ -117,30 +118,6 @@ function SectionHeading({
   )
 }
 
-function SiteHeader() {
-  return (
-    <header className="relative z-10 mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8 lg:px-12">
-      <a href="#home" className="group inline-flex items-center gap-3 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c7f36a]" aria-label="Ashmin Aryal, home">
-        <span className="grid size-10 place-items-center border border-[#34423b] bg-[#111a16] font-mono text-xs font-semibold text-[#c7f36a]">AA<span className="sr-only"> initials</span></span>
-        <span className="flex flex-col gap-0.5">
-          <span className="text-sm font-semibold tracking-[0.08em] text-[#f1f4ee]">ASHMIN ARYAL</span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#829087]">Cybersecurity student</span>
-        </span>
-      </a>
-
-      <nav aria-label="Main navigation" className="order-3 flex w-full items-center gap-6 overflow-x-auto border-t border-[#25312b] pt-4 text-xs text-[#a0aea5] sm:order-none sm:w-auto sm:border-0 sm:pt-0 sm:text-sm">
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#about">About</a>
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#experience">Experience</a>
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#projects">Projects</a>
-        <a className="transition-colors hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c7f36a]" href="#toolkit">Toolkit</a>
-      </nav>
-
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashminaryal111%40gmail.com" {...externalLinkProps} className="inline-flex items-center gap-2 border border-[#405047] px-4 py-2.5 text-xs font-semibold text-[#f1f4ee] transition-colors hover:border-[#c7f36a] hover:text-[#c7f36a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c7f36a]">
-        Get in touch <ArrowUpRight size={14} aria-hidden="true" />
-      </a>
-    </header>
-  )
-}
 
 function FocusPanel() {
   const focusAreas = [
@@ -206,32 +183,6 @@ function HeroSection() {
         <div className="py-4 pr-3 sm:py-5"><p className="font-mono text-xl font-medium tracking-tight text-[#f1f4ee] sm:text-2xl">10 weeks</p><p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-[#89978d] sm:text-xs">Analyst internship</p></div>
         <div className="border-x border-[#34423b] px-3 py-4 sm:px-6 sm:py-5"><p className="font-mono text-xl font-medium tracking-tight text-[#f1f4ee] sm:text-2xl">2027</p><p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-[#89978d] sm:text-xs">Degree expected</p></div>
         <div className="py-4 pl-3 sm:py-5 sm:pl-6"><p className="font-mono text-xl font-medium tracking-tight text-[#f1f4ee] sm:text-2xl">Hands-on</p><p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-[#89978d] sm:text-xs">Defensive mindset</p></div>
-      </div>
-    </section>
-  )
-}
-
-function AboutSection() {
-  return (
-    <section id="about" className="border-y border-[#26332c] bg-[#0d1411]">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[.75fr_1.25fr] lg:gap-20 lg:px-12 lg:py-24">
-        <div>
-          <p className="section-label"><span>01</span> / About</p>
-          <h2 className="mt-5 max-w-md text-3xl font-semibold leading-tight tracking-[-0.045em] text-[#f1f4ee] sm:text-4xl">Security starts with staying curious.</h2>
-          <p className="mt-5 max-w-sm text-sm leading-6 text-[#a0aea5]">A student, a builder, and a careful learner—turning coursework into practical, defensive projects.</p>
-        </div>
-        <div>
-          <p className="text-base leading-8 text-[#d0d8d1] sm:text-lg">
-            I&apos;m completing a Bachelor of Cyber Security at Victoria University in Sydney. During a 10-week analyst internship and university security labs, I&apos;ve worked with cloud controls, identity and access, network defense, and vulnerability assessment.
-          </p>
-          <p className="mt-5 text-base leading-8 text-[#a0aea5] sm:text-lg">
-            I created a live hacking lab to practice how common web threats work—and, more importantly, how application controls can identify and stop them. I enjoy approaching security from both the technical and human sides: testing carefully, documenting clearly, and learning with a team.
-          </p>
-          <div className="mt-8 grid gap-4 border-t border-[#2b3831] pt-6 sm:grid-cols-2">
-            <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#c7f36a]">University lab work</p><p className="mt-2 text-sm leading-6 text-[#a0aea5]">Firewalls · IDS/IPS · Network segmentation · Controlled vulnerability assessments · Incident analysis</p></div>
-            <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#c7f36a]">Languages</p><p className="mt-2 text-sm leading-6 text-[#a0aea5]">English <span className="text-[#68766d]">/ fluent</span><br />Nepali <span className="text-[#68766d]">/ native</span><br />Hindi <span className="text-[#68766d]">/ fluent</span></p></div>
-          </div>
-        </div>
       </div>
     </section>
   )
@@ -364,9 +315,8 @@ function ContactSection() {
 export default function PortfolioPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#080d0b] text-[#f1f4ee]">
-      <SiteHeader />
+      <PortfolioHeader isHome />
       <HeroSection />
-      <AboutSection />
       <ExperienceSection />
       <ProjectsSection />
       <ToolkitSection />
