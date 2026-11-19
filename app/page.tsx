@@ -335,17 +335,17 @@ export default function Home() {
 
         {/* Sandbox */}
         <section id="sandbox" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>Hacking simulation sandbox</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>Controlled hacking simulation sandbox</h2>
           <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 18 }}>
-            These live sandboxes are wired to real detection, logging, and rate limiting. You can
-            safely try common attacks and immediately see how the application reacts.
+            Explore browser-only defensive scenarios and see the expected policy response. These
+            exercises are simulated: they send no attack traffic and do not contact a live target.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {[
-              { href: "/sandbox/sql", path: "/sandbox/sql", desc: "SQL injection payloads, detection, and safe query patterns." },
-              { href: "/sandbox/xss", path: "/sandbox/xss", desc: "reflected XSS attempts, output encoding, and malicious payload detection." },
-              { href: "/sandbox/rate-limit", path: "/sandbox/rate-limit", desc: "automated/bot-style traffic, scanners, and basic WAF-style rate limiting." },
-              { href: "/sandbox/auth", path: "/sandbox/auth", desc: "authentication failures, broken access control, and privilege-abuse scenarios." },
+              { href: "/sandbox/sql", path: "/sandbox/sql", desc: "query-boundary detection and safe parameterized-query patterns." },
+              { href: "/sandbox/xss", path: "/sandbox/xss", desc: "output encoding and safe markup handling." },
+              { href: "/sandbox/rate-limit", path: "/sandbox/rate-limit", desc: "simulated traffic bursts and rate-limit decisions." },
+              { href: "/sandbox/auth", path: "/sandbox/auth", desc: "authentication boundaries and role-check decisions." },
             ].map((s) => (
               <a
                 key={s.href}
