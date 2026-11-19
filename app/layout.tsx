@@ -9,15 +9,15 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "Ashmin Aryal | Cybersecurity Student & Builder",
-  description: "Ashmin Aryal is a final-year Cyber Security student at Victoria University, Sydney, focused on cloud security, identity, defensive monitoring, and hands-on security projects.",
-  keywords: ["Ashmin Aryal", "Cybersecurity student", "Cloud security", "Security analyst internship", "Live hacking lab", "Cybersecurity projects"],
-  metadataBase: new URL("https://ashminaryal.info"),
+  title: "DevTools Guide | Learn Essential Developer Tools",
+  description: "Learn how GitHub, Git, v0 Templates, and Notebook LM can improve your development workflow and study routine.",
+  keywords: ["developer tools", "GitHub", "Git", "v0 templates", "Notebook LM", "study notes"],
+  metadataBase: new URL("https://notes.ashminaryal.info"),
   openGraph: {
-    title: "Ashmin Aryal | Cybersecurity Student & Builder",
-    description: "Cloud security, identity protection, defensive monitoring, and hands-on security projects from Ashmin Aryal.",
-    url: "https://ashminaryal.info",
-    siteName: "Ashmin Aryal",
+    title: "DevTools Guide | Learn Essential Developer Tools",
+    description: "Learn how GitHub, Git, v0 Templates, and Notebook LM can improve your development workflow and study routine.",
+    url: "https://notes.ashminaryal.info",
+    siteName: "DevTools Guide",
     type: "website",
   },
   generator: "v0.app",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#080d0b",
+  themeColor: "#ffffff",
 }
 
 export default function RootLayout({

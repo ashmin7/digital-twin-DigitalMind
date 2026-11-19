@@ -1,13 +1,14 @@
 /* ── Reset & base ────────────────────────────────── */
-*,
-*::before,
-*::after {
+.cyber-bg,
+.cyber-bg *,
+.cyber-bg *::before,
+.cyber-bg *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-:root {
+.cyber-bg {
   --bg: #050a18;
   --bg-card: #0b1225;
   --fg: #e2e8f0;
@@ -22,11 +23,8 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
-html {
+.cyber-bg {
   scroll-behavior: smooth;
-}
-
-body {
   background-color: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
@@ -36,11 +34,11 @@ body {
   line-height: 1.6;
 }
 
-a {
+.cyber-bg a {
   color: var(--accent);
   text-decoration: none;
 }
-a:hover {
+.cyber-bg a:hover {
   text-decoration: underline;
 }
 
