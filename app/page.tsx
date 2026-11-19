@@ -196,15 +196,15 @@ export default function Home() {
             <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--accent)", textTransform: "uppercase" }}>
               Independent Cyber Range
             </p>
-            <h1 style={{ fontSize: 34, fontWeight: 700, marginTop: 8, marginBottom: 6 }}>Ashmin Aryal</h1>
+            <h1 style={{ fontSize: 34, fontWeight: 700, marginTop: 8, marginBottom: 6 }}>Live Hacking Lab</h1>
             <p style={{ color: "var(--fg-muted)", fontSize: 14, maxWidth: 560, marginBottom: 10, lineHeight: 1.7 }}>
-              A secure, cloud-deployed cyber range built and maintained by Ashmin Aryal. This
-              Digital Twin is more than a website — it is a live hacking lab where you can safely
-              test defined surfaces and watch defensive signals appear in real time.
+              A secure, cloud-deployed cyber range for practicing web security in a controlled environment.
+              Explore simulated attack scenarios, observe defensive signals, and learn how
+              security controls respond — without sending traffic to real targets.
             </p>
             <p style={{ color: "var(--fg-muted)", fontSize: 14, maxWidth: 560, marginBottom: 10, lineHeight: 1.7 }}>
-              Built around applied defensive engineering, it showcases cloud deployment,
-              monitored security controls, and resilient web architecture using modern tools.
+              Built for practical defense, the lab brings together monitored security controls,
+              resilient web architecture, and guided exercises in one place.
             </p>
             <p style={{ fontSize: 13, fontWeight: 500 }}>
               Secure. Monitored. Production-ready. Built to be tested, attacked, and improved.
@@ -234,7 +234,7 @@ export default function Home() {
             {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--fg-muted)" }}>
-                ASHMIN&apos;S CYBER LAB
+                DIGITAL TWIN CYBER LAB
               </span>
               <span
                 style={{
@@ -310,9 +310,9 @@ export default function Home() {
             system release by release.
           </p>
           <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
-            For hiring managers, this site is both a portfolio and a live security case study:
-            it hosts my professional identity and projects, exposes safe attack surfaces, and
-            shows how I manage security as an ongoing lifecycle instead of a one-time checkbox.
+            This site is a hands-on security training environment. Each exercise uses a controlled,
+            simulated surface to demonstrate how common web risks are detected, contained, and
+            addressed through practical defensive engineering.
           </p>
         </section>
 
@@ -466,10 +466,10 @@ export default function Home() {
 
         {/* Lab ownership */}
         <section id="lab-owner" style={{ marginBottom: 32, scrollMarginTop: 80 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Built and maintained by its creator</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>A controlled environment for security practice</h2>
           <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>
-            I created this independent cyber range to explore practical web security and make defensive engineering visible.
-            The lab brings together controlled exercises, live telemetry, and clear response signals in one place.
+            The lab brings together controlled exercises, defensive telemetry, and clear response signals.
+            Use it to understand how security controls behave during common web attack scenarios.
           </p>
           <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
             Every scenario stays within the lab&apos;s defined surfaces, with a focus on learning how to detect, contain, and improve.
@@ -478,12 +478,11 @@ export default function Home() {
 
         {/* CTA */}
         <section style={{ marginBottom: 16 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Use this live lab as your case study</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Start with a safe simulation</h2>
           <p style={{ color: "var(--fg-muted)", fontSize: 14, lineHeight: 1.7 }}>
-            Share this site with recruiters, hiring managers, and mentors. It is a deployable,
-            auditable cyber lab that demonstrates how you design, test, and improve defences —
-            not just theory on a CV, but a running system that can be safely attacked, defended,
-            and analysed.
+            Choose an exercise from the sandbox to see a simulated request, the control that
+            evaluates it, and the resulting defensive response. Scenarios are educational and
+            do not target external systems.
           </p>
         </section>
       </main>
@@ -504,8 +503,8 @@ export default function Home() {
           <div>
             <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 12 }}>Digital Twin III</p>
             <p style={{ color: "var(--fg-muted)", fontSize: 13, lineHeight: 1.7, marginBottom: 16, maxWidth: 320 }}>
-              An independent cyber range with controlled security exercises, real-time threat
-              detection, and security analytics. Built and maintained by Ashmin Aryal.
+              A controlled cyber range for security exercises, simulated threat detection,
+              and practical defensive learning.
             </p>
             {/* Social icons (decorative, not clickable) */}
             <div style={{ display: "flex", gap: 14 }}>
@@ -533,11 +532,11 @@ export default function Home() {
 
           {/* Project column */}
           <div>
-            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 14 }}>Project</p>
+            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 14 }}>Lab</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {[
                 { href: "/#about", label: "About" },
-                { href: "/#sandbox", label: "Projects" },
+                { href: "/#sandbox", label: "Exercises" },
                 { href: "/chat", label: "AI Agents" },
                 { href: "/#lab-owner", label: "Lab mission" }
               ].map((link) => (
@@ -597,7 +596,7 @@ export default function Home() {
               color: "var(--fg-muted)",
             }}
           >
-            <span>{"© 2026 Ashmin Aryal. Independent security lab."}</span>
+            <span>{"© 2026 Digital Twin III. Independent security lab."}</span>
             <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <span
                 style={{
