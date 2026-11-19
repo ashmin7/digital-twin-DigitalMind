@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { RangeRunProvider } from "./range-run-context"
 import "./globals.css"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
@@ -53,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.className} ${geistMono.variable}`}>
       <body className="antialiased">
-        {children}
+        <RangeRunProvider>{children}</RangeRunProvider>
         <Analytics />
       </body>
     </html>
