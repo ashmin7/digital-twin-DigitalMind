@@ -15,7 +15,7 @@ import {
   Terminal,
   type LucideIcon,
 } from "lucide-react"
-import { PortfolioHeader } from "@/components/portfolio-header"
+import { PortfolioHeader } from "./portfolio-header"
 
 const experience = [
   "Secured AWS and Azure environments by configuring IAM permissions, protecting credentials with Secrets Manager, and limiting database access with firewall rules.",

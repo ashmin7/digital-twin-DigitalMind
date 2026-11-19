@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Terminal,
 } from "lucide-react"
-import { PortfolioHeader } from "@/components/portfolio-header"
+import { PortfolioHeader } from "../../components/portfolio-header"
 
 export const metadata: Metadata = {
   title: "About Ashmin Aryal",
